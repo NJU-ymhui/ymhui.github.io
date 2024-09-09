@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    
+    
+    
+    
+    
+
+
+    <!-- meta -->
+
+
+<title>从零启动个人博客 | Hexo</title>
+
+
+    <meta name="keywords" content="零基础">
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="如何从零开始搭建个人博客本文没有多余的废话，直接步入正题 step 1 注册账号一个GitHub账号，注册方式请自行搜索 step 2 创建仓库登录GitHub账号，进入首页；在左侧仓库列表栏中点击New  进入仓库创建页面   在Repository name处填写自己的个人博客仓库名字，须遵循***.github.io的格式，***处可填写自己想要的用户名 e.g. zhangsan.gith">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零启动个人博客">
+<meta property="og:url" content="https://nju-ymhui.github.io/ymhui.github.io/2024/09/09/%E4%BB%8E%E9%9B%B6%E5%90%AF%E5%8A%A8%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="如何从零开始搭建个人博客本文没有多余的废话，直接步入正题 step 1 注册账号一个GitHub账号，注册方式请自行搜索 step 2 创建仓库登录GitHub账号，进入首页；在左侧仓库列表栏中点击New  进入仓库创建页面   在Repository name处填写自己的个人博客仓库名字，须遵循***.github.io的格式，***处可填写自己想要的用户名 e.g. zhangsan.gith">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://nju-ymhui.github.io/ymhui.github.io/%E4%BB%8E%E9%9B%B6%E5%90%AF%E5%8A%A8%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%5Cgithub_homepage.png">
+<meta property="og:image" content="https://nju-ymhui.github.io/ymhui.github.io/%E4%BB%8E%E9%9B%B6%E5%90%AF%E5%8A%A8%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%5Ccreate_repo.png">
+<meta property="og:image" content="https://nju-ymhui.github.io/ymhui.github.io/%E4%BB%8E%E9%9B%B6%E5%90%AF%E5%8A%A8%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/create_page.png">
+<meta property="og:image" content="https://nju-ymhui.github.io/ymhui.github.io/%E4%BB%8E%E9%9B%B6%E5%90%AF%E5%8A%A8%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%5Cimage-20240909105836327.png">
+<meta property="article:published_time" content="2024-09-09T01:48:41.000Z">
+<meta property="article:modified_time" content="2024-09-09T04:01:28.184Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="零基础">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://nju-ymhui.github.io/ymhui.github.io/%E4%BB%8E%E9%9B%B6%E5%90%AF%E5%8A%A8%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%5Cgithub_homepage.png">
+
+
+    
+<link rel="stylesheet" href="/ymhui.github.io/css/style/main.css">
+ 
+
+    
+    
+    
+
+    
+
+     
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+    <body>
+        <div id="app" tabindex="-1">
+            <header class="header">
+    <div class="header__left">
+        <a href="/ymhui.github.io/" class="button">
+            <span class="logo__text">Home</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/ymhui.github.io/" class="navbar-menu button">首页</a>
+                
+                    <a href="/ymhui.github.io/tags/" class="navbar-menu button">标签</a>
+                
+                    <a href="/ymhui.github.io/archives/" class="navbar-menu button">归档</a>
+                
+                    <a href="/ymhui.github.io/friends/" class="navbar-menu button">友链</a>
+                
+                    <a href="/ymhui.github.io/page/" class="navbar-menu button">Page</a>
+                
+            </div>
+        
+        
+        
+
+        
+        
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/ymhui.github.io/" class="dropdown-menu button">首页</a>
+                
+                    <a href="/ymhui.github.io/tags/" class="dropdown-menu button">标签</a>
+                
+                    <a href="/ymhui.github.io/archives/" class="dropdown-menu button">归档</a>
+                
+                    <a href="/ymhui.github.io/friends/" class="dropdown-menu button">友链</a>
+                
+                    <a href="/ymhui.github.io/page/" class="dropdown-menu button">Page</a>
+                
+            </div>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        从零启动个人博客
+    </h1>
+    <div class="post-title__meta">
+        <a href="/ymhui.github.io/archives/2024/09/" class="post-meta__date button">2024-09-09</a>
+        
+ 
+        
+    
+    
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+
+<article class="post content-card">
+    <div class="post__header"></div>
+    <div class="post__content">
+        <h1 id="如何从零开始搭建个人博客"><a href="#如何从零开始搭建个人博客" class="headerlink" title="如何从零开始搭建个人博客"></a>如何从零开始搭建个人博客</h1><p><del>本文没有多余的废话，直接步入正题</del></p>
+<h2 id="step-1-注册账号"><a href="#step-1-注册账号" class="headerlink" title="step 1 注册账号"></a>step 1 注册账号</h2><p>一个GitHub账号，注册方式请自行搜索</p>
+<h2 id="step-2-创建仓库"><a href="#step-2-创建仓库" class="headerlink" title="step 2 创建仓库"></a>step 2 创建仓库</h2><p>登录GitHub账号，进入首页；在左侧仓库列表栏中点击<code>New</code></p>
+<p><img src="/ymhui.github.io/%E4%BB%8E%E9%9B%B6%E5%90%AF%E5%8A%A8%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%5Cgithub_homepage.png" alt="github_homepage"></p>
+<p>进入仓库创建页面</p>
+<p><img src="/ymhui.github.io/%E4%BB%8E%E9%9B%B6%E5%90%AF%E5%8A%A8%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%5Ccreate_repo.png" alt="create_repo"></p>
+<ul>
+<li>在<code>Repository name</code>处填写自己的个人博客仓库名字，须遵循***.github.io<strong>的格式，</strong>***处可填写自己想要的用户名 e.g. zhangsan.github.io</li>
+<li><code>Description</code>处填写对仓库的描述</li>
+<li>勾选<code>public</code></li>
+<li>最好勾选<code>Add a README file</code></li>
+<li>其余保持默认即可</li>
+</ul>
+<p>点击<code>Create repository</code>创建仓库</p>
+<h2 id="step-3-为个人博客生成一个页面"><a href="#step-3-为个人博客生成一个页面" class="headerlink" title="step 3 为个人博客生成一个页面"></a>step 3 为个人博客生成一个页面</h2><p>进入刚创建的仓库</p>
+<ol>
+<li>点击导航栏处的<code>Setttings</code>选项卡，进入设置界面</li>
+<li>随后点击左侧导航栏的<code>Pages</code>选项，进入页面选项</li>
+<li>之后在<code>Branch</code>区域将分支切换为main</li>
+<li>点击<code>Save</code></li>
+<li>之后便可以看到Github为你的博客自动生成了一个url</li>
+</ol>
+<p><img src="/ymhui.github.io/%E4%BB%8E%E9%9B%B6%E5%90%AF%E5%8A%A8%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/create_page.png" alt="create_page"></p>
+<p><em>注：如果没有看到生成的url，可以刷新一下页面或者重新 Settings &#x3D;&gt; Pages进入该界面</em></p>
+<p>访问这个url就可以看到你的个人博客了！内容一般为README的内容~</p>
+<p><img src="/ymhui.github.io/%E4%BB%8E%E9%9B%B6%E5%90%AF%E5%8A%A8%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%5Cimage-20240909105836327.png" alt="image-20240909105836327"></p>
+<p>到这里你就完成了一个基本的个人博客搭建，如果希望自己的博客不只是单纯的文字而是具备一定的<del><strong>交互性</strong>和<strong>美观度</strong></del>，可以进行下面内容的配置</p>
+<h1 id="丰富你的博客主题与内容"><a href="#丰富你的博客主题与内容" class="headerlink" title="丰富你的博客主题与内容"></a>丰富你的博客主题与内容</h1><p>下面介绍一个可以拓展博客主题的工具<strong>Hexo</strong>，指路官方文档 &#x3D;&gt; <a target="_blank" rel="noopener" href="https://hexo.io/docs/">Documentation | Hexo</a></p>
+<p>Hexo工具容易配置，简单易上手，作为入门比较推荐</p>
+<h2 id="step-1"><a href="#step-1" class="headerlink" title="step 1"></a>step 1</h2><p>安装git，请上<a target="_blank" rel="noopener" href="https://git-scm.com/">官网Git (git-scm.com)</a>选择适配自己系统的版本，跟随安装指引即可完成</p>
+<h2 id="step-2"><a href="#step-2" class="headerlink" title="step 2"></a>step 2</h2><p>TBD</p>
+
+    </div>
+     
+    <div class="post-footer__meta"><p>更新于 2024-09-09</p></div> 
+    <div class="post-entry__tags"><a href="/ymhui.github.io/tags/%E9%9B%B6%E5%9F%BA%E7%A1%80/" class="post-tags__link button"># 零基础</a></div> 
+</article>
+
+
+    <div class="nav">
+        <div class="nav__prev">
+            
+        </div>
+        <div class="nav__next">
+            
+                <a href="/ymhui.github.io/2024/09/08/hello-world/" class="nav__link">
+                    <div>
+                        <div class="nav__label">
+                            下一篇
+                        </div>
+                        <div class="nav__title">
+                            Hello World
+                        </div>
+                    </div>
+                    <div>
+                        <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M434.944 790.624l-45.248-45.248L623.04 512l-233.376-233.376 45.248-45.248L713.568 512z" fill="#808080"></path></svg>
+                    </div>
+                </a>
+            
+        </div>
+    </div>
+
+
+
+
+
+</main>
+
+            <footer class="footer">
+    
+    
+
+
+    
+     
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2024 <a href="/ymhui.github.io/">Hexo</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+         
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
+ 
+
+
+
+ 
+
+
+    
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
+
+    </body>
+</html>
