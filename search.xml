@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>从零启动个人博客</title>
+      <link href="/ymhui.github.io/2024/09/09/%E4%BB%8E%E9%9B%B6%E5%90%AF%E5%8A%A8%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
+      <url>/ymhui.github.io/2024/09/09/%E4%BB%8E%E9%9B%B6%E5%90%AF%E5%8A%A8%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
+      
+        <content type="html"><![CDATA[<h1 id="如何从零开始搭建个人博客"><a href="#如何从零开始搭建个人博客" class="headerlink" title="如何从零开始搭建个人博客"></a>如何从零开始搭建个人博客</h1><p><del>本文没有多余的废话，直接步入正题</del></p><h2 id="step-1-注册账号"><a href="#step-1-注册账号" class="headerlink" title="step 1 注册账号"></a>step 1 注册账号</h2><p>一个GitHub账号，注册方式请自行搜索</p><h2 id="step-2-创建仓库"><a href="#step-2-创建仓库" class="headerlink" title="step 2 创建仓库"></a>step 2 创建仓库</h2><p>登录GitHub账号，进入首页；在左侧仓库列表栏中点击<code>New</code></p><p><img src="/ymhui.github.io/2024/09/08/hello-world/hub_homepage.png" alt="github_homepage"></p><p>进入仓库创建页面</p><p><img src="/ymhui.github.io/2024/09/08/hello-world/ate_repo.png" alt="create_repo"></p><ul><li>在<code>Repository name</code>处填写自己的个人博客仓库名字，须遵循***.github.io<strong>的格式，</strong>***处可填写自己想要的用户名 e.g. zhangsan.github.io</li><li><code>Description</code>处填写对仓库的描述</li><li>勾选<code>public</code></li><li>最好勾选<code>Add a README file</code></li><li>其余保持默认即可</li></ul><p>点击<code>Create repository</code>创建仓库</p><h2 id="step-3-为个人博客生成一个页面"><a href="#step-3-为个人博客生成一个页面" class="headerlink" title="step 3 为个人博客生成一个页面"></a>step 3 为个人博客生成一个页面</h2><p>进入刚创建的仓库</p><ol><li>点击导航栏处的<code>Setttings</code>选项卡，进入设置界面</li><li>随后点击左侧导航栏的<code>Pages</code>选项，进入页面选项</li><li>之后在<code>Branch</code>区域将分支切换为main</li><li>点击<code>Save</code></li><li>之后便可以看到Github为你的博客自动生成了一个url</li></ol><p><img src="/ymhui.github.io/2024/09/08/hello-world/ate_page.png" alt="create_page"></p><p><em>注：如果没有看到生成的url，可以刷新一下页面或者重新 Settings &#x3D;&gt; Pages进入该界面</em></p><p>访问这个url就可以看到你的个人博客了！内容一般为README的内容~</p><p><img src="/ymhui.github.io/2024/09/08/hello-world/ge-20240909105836327.png" alt="image-20240909105836327"></p><p>到这里你就完成了一个基本的个人博客搭建，如果希望自己的博客不只是单纯的文字而是具备一定的<del><strong>交互性</strong>和<strong>美观度</strong></del>，可以进行下面内容的配置</p><h1 id="丰富你的博客主题与内容"><a href="#丰富你的博客主题与内容" class="headerlink" title="丰富你的博客主题与内容"></a>丰富你的博客主题与内容</h1><p>下面介绍一个可以拓展博客主题的工具<strong>Hexo</strong>，指路官方文档 &#x3D;&gt; <a href="https://hexo.io/docs/">Documentation | Hexo</a></p><p>Hexo工具容易配置，简单易上手，作为入门比较推荐</p><h2 id="step-1"><a href="#step-1" class="headerlink" title="step 1"></a>step 1</h2><p>安装git，请上<a href="https://git-scm.com/">官网Git (git-scm.com)</a>选择适配自己系统的版本，跟随安装指引即可完成</p><h2 id="step-2"><a href="#step-2" class="headerlink" title="step 2"></a>step 2</h2><p>TBD</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 零基础 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/ymhui.github.io/2024/09/08/hello-world/"/>
+      <url>/ymhui.github.io/2024/09/08/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+  
+  
+</search>
