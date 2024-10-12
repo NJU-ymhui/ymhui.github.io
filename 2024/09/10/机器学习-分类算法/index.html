@@ -1,0 +1,243 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>机器学习-分类算法 | (๑&gt;ᴗ&lt;๑)</title><meta name="author" content="画船听雨眠y"><meta name="copyright" content="画船听雨眠y"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="机器学习之分类算法写在前面请先阅读机器学习之特征工程 sklearn转换器和估计器转换器(transformer): 特征工程的父类  实例化（实例化的是一个转换器类(Transformer)） 调用 fit_transform() 方法（对于文档建立分类词频矩阵，不能同时调用）   标准化：(x - mean) &#x2F; std  fit_transform()fit() 计算 每一行列的平">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习-分类算法">
+<meta property="og:url" content="https://nju-ymhui.github.io/ymhui.github.io/2024/09/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:site_name" content="(๑&gt;ᴗ&lt;๑)">
+<meta property="og:description" content="机器学习之分类算法写在前面请先阅读机器学习之特征工程 sklearn转换器和估计器转换器(transformer): 特征工程的父类  实例化（实例化的是一个转换器类(Transformer)） 调用 fit_transform() 方法（对于文档建立分类词频矩阵，不能同时调用）   标准化：(x - mean) &#x2F; std  fit_transform()fit() 计算 每一行列的平">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://nju-ymhui.github.io/ymhui.github.io/img/myicon.ico">
+<meta property="article:published_time" content="2024-09-10T14:17:19.000Z">
+<meta property="article:modified_time" content="2024-09-13T03:59:39.724Z">
+<meta property="article:author" content="画船听雨眠y">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="分类算法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://nju-ymhui.github.io/ymhui.github.io/img/myicon.ico"><link rel="shortcut icon" href="/ymhui.github.io/img/myicon.ico"><link rel="canonical" href="https://nju-ymhui.github.io/ymhui.github.io/2024/09/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/ymhui.github.io/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>(()=>{
+      const saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+      
+      window.btf = {
+        saveToLocal: saveToLocal,
+        getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.src = url
+          script.async = true
+          script.onerror = reject
+          script.onload = script.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            script.onload = script.onreadystatechange = null
+            resolve()
+          }
+
+          Object.keys(attr).forEach(key => {
+            script.setAttribute(key, attr[key])
+          })
+
+          document.head.appendChild(script)
+        }),
+
+        getCSS: (url, id = false) => new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+          link.rel = 'stylesheet'
+          link.href = url
+          if (id) link.id = id
+          link.onerror = reject
+          link.onload = link.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            link.onload = link.onreadystatechange = null
+            resolve()
+          }
+          document.head.appendChild(link)
+        }),
+
+        addGlobalFn: (key, fn, name = false, parent = window) => {
+          const pjaxEnable = false
+          if (!pjaxEnable && key.startsWith('pjax')) return
+
+          const globalFn = parent.globalFn || {}
+          const keyObj = globalFn[key] || {}
+    
+          if (name && keyObj[name]) return
+    
+          name = name || Object.keys(keyObj).length
+          keyObj[name] = fn
+          globalFn[key] = keyObj
+          parent.globalFn = globalFn
+        }
+      }
+    
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+      
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })()</script><script>const GLOBAL_CONFIG = {
+  root: '/ymhui.github.io/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '机器学习-分类算法',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-09-13 11:59:39'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/ymhui.github.io/img/myicon.ico" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><a href="/ymhui.github.io/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/ymhui.github.io/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/ymhui.github.io/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/ymhui.github.io/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/ymhui.github.io/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/ymhui.github.io/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/ymhui.github.io/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/ymhui.github.io/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/ymhui.github.io/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/ymhui.github.io/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/ymhui.github.io/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/ymhui.github.io/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/ymhui.github.io/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/ymhui.github.io/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://blue-whale-backend.oss-cn-nanjing.aliyuncs.com/back.jpg);"><nav id="nav"><span id="blog-info"><a href="/ymhui.github.io/" title="(๑&gt;ᴗ&lt;๑)"><span class="site-name">(๑&gt;ᴗ&lt;๑)</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/ymhui.github.io/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/ymhui.github.io/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/ymhui.github.io/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/ymhui.github.io/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/ymhui.github.io/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/ymhui.github.io/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/ymhui.github.io/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/ymhui.github.io/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/ymhui.github.io/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/ymhui.github.io/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/ymhui.github.io/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">机器学习-分类算法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-09-10T14:17:19.000Z" title="发表于 2024-09-10 22:17:19">2024-09-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-09-13T03:59:39.724Z" title="更新于 2024-09-13 11:59:39">2024-09-13</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="机器学习-分类算法"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="机器学习之分类算法"><a href="#机器学习之分类算法" class="headerlink" title="机器学习之分类算法"></a>机器学习之分类算法</h1><h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>请先阅读<strong>机器学习之特征工程</strong></p>
+<h3 id="sklearn转换器和估计器"><a href="#sklearn转换器和估计器" class="headerlink" title="sklearn转换器和估计器"></a>sklearn转换器和估计器</h3><p><em><strong>转换器(transformer): 特征工程的父类</strong></em></p>
+<ol>
+<li>实例化（实例化的是一个转换器类(Transformer)）</li>
+<li>调用 <em>fit_transform()</em> 方法（对于文档建立分类词频矩阵，不能同时调用）</li>
+</ol>
+<blockquote>
+<p>标准化：(x - mean) &#x2F; std</p>
+<blockquote>
+<p>fit_transform()<br><strong>fit()</strong> 计算 每一行列的平均值、标准差<br><strong>transform()</strong> (x - mean) &#x2F; std 进行最终的转换</p>
+</blockquote>
+</blockquote>
+<hr>
+<p><em><strong>估计器(estimator): sklearn机器算法的实现</strong></em></p>
+<ol>
+<li><p>实例化一个estimator</p>
+</li>
+<li><p>调用fit()</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">estimator.fit(x_train, y_train)  <span class="comment"># 计算 生成模型</span></span><br><span class="line"><span class="comment"># 调用完毕，模型生成</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>模型评估：</p>
+<p>i. 直接比对真实值和测试值</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">y_predict = estimator.predict(x_test)</span><br><span class="line">y_test == y_predict  <span class="comment"># 生成一系列布尔值，Ture多则准确</span></span><br></pre></td></tr></table></figure>
+
+<p>ii. 计算准确率</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">accuracy = estimator.score(x_test, y_test)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>分类算法用于将数据样本分配到不同的类别</p>
+<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><h3 id="朴素贝叶斯"><a href="#朴素贝叶斯" class="headerlink" title="朴素贝叶斯"></a>朴素贝叶斯</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">朴素贝叶斯算法：</span><br><span class="line">    朴素：假设特征与特征之间相互独立</span><br><span class="line">    应用场景：文本分类，单词作为特征</span><br><span class="line">    优点：分类效率稳定；对缺失数据不敏感，算法简单（贝叶斯公式），常用于文本分类；准确度高速度快</span><br><span class="line">    缺点：由于有“朴素”的假定，如果特征属性有关联时效果不好</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">贝叶斯公式: P(C | W) = P(W | C) * P(C) / P(W)</span><br></pre></td></tr></table></figure>
+
+<h4 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.naive_bayes <span class="keyword">import</span> MultinomialNB</span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> fetch_20newsgroups</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn.feature_extraction.text <span class="keyword">import</span> TfidfVectorizer</span><br><span class="line"><span class="keyword">from</span> SelfTools <span class="keyword">import</span> Tool</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">MultinomialNB(alpha=1.0)</span></span><br><span class="line"><span class="string">朴素贝叶斯分类</span></span><br><span class="line"><span class="string">alpha: Laplace平滑系数</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">news_demo</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    朴素贝叶斯算法进行新闻分类</span></span><br><span class="line"><span class="string">    :return:</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 获取数据</span></span><br><span class="line">    news = fetch_20newsgroups(subset=<span class="string">&quot;all&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 划分数据集</span></span><br><span class="line">    x_train, x_test, y_train, y_test = train_test_split(news.data, news.target, test_size=<span class="number">0.2</span>, random_state=<span class="number">6</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 特征工程：文本特征值抽取</span></span><br><span class="line">    transfer = TfidfVectorizer()</span><br><span class="line">    x_train = transfer.fit_transform(x_train)</span><br><span class="line">    x_test = transfer.transform(x_test)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 朴素贝叶斯预估器流程</span></span><br><span class="line">    estimator = MultinomialNB()</span><br><span class="line">    estimator.fit(x_train, y_train)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 模型评估</span></span><br><span class="line">    y_predict = estimator.predict(x_test)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;y_predict:\n&quot;</span>, y_predict)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;y_predict == y_test:\n&quot;</span>, y_predict == y_test)</span><br><span class="line">    Tool.separate()</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;score = &quot;</span>, estimator.score(x_test, y_test))</span><br><span class="line">    Tool.separate()</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    news_demo()</span><br></pre></td></tr></table></figure>
+
+<h3 id="knn"><a href="#knn" class="headerlink" title="knn"></a><a name="knn">knn</a></h3><p>k-临近算法（k-Nearest Neighbour）：<strong>近朱者赤，近墨者黑</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">如果一个样本在特征空间中的 k 个最相似（即特征空间中最邻近）的样本中的大多数都属于某个类别，则该样本也属于这个类别</span><br><span class="line"></span><br><span class="line">=&gt;第 1 近，第 2 近 ... 第 k 近</span><br></pre></td></tr></table></figure>
+
+<p>缺点：k 取得太小，容易受到异常点影响；k 取得太大，容易受到样本不均衡影响; 懒惰算法，内存开销大</p>
+<p><em>注意：knn算法计算距离时需要对数据进行标准化处理，防止大数据的支配效果</em></p>
+<p>适合小数据场景</p>
+<h4 id="demo-1"><a href="#demo-1" class="headerlink" title="demo"></a>demo</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler</span><br><span class="line"><span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsClassifier</span><br><span class="line"><span class="keyword">from</span> SelfTools <span class="keyword">import</span> Tool</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">KNeighbourClassifier(n_neighbors=5, algorithm=&#x27;auto&#x27;)</span></span><br><span class="line"><span class="string">    n_neighbors: int, 可选（默认5），k_neighbors查询时默认使用的邻居数</span></span><br><span class="line"><span class="string">    algorithm: 选择算法，不必关注，使用&#x27;auto&#x27;自动选择最优即可</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 鸢尾花种类预测</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">iris_classify</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    knn算法对鸢尾花分类</span></span><br><span class="line"><span class="string">    数据集分为测试集和训练集</span></span><br><span class="line"><span class="string">    :return: class(Iris-Setosa, Iris-Versicolour, Iris-Virginica)</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 获取数据</span></span><br><span class="line">    iris = load_iris()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 数据集划分 训练集 + 测试集</span></span><br><span class="line">    x_train, x_test, y_train, y_test = train_test_split(iris.data, iris.target, random_state=<span class="number">6</span>)  <span class="comment"># 返回值固定形式</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 特征工程：数据标准化</span></span><br><span class="line">    transfer = StandardScaler()</span><br><span class="line">    x_train = transfer.fit_transform(x_train)  <span class="comment"># 对训练集标准化</span></span><br><span class="line">    x_test = transfer.transform(x_test)</span><br><span class="line">    <span class="comment"># 测试集要用和训练集一样的处理方式，即均值与方差均与训练集一致，因为transfer在fit_transform()时计算过了均值方差，所以test直接使用transform()</span></span><br><span class="line">    <span class="comment"># 如果test仍使用fit_transform()那相当于在用测试集的均值和方差</span></span><br><span class="line">    <span class="comment"># 原因是transfer是一个固定的实例化对象，它在第一次调用fit_transform方法时均值和方差的属性就被修改完毕(被修改为训练集的均值和方差) 测试集沿用</span></span><br><span class="line">    <span class="comment"># 再次执行又会被修改，测试集不希望发生修改</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># knn预估器流程</span></span><br><span class="line">    estimator = KNeighborsClassifier(n_neighbors=<span class="number">3</span>)</span><br><span class="line">    estimator.fit(x_train, y_train)</span><br><span class="line"></span><br><span class="line">    Tool.separate()</span><br><span class="line">    <span class="comment"># 模型评估</span></span><br><span class="line">    <span class="comment"># 法一：直接比对真实值和测试值</span></span><br><span class="line">    y_predict = estimator.predict(x_test)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;y_predict:\n&quot;</span>, y_predict)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;y_predict == y_test: \n&quot;</span>, y_test == y_predict)</span><br><span class="line">    Tool.separate()</span><br><span class="line">    <span class="comment"># 法二：计算准确率</span></span><br><span class="line">    score = estimator.score(x_test, y_test)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;score = &quot;</span>, score)</span><br><span class="line">    Tool.separate()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    iris_classify()</span><br></pre></td></tr></table></figure>
+
+<h3 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">决策树</span><br><span class="line">信息：用来消除随机不定性的东西</span><br><span class="line">信息熵：衡量信息的依据</span><br><span class="line">    bit</span><br><span class="line">    信息熵 H(X) = - sum(P(xi) * log (b) P(xi)), i: [1, n]</span><br><span class="line">决策树的划分依据之一：信息增益</span><br><span class="line">    特征A对训练数据集D的信息增益 g(D, A) 定义为集合D的信息熵H(D)与特征A给定条件下D的信息条件熵 H(D|A)之差</span><br><span class="line">    g(D, A) = H(D) - H(D|A)</span><br></pre></td></tr></table></figure>
+
+<p>决策树适用于大数据场景，是非懒惰算法，内存开销和效率优于<a href="#knn">knn</a>，但准确率不如<a href="#knn">knn</a></p>
+<h4 id="demo-2"><a href="#demo-2" class="headerlink" title="demo"></a>demo</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> DecisionTreeClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> fetch_20newsgroups</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn.feature_extraction.text <span class="keyword">import</span> TfidfVectorizer</span><br><span class="line"><span class="keyword">from</span> SelfTools <span class="keyword">import</span> Tool</span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris</span><br><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> export_graphviz</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">DecisionTreeClassifier(criterion=&#x27;gini&#x27;, max_depth=None, random_rate=None)</span></span><br><span class="line"><span class="string">    决策树分类器</span></span><br><span class="line"><span class="string">    criterion: 默认&#x27;gini&#x27;系数，也可以选择信息增益的熵&#x27;entropy&#x27;</span></span><br><span class="line"><span class="string">    max_depth: 树的深度大小</span></span><br><span class="line"><span class="string">    random_rate: 随机数种子</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">决策树可视化</span></span><br><span class="line"><span class="string">export_graphviz(estimator, out_file=&#x27;tree.dot&#x27;, feature_names=[&quot;.&quot;])</span></span><br><span class="line"><span class="string">    导出DOT格式</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">decision_tree</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    决策树对鸢尾花分类</span></span><br><span class="line"><span class="string">    :return:</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 获取数据集</span></span><br><span class="line">    iris = load_iris()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 划分数据集</span></span><br><span class="line">    x_train, x_test, y_train, y_test = train_test_split(iris.data, iris.target, random_state=<span class="number">22</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># (决策树不需要就算距离，因此不需要标准化)</span></span><br><span class="line">    transfer = <span class="literal">None</span></span><br><span class="line">    <span class="comment"># 决策树预估器进行分类</span></span><br><span class="line">    estimator = DecisionTreeClassifier(criterion=<span class="string">&#x27;entropy&#x27;</span>)</span><br><span class="line">    estimator.fit(x_train, y_train)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 模型评估</span></span><br><span class="line">    y_predict = estimator.predict(x_test)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;y_predict:\n&quot;</span>, y_predict)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;y_predict == y_test:\n&quot;</span>, y_predict == y_test)</span><br><span class="line">    Tool.separate()</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;score = &quot;</span>, estimator.score(x_test, y_test))</span><br><span class="line">    Tool.separate()</span><br><span class="line"></span><br><span class="line">    export_graphviz(estimator, out_file=<span class="string">&#x27;decision_tree.dot&#x27;</span>, feature_names=iris.feature_names)</span><br><span class="line">    <span class="comment"># 可视化决策树http://www.webgraphviz.com/，将dot文件传入</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    decision_tree()</span><br></pre></td></tr></table></figure>
+
+<h3 id="随机森林"><a href="#随机森林" class="headerlink" title="随机森林"></a>随机森林</h3><p>包含多个决策树的分类器</p>
+<p>原理：一棵决策树可能有误差；建立一堆决策树，独立预测，结果取众数，少数服从多数</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">例如：训练了5个树，4个树True，1个树False，结果就是True</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">随机森林原理过程：</span><br><span class="line">    训练集：特征值、目标值</span><br><span class="line">    随机：训练集随机，特征随机（如果每次都用一样的数据，训练结果岂不是一样？）</span><br><span class="line">    假设训练集有 N 个样本，M 个特征</span><br><span class="line">    训练集随机：bootstrap 随机有放回抽样，N 个样本的训练集随机有放回抽样 N 次（一次一个），得到一个新的随机训练集</span><br><span class="line">    如： [1, 2, 3, 4, 5] -&gt; [2, 2, 3, 1, 5]</span><br><span class="line">    特征随机：M 个特征中抽取 m 个特征，要求: M &gt;&gt; m</span><br></pre></td></tr></table></figure>
+
+<h4 id="demo-3"><a href="#demo-3" class="headerlink" title="demo"></a>demo</h4><p>TBD~</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">RandomForestClassifier(n_estimators=10, criterion=&#x27;gini&#x27;, max_depth=None, max_features=&#x27;auto&#x27;,bootstrap=True, </span></span><br><span class="line"><span class="string">                       random_state=None, min_samples_split=2, min_samples_leaf)</span></span><br><span class="line"><span class="string">    随机森林分类器</span></span><br><span class="line"><span class="string">    n_estimators: optional, number of trees in forests, integer</span></span><br><span class="line"><span class="string">    criterion: optional, measures of splitting features, string</span></span><br><span class="line"><span class="string">    max_depth: optional, max depth of one tree, integer or None</span></span><br><span class="line"><span class="string">    max_features: max features of one tree</span></span><br><span class="line"><span class="string">        if &#x27;auto&#x27;, max_features = sqrt(n_features)</span></span><br><span class="line"><span class="string">        if &#x27;sqrt&#x27;, same as &#x27;auto&#x27;</span></span><br><span class="line"><span class="string">        if &#x27;log2&#x27;, max_features = log2 (n_features)</span></span><br><span class="line"><span class="string">        if None, max_features = n_features (Not recommended)</span></span><br><span class="line"><span class="string">        string</span></span><br><span class="line"><span class="string">    bootstrap: optional, whether using bootstrap, boolean</span></span><br><span class="line"><span class="string">    min_samples_split: min number of samples of samples&#x27; split</span></span><br><span class="line"><span class="string">    min_samples_leaf: min number of samples of leaf node</span></span><br><span class="line"><span class="string">    超参数：n_estimators, max_depth, min_samples_split, min_samples_leaf</span></span><br><span class="line"><span class="string">    -&gt; 网格搜索用</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">rf_demo</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    随机森林</span></span><br><span class="line"><span class="string">    :return:</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># TODO</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    rf_demo()</span><br></pre></td></tr></table></figure>
+
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>TBD~</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># http://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets/titanic.txt</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">titanic_predict</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Titanic号乘客生存预测</span></span><br><span class="line"><span class="string">    :return:</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 获取数据</span></span><br><span class="line">    path = <span class="string">&quot;http://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets/titanic.txt&quot;</span></span><br><span class="line">    titanic = pd.read_csv(path)</span><br><span class="line">    <span class="comment"># 数据处理：titanic.txt缺失age属性：缺失值处理；特征值-&gt;字典类型</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 准备好特征值、目标值</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 划分数据集</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 特征工程：字典特征抽取</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 决策树预估器流程</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 模型评估</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    titanic_predict()</span><br></pre></td></tr></table></figure>
+
+<p>(•‿•)</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://nju-ymhui.github.io/ymhui.github.io">画船听雨眠y</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://nju-ymhui.github.io/ymhui.github.io/2024/09/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/">https://nju-ymhui.github.io/ymhui.github.io/2024/09/10/机器学习-分类算法/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://nju-ymhui.github.io/ymhui.github.io" target="_blank">(๑>ᴗ<๑)</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/ymhui.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a><a class="post-meta__tags" href="/ymhui.github.io/tags/%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/">分类算法</a></div><div class="post-share"><div class="social-share" data-image="/ymhui.github.io/img/myicon.ico" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>真的不考虑支持一下吗 (╯︵╰,)</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/ymhui.github.io/img/qrcode.png" target="_blank"><img class="post-qr-code-img" src="/ymhui.github.io/img/qrcode.png" alt="微信支付"/></a><div class="post-qr-code-desc">微信支付</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="prev-post pull-left" href="/ymhui.github.io/2024/09/11/%E5%8F%8C%E6%8C%87%E9%92%88/" title="双指针"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">双指针</div></div></a><a class="next-post pull-right" href="/ymhui.github.io/2024/09/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%9B%9E%E5%BD%92%E4%B8%8E%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95/" title="机器学习-回归与聚类算法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">机器学习-回归与聚类算法</div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a href="/ymhui.github.io/2024/09/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/" title="机器学习-特征工程"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-10</div><div class="title">机器学习-特征工程</div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info is-center"><div class="avatar-img"><img src="/ymhui.github.io/img/myicon.ico" onerror="this.onerror=null;this.src='/ymhui.github.io/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">画船听雨眠y</div><div class="author-info-description">美好的一天从打代码开始结束</div><div class="site-data"><a href="/ymhui.github.io/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/ymhui.github.io/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/ymhui.github.io/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/NJU-ymhui"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/NJU-ymhui" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">机器学习之分类算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-number">1.1.</span> <span class="toc-text">写在前面</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#sklearn%E8%BD%AC%E6%8D%A2%E5%99%A8%E5%92%8C%E4%BC%B0%E8%AE%A1%E5%99%A8"><span class="toc-number">1.1.1.</span> <span class="toc-text">sklearn转换器和估计器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.2.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%B3%95"><span class="toc-number">1.3.</span> <span class="toc-text">算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF"><span class="toc-number">1.3.1.</span> <span class="toc-text">朴素贝叶斯</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#demo"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">demo</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#knn"><span class="toc-number">1.3.2.</span> <span class="toc-text">knn</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#demo-1"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">demo</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%B3%E7%AD%96%E6%A0%91"><span class="toc-number">1.3.3.</span> <span class="toc-text">决策树</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#demo-2"><span class="toc-number">1.3.3.1.</span> <span class="toc-text">demo</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97"><span class="toc-number">1.3.4.</span> <span class="toc-text">随机森林</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#demo-3"><span class="toc-number">1.3.4.1.</span> <span class="toc-text">demo</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B"><span class="toc-number">1.4.</span> <span class="toc-text">实例</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2024/10/01/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/" title="自然语言处理">自然语言处理</a><time datetime="2024-10-01T02:15:34.000Z" title="发表于 2024-10-01 10:15:34">2024-10-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2024/09/27/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" title="现代卷积神经网络">现代卷积神经网络</a><time datetime="2024-09-27T10:54:02.000Z" title="发表于 2024-09-27 18:54:02">2024-09-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2024/09/23/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" title="现代循环神经网络">现代循环神经网络</a><time datetime="2024-09-23T09:25:08.000Z" title="发表于 2024-09-23 17:25:08">2024-09-23</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2024/09/20/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" title="循环神经网络">循环神经网络</a><time datetime="2024-09-20T08:03:49.000Z" title="发表于 2024-09-20 16:03:49">2024-09-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2024/09/16/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/" title="注意力机制">注意力机制</a><time datetime="2024-09-16T14:59:39.000Z" title="发表于 2024-09-16 22:59:39">2024-09-16</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2024 By 画船听雨眠y</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/ymhui.github.io/js/utils.js"></script><script src="/ymhui.github.io/js/main.js"></script><div class="js-pjax"></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
