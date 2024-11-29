@@ -1,0 +1,221 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>神经网络作业报告 | (๑&gt;ᴗ&lt;๑)</title><meta name="author" content="画船听雨眠y"><meta name="copyright" content="画船听雨眠y"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="第三次作业报告为了完成对这101个类别的分类任务，使用vgg带块的卷积神经网络 VGG网络结构的实现如下 vgg.py from torch import nndef vgg_block(num_convs, in_channels, out_channels):    &quot;&quot;&quot;    实现一个VGG块    :param num_convs: 卷积层数量    :pa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="神经网络作业报告">
+<meta property="og:url" content="https://nju-ymhui.github.io/ymhui.github.io/2024/11/29/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%BD%9C%E4%B8%9A%E6%8A%A5%E5%91%8A/index.html">
+<meta property="og:site_name" content="(๑&gt;ᴗ&lt;๑)">
+<meta property="og:description" content="第三次作业报告为了完成对这101个类别的分类任务，使用vgg带块的卷积神经网络 VGG网络结构的实现如下 vgg.py from torch import nndef vgg_block(num_convs, in_channels, out_channels):    &quot;&quot;&quot;    实现一个VGG块    :param num_convs: 卷积层数量    :pa">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://nju-ymhui.github.io/ymhui.github.io/img/myicon.ico">
+<meta property="article:published_time" content="2024-11-29T01:48:10.000Z">
+<meta property="article:modified_time" content="2024-11-29T01:48:49.108Z">
+<meta property="article:author" content="画船听雨眠y">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="软件学院">
+<meta property="article:tag" content="课程作业">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://nju-ymhui.github.io/ymhui.github.io/img/myicon.ico"><link rel="shortcut icon" href="/ymhui.github.io/img/myicon.ico"><link rel="canonical" href="https://nju-ymhui.github.io/ymhui.github.io/2024/11/29/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%BD%9C%E4%B8%9A%E6%8A%A5%E5%91%8A/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/ymhui.github.io/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>(()=>{
+      const saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+      
+      window.btf = {
+        saveToLocal: saveToLocal,
+        getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.src = url
+          script.async = true
+          script.onerror = reject
+          script.onload = script.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            script.onload = script.onreadystatechange = null
+            resolve()
+          }
+
+          Object.keys(attr).forEach(key => {
+            script.setAttribute(key, attr[key])
+          })
+
+          document.head.appendChild(script)
+        }),
+
+        getCSS: (url, id = false) => new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+          link.rel = 'stylesheet'
+          link.href = url
+          if (id) link.id = id
+          link.onerror = reject
+          link.onload = link.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            link.onload = link.onreadystatechange = null
+            resolve()
+          }
+          document.head.appendChild(link)
+        }),
+
+        addGlobalFn: (key, fn, name = false, parent = window) => {
+          const pjaxEnable = false
+          if (!pjaxEnable && key.startsWith('pjax')) return
+
+          const globalFn = parent.globalFn || {}
+          const keyObj = globalFn[key] || {}
+    
+          if (name && keyObj[name]) return
+    
+          name = name || Object.keys(keyObj).length
+          keyObj[name] = fn
+          globalFn[key] = keyObj
+          parent.globalFn = globalFn
+        }
+      }
+    
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+      
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })()</script><script>const GLOBAL_CONFIG = {
+  root: '/ymhui.github.io/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '神经网络作业报告',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-11-29 09:48:49'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/ymhui.github.io/img/myicon.ico" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><a href="/ymhui.github.io/archives/"><div class="headline">文章</div><div class="length-num">27</div></a><a href="/ymhui.github.io/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/ymhui.github.io/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/ymhui.github.io/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/ymhui.github.io/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/ymhui.github.io/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/ymhui.github.io/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/ymhui.github.io/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/ymhui.github.io/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/ymhui.github.io/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/ymhui.github.io/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/ymhui.github.io/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/ymhui.github.io/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/ymhui.github.io/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://blue-whale-backend.oss-cn-nanjing.aliyuncs.com/back.jpg);"><nav id="nav"><span id="blog-info"><a href="/ymhui.github.io/" title="(๑&gt;ᴗ&lt;๑)"><span class="site-name">(๑&gt;ᴗ&lt;๑)</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/ymhui.github.io/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/ymhui.github.io/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/ymhui.github.io/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/ymhui.github.io/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/ymhui.github.io/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/ymhui.github.io/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/ymhui.github.io/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/ymhui.github.io/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/ymhui.github.io/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/ymhui.github.io/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/ymhui.github.io/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">神经网络作业报告</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-11-29T01:48:10.000Z" title="发表于 2024-11-29 09:48:10">2024-11-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-11-29T01:48:49.108Z" title="更新于 2024-11-29 09:48:49">2024-11-29</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="神经网络作业报告"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="第三次作业报告"><a href="#第三次作业报告" class="headerlink" title="第三次作业报告"></a>第三次作业报告</h1><p>为了完成对这101个类别的分类任务，使用<code>vgg</code>带块的卷积神经网络</p>
+<h2 id="VGG"><a href="#VGG" class="headerlink" title="VGG"></a>VGG</h2><p>网络结构的实现如下</p>
+<p><code>vgg.py</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">vgg_block</span>(<span class="params">num_convs, in_channels, out_channels</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    实现一个VGG块</span></span><br><span class="line"><span class="string">    :param num_convs: 卷积层数量</span></span><br><span class="line"><span class="string">    :param in_channels: 输入通道数量</span></span><br><span class="line"><span class="string">    :param out_channels: 输出通道数量</span></span><br><span class="line"><span class="string">    :return: 由卷积层、激活函数和池化层组成的序列模型</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    layers = []</span><br><span class="line">    <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(num_convs):</span><br><span class="line">        layers.append(nn.Conv2d(in_channels, out_channels, kernel_size=<span class="number">3</span>, padding=<span class="number">1</span>))</span><br><span class="line">        layers.append(nn.ReLU())</span><br><span class="line">        in_channels = out_channels</span><br><span class="line">    layers.append(nn.MaxPool2d(kernel_size=<span class="number">2</span>, stride=<span class="number">2</span>))</span><br><span class="line">    <span class="keyword">return</span> nn.Sequential(*layers)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># vgg</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">vgg</span>(<span class="params">conv_arch</span>):</span><br><span class="line">    conv_blks = []</span><br><span class="line">    in_channels = <span class="number">3</span></span><br><span class="line">    <span class="comment"># 卷积层部分</span></span><br><span class="line">    <span class="keyword">for</span> (num_convs, out_channels) <span class="keyword">in</span> conv_arch:</span><br><span class="line">        conv_blks.append(vgg_block(num_convs, in_channels, out_channels))</span><br><span class="line">        in_channels = out_channels</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 全连接层部分的输入维度依赖于最后一个卷积块的输出尺寸</span></span><br><span class="line">    <span class="keyword">return</span> nn.Sequential(</span><br><span class="line">        *conv_blks,</span><br><span class="line">        nn.Flatten(),</span><br><span class="line">        <span class="comment"># 全连接层部分</span></span><br><span class="line">        nn.Linear(out_channels * <span class="number">7</span> * <span class="number">7</span>, <span class="number">4096</span>),</span><br><span class="line">        nn.ReLU(),</span><br><span class="line">        nn.Dropout(<span class="number">0.5</span>),</span><br><span class="line">        nn.Linear(<span class="number">4096</span>, <span class="number">4096</span>),</span><br><span class="line">        nn.ReLU(),</span><br><span class="line">        nn.Dropout(<span class="number">0.5</span>),</span><br><span class="line">        nn.Linear(<span class="number">4096</span>, <span class="number">102</span>)</span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
+
+<p>下面对这个网络结构进行分析：</p>
+<ol>
+<li><p>首先定义基本的vgg块：vgg块的初始化依赖外部传入的参数，即卷积层的数量、输入通道的数量、输出通道的数量，使用这三个参数初始化基本块（卷积层、输入通道和输出通道），返回由卷积层、激活函数和池化层组成的序列模型</p>
+</li>
+<li><p>然后使用这个vgg块定义vgg网络，因为彩色图像共有r, g, b三个输入通道，所有使用三个输入通道；之后通过一个循环遍历输入参数更新卷积层</p>
+</li>
+<li><p>vgg网络返回一个模型，该模型将卷积层输出的多维张量展平为一维向量，之后使用三个全连接层：</p>
+<p>**第一个全连接层 (<code>nn.Linear(out_channels \* 7 \* 7, 4096)</code>)**：</p>
+<ul>
+<li>输入维度是展平后的输出尺寸，即卷积层输出的通道数（<code>out_channels</code>）乘以空间尺寸（<code>7x7</code>），即 <code>out_channels * 7 * 7</code>。</li>
+<li>输出维度是 4096，即该层有 4096 个神经元。</li>
+</ul>
+<p>**<code>nn.ReLU()</code>**：对输出应用 ReLU 激活函数，增加非线性。</p>
+<p>**<code>nn.Dropout(0.5)</code>**：在训练过程中，50% 的神经元会被随机丢弃，以减少过拟合。</p>
+<p>**第二个全连接层 (<code>nn.Linear(4096, 4096)</code>)**：这是一个具有 4096 个神经元的全连接层，输入和输出大小均为 4096。</p>
+<p>**第三个全连接层 (<code>nn.Linear(4096, 102)</code>)**：</p>
+<ul>
+<li>输出的维度是 102，表示网络的最终输出是 102 个类别的概率分布（假设你处理的是 102 个类的分类问题）</li>
+</ul>
+</li>
+</ol>
+<h2 id="超参数与优化器"><a href="#超参数与优化器" class="headerlink" title="超参数与优化器"></a>超参数与优化器</h2><p>训练时使用的优化器为随机梯度下降优化，损失函数使用交叉熵损失函数，学习率设置为0.01，训练轮数设置为10，设置批量大小batch_size为32。</p>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>模型训练与测试的结果如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">training on cuda</span><br><span class="line">epoch: 1, loss: 4.1130, accuracy: 11.84%</span><br><span class="line">epoch: 2, loss: 3.3819, accuracy: 28.65%</span><br><span class="line">epoch: 3, loss: 2.8309, accuracy: 38.71%</span><br><span class="line">epoch: 4, loss: 2.3370, accuracy: 46.52%</span><br><span class="line">epoch: 5, loss: 1.9534, accuracy: 54.04%</span><br><span class="line">epoch: 6, loss: 1.6008, accuracy: 60.64%</span><br><span class="line">epoch: 7, loss: 1.2751, accuracy: 67.20%</span><br><span class="line">epoch: 8, loss: 0.9767, accuracy: 74.11%</span><br><span class="line">epoch: 9, loss: 0.7094, accuracy: 81.09%</span><br><span class="line">epoch: 10, loss: 0.5337, accuracy: 85.60%</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="C:\Users\yuminghui\AppData\Roaming\Typora\typora-user-images\image-20241128225105281.png" alt="image-20241128225105281"></p>
+<h2 id="数据增广"><a href="#数据增广" class="headerlink" title="数据增广"></a>数据增广</h2><p>TBD</p>
+<h2 id="辅助代码"><a href="#辅助代码" class="headerlink" title="辅助代码"></a>辅助代码</h2><p><code>util.py</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> optim</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">train</span>(<span class="params">net, train_iter, test_iter, num_epochs, lr, device</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;使用GPU训练模型&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">init_weights</span>(<span class="params">m</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">type</span>(m) == nn.Linear <span class="keyword">or</span> <span class="built_in">type</span>(m) == nn.Conv2d:</span><br><span class="line">            nn.init.xavier_uniform_(m.weight)</span><br><span class="line">    net.apply(init_weights)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;training on&quot;</span>, device)</span><br><span class="line">    net.to(device)</span><br><span class="line">    optimizer = optim.SGD(net.parameters(), lr=lr, momentum=<span class="number">0.9</span>, weight_decay=<span class="number">2e-4</span>)</span><br><span class="line">    loss = nn.CrossEntropyLoss()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 初始化记录列表</span></span><br><span class="line">    train_losses = []</span><br><span class="line">    train_accuracies = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(num_epochs):</span><br><span class="line">        <span class="comment"># 训练损失之和， 训练准确率之和， 样本数</span></span><br><span class="line">        net.train()</span><br><span class="line">        correct = <span class="number">0</span></span><br><span class="line">        total = <span class="number">0</span></span><br><span class="line">        epoch_loss = <span class="number">0.0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i, (X, y) <span class="keyword">in</span> <span class="built_in">enumerate</span>(train_iter):</span><br><span class="line">            optimizer.zero_grad()  <span class="comment"># 梯度清空</span></span><br><span class="line">            X, y = X.to(device), y.to(device)  <span class="comment"># GPU加速</span></span><br><span class="line">            y_hat = net(X)  <span class="comment"># 前向计算</span></span><br><span class="line">            l = loss(y_hat, y)  <span class="comment"># 计算损失</span></span><br><span class="line">            l.backward()  <span class="comment"># 反向传播</span></span><br><span class="line">            optimizer.step()  <span class="comment"># 参数更新</span></span><br><span class="line"></span><br><span class="line">            <span class="comment"># 记录损失</span></span><br><span class="line">            epoch_loss += l.item()  <span class="comment"># 累加损失</span></span><br><span class="line">            <span class="comment"># 计算准确率</span></span><br><span class="line">            _, predicted = torch.<span class="built_in">max</span>(y_hat, <span class="number">1</span>)</span><br><span class="line">            total += y.size(<span class="number">0</span>)</span><br><span class="line">            correct += (predicted == y).<span class="built_in">sum</span>().item()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 每个epoch的平均损失和准确率</span></span><br><span class="line">        avg_loss = epoch_loss / <span class="built_in">len</span>(train_iter)</span><br><span class="line">        accuracy = correct / total * <span class="number">100</span>  <span class="comment"># 百分比</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 记录到列表中</span></span><br><span class="line">        train_losses.append(avg_loss)</span><br><span class="line">        train_accuracies.append(accuracy)</span><br><span class="line"></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;epoch: <span class="subst">&#123;epoch+<span class="number">1</span>&#125;</span>, loss: <span class="subst">&#123;avg_loss:<span class="number">.4</span>f&#125;</span>, accuracy: <span class="subst">&#123;accuracy:<span class="number">.2</span>f&#125;</span>%&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 绘制训练损失和准确率曲线</span></span><br><span class="line">    plt.figure(figsize=(<span class="number">12</span>, <span class="number">5</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 绘制损失曲线</span></span><br><span class="line">    plt.subplot(<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>)</span><br><span class="line">    plt.plot(<span class="built_in">range</span>(<span class="number">1</span>, num_epochs + <span class="number">1</span>), train_losses, label=<span class="string">&#x27;Train Loss&#x27;</span>, color=<span class="string">&#x27;blue&#x27;</span>)</span><br><span class="line">    plt.title(<span class="string">&#x27;Training Loss&#x27;</span>)</span><br><span class="line">    plt.xlabel(<span class="string">&#x27;Epoch&#x27;</span>)</span><br><span class="line">    plt.ylabel(<span class="string">&#x27;Loss&#x27;</span>)</span><br><span class="line">    plt.legend()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 绘制准确率曲线</span></span><br><span class="line">    plt.subplot(<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line">    plt.plot(<span class="built_in">range</span>(<span class="number">1</span>, num_epochs + <span class="number">1</span>), train_accuracies, label=<span class="string">&#x27;Train Accuracy&#x27;</span>, color=<span class="string">&#x27;green&#x27;</span>)</span><br><span class="line">    plt.title(<span class="string">&#x27;Training Accuracy&#x27;</span>)</span><br><span class="line">    plt.xlabel(<span class="string">&#x27;Epoch&#x27;</span>)</span><br><span class="line">    plt.ylabel(<span class="string">&#x27;Accuracy (%)&#x27;</span>)</span><br><span class="line">    plt.legend()</span><br><span class="line"></span><br><span class="line">    plt.tight_layout()</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://nju-ymhui.github.io/ymhui.github.io">画船听雨眠y</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://nju-ymhui.github.io/ymhui.github.io/2024/11/29/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%BD%9C%E4%B8%9A%E6%8A%A5%E5%91%8A/">https://nju-ymhui.github.io/ymhui.github.io/2024/11/29/神经网络作业报告/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://nju-ymhui.github.io/ymhui.github.io" target="_blank">(๑>ᴗ<๑)</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/ymhui.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a><a class="post-meta__tags" href="/ymhui.github.io/tags/%E8%BD%AF%E4%BB%B6%E5%AD%A6%E9%99%A2/">软件学院</a><a class="post-meta__tags" href="/ymhui.github.io/tags/%E8%AF%BE%E7%A8%8B%E4%BD%9C%E4%B8%9A/">课程作业</a></div><div class="post-share"><div class="social-share" data-image="/ymhui.github.io/img/myicon.ico" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>真的不考虑支持一下吗 (╯︵╰,)</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/ymhui.github.io/img/qrcode.png" target="_blank"><img class="post-qr-code-img" src="/ymhui.github.io/img/qrcode.png" alt="微信支付"/></a><div class="post-qr-code-desc">微信支付</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="next-post pull-full" href="/ymhui.github.io/2024/11/29/SVM%E4%BD%9C%E4%B8%9A%E6%8A%A5%E5%91%8A/" title="SVM作业报告"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">SVM作业报告</div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a href="/ymhui.github.io/2024/11/29/SVM%E4%BD%9C%E4%B8%9A%E6%8A%A5%E5%91%8A/" title="SVM作业报告"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-29</div><div class="title">SVM作业报告</div></div></a><a href="/ymhui.github.io/2024/09/30/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BD%9C%E4%B8%9A%E6%8A%A5%E5%91%8A/" title="机器学习第一次作业报告"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-30</div><div class="title">机器学习第一次作业报告</div></div></a><a href="/ymhui.github.io/2024/09/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/" title="机器学习-分类算法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-10</div><div class="title">机器学习-分类算法</div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info is-center"><div class="avatar-img"><img src="/ymhui.github.io/img/myicon.ico" onerror="this.onerror=null;this.src='/ymhui.github.io/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">画船听雨眠y</div><div class="author-info-description">美好的一天从打代码开始结束</div><div class="site-data"><a href="/ymhui.github.io/archives/"><div class="headline">文章</div><div class="length-num">27</div></a><a href="/ymhui.github.io/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/ymhui.github.io/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/NJU-ymhui"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/NJU-ymhui" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%AC%A1%E4%BD%9C%E4%B8%9A%E6%8A%A5%E5%91%8A"><span class="toc-number">1.</span> <span class="toc-text">第三次作业报告</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#VGG"><span class="toc-number">1.1.</span> <span class="toc-text">VGG</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B6%85%E5%8F%82%E6%95%B0%E4%B8%8E%E4%BC%98%E5%8C%96%E5%99%A8"><span class="toc-number">1.2.</span> <span class="toc-text">超参数与优化器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%9C"><span class="toc-number">1.3.</span> <span class="toc-text">结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%B9%BF"><span class="toc-number">1.4.</span> <span class="toc-text">数据增广</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%85%E5%8A%A9%E4%BB%A3%E7%A0%81"><span class="toc-number">1.5.</span> <span class="toc-text">辅助代码</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2024/11/29/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%BD%9C%E4%B8%9A%E6%8A%A5%E5%91%8A/" title="神经网络作业报告">神经网络作业报告</a><time datetime="2024-11-29T01:48:10.000Z" title="发表于 2024-11-29 09:48:10">2024-11-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2024/11/29/SVM%E4%BD%9C%E4%B8%9A%E6%8A%A5%E5%91%8A/" title="SVM作业报告">SVM作业报告</a><time datetime="2024-11-29T01:47:11.000Z" title="发表于 2024-11-29 09:47:11">2024-11-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2024/10/21/TSDetect/" title="TSDetect">TSDetect</a><time datetime="2024-10-21T08:48:29.000Z" title="发表于 2024-10-21 16:48:29">2024-10-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2024/10/01/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/" title="自然语言处理">自然语言处理</a><time datetime="2024-10-01T02:15:34.000Z" title="发表于 2024-10-01 10:15:34">2024-10-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2024/09/30/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BD%9C%E4%B8%9A%E6%8A%A5%E5%91%8A/" title="机器学习第一次作业报告">机器学习第一次作业报告</a><time datetime="2024-09-30T01:44:10.000Z" title="发表于 2024-09-30 09:44:10">2024-09-30</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2024 By 画船听雨眠y</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/ymhui.github.io/js/utils.js"></script><script src="/ymhui.github.io/js/main.js"></script><div class="js-pjax"></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
