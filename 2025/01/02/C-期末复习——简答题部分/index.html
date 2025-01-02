@@ -1,0 +1,398 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>C++期末复习——简答题部分 | (๑&gt;ᴗ&lt;๑)</title><meta name="author" content="画船听雨眠y"><meta name="copyright" content="画船听雨眠y"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="C++期末简答题汇总（往年） 大部分问题的答案在软件学院C++相关文章里应该都能找到答案，这里做一个合订本 C++历史 ？ C和C++的关系  C++完全包含C语言成分，C++支持C所支持的全部编程技巧（C的超集）；同时C++还添加了OOP支持 任何C程序都能被C++用基本相同的方法编写，并具备相同的运行效率和空间 C++还引入了重载、内联函数、异常处理等功能，对C中的过程化控制及其功能进行了扩充">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++期末复习——简答题部分">
+<meta property="og:url" content="https://nju-ymhui.github.io/ymhui.github.io/2025/01/02/C-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E2%80%94%E2%80%94%E7%AE%80%E7%AD%94%E9%A2%98%E9%83%A8%E5%88%86/index.html">
+<meta property="og:site_name" content="(๑&gt;ᴗ&lt;๑)">
+<meta property="og:description" content="C++期末简答题汇总（往年） 大部分问题的答案在软件学院C++相关文章里应该都能找到答案，这里做一个合订本 C++历史 ？ C和C++的关系  C++完全包含C语言成分，C++支持C所支持的全部编程技巧（C的超集）；同时C++还添加了OOP支持 任何C程序都能被C++用基本相同的方法编写，并具备相同的运行效率和空间 C++还引入了重载、内联函数、异常处理等功能，对C中的过程化控制及其功能进行了扩充">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://nju-ymhui.github.io/ymhui.github.io/img/myicon.ico">
+<meta property="article:published_time" content="2025-01-02T05:34:59.000Z">
+<meta property="article:modified_time" content="2025-01-02T10:37:38.678Z">
+<meta property="article:author" content="画船听雨眠y">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="软件学院">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://nju-ymhui.github.io/ymhui.github.io/img/myicon.ico"><link rel="shortcut icon" href="/ymhui.github.io/img/myicon.ico"><link rel="canonical" href="https://nju-ymhui.github.io/ymhui.github.io/2025/01/02/C-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E2%80%94%E2%80%94%E7%AE%80%E7%AD%94%E9%A2%98%E9%83%A8%E5%88%86/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/ymhui.github.io/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>(()=>{
+      const saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+      
+      window.btf = {
+        saveToLocal: saveToLocal,
+        getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.src = url
+          script.async = true
+          script.onerror = reject
+          script.onload = script.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            script.onload = script.onreadystatechange = null
+            resolve()
+          }
+
+          Object.keys(attr).forEach(key => {
+            script.setAttribute(key, attr[key])
+          })
+
+          document.head.appendChild(script)
+        }),
+
+        getCSS: (url, id = false) => new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+          link.rel = 'stylesheet'
+          link.href = url
+          if (id) link.id = id
+          link.onerror = reject
+          link.onload = link.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            link.onload = link.onreadystatechange = null
+            resolve()
+          }
+          document.head.appendChild(link)
+        }),
+
+        addGlobalFn: (key, fn, name = false, parent = window) => {
+          const pjaxEnable = false
+          if (!pjaxEnable && key.startsWith('pjax')) return
+
+          const globalFn = parent.globalFn || {}
+          const keyObj = globalFn[key] || {}
+    
+          if (name && keyObj[name]) return
+    
+          name = name || Object.keys(keyObj).length
+          keyObj[name] = fn
+          globalFn[key] = keyObj
+          parent.globalFn = globalFn
+        }
+      }
+    
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+      
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })()</script><script>const GLOBAL_CONFIG = {
+  root: '/ymhui.github.io/',
+  algolia: undefined,
+  localSearch: {"path":"/ymhui.github.io/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'C++期末复习——简答题部分',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-01-02 18:37:38'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/ymhui.github.io/img/myicon.ico" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><a href="/ymhui.github.io/archives/"><div class="headline">文章</div><div class="length-num">43</div></a><a href="/ymhui.github.io/tags/"><div class="headline">标签</div><div class="length-num">24</div></a><a href="/ymhui.github.io/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/ymhui.github.io/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/ymhui.github.io/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/ymhui.github.io/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/ymhui.github.io/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/ymhui.github.io/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://blue-whale-backend.oss-cn-nanjing.aliyuncs.com/back.jpg);"><nav id="nav"><span id="blog-info"><a href="/ymhui.github.io/" title="(๑&gt;ᴗ&lt;๑)"><span class="site-name">(๑&gt;ᴗ&lt;๑)</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/ymhui.github.io/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/ymhui.github.io/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/ymhui.github.io/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/ymhui.github.io/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/ymhui.github.io/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">C++期末复习——简答题部分</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-01-02T05:34:59.000Z" title="发表于 2025-01-02 13:34:59">2025-01-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-01-02T10:37:38.678Z" title="更新于 2025-01-02 18:37:38">2025-01-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/ymhui.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%AD%A6%E9%99%A2/">软件学院</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/ymhui.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%AD%A6%E9%99%A2/C/">C++</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="C++期末复习——简答题部分"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>C++期末简答题汇总（往年）</h1>
+<p>大部分问题的答案在软件学院C++相关文章里应该都能找到答案，这里做一个合订本</p>
+<h2 id="C-历史">C++历史</h2>
+<p>？</p>
+<h2 id="C和C-的关系">C和C++的关系</h2>
+<ol>
+<li>C++完全包含C语言成分，C++支持C所支持的全部编程技巧（C的超集）；同时C++还添加了OOP支持</li>
+<li>任何C程序都能被C++用基本相同的方法编写，并具备相同的运行效率和空间</li>
+<li>C++还引入了重载、内联函数、异常处理等功能，对C中的过程化控制及其功能进行了扩充</li>
+<li>C++由以下4部分有机组成
+<ul>
+<li>C</li>
+<li>OOP</li>
+<li>STL</li>
+<li>Inside-Model</li>
+</ul>
+</li>
+</ol>
+<h2 id="表达式的值有哪些因素决定？表达式存在副作用吗">表达式的值有哪些因素决定？表达式存在副作用吗</h2>
+<ol>
+<li>表达式指由操作数、操作符和标点符号（比如逗号运算符）组成的序列，代表一个计算过程</li>
+<li>表达式的值受操作符、操作数、优先级、结合性、求值次序、副作用、短路求值和类型转换（隐式or显式）影响</li>
+<li>副作用：改变程序状态（即可能改变操作数或其他一些变量的值）</li>
+</ol>
+<h2 id="C-多态类型">C++多态类型</h2>
+<ul>
+<li>静态多态
+<ul>
+<li>一名多用（函数重载、操作符重载）</li>
+<li>模板编程（template）/ 泛型</li>
+</ul>
+</li>
+<li>动态多态
+<ul>
+<li>虚函数</li>
+</ul>
+</li>
+</ul>
+<h2 id="解释指针类型和引用类型的差别">解释指针类型和引用类型的差别</h2>
+<ol>
+<li>引用类型与指针类型都可以实现通过一个变量访问另一个变量，但访问的语法形式不同：引用采用直接访问形式，而指针采用间接访问形式</li>
+<li>引用被创建是必须初始化（即必须绑定到变量上），而指针可以在任何时候初始化</li>
+<li>不能有空引用，引用必须与合法变量绑定；但可以有空指针</li>
+<li>一旦引用被初始化就不能改变绑定的变量，而指针可以随时改变指向的变量</li>
+<li>从2 ~ 4可以看出引用比指针安全</li>
+<li><s>传参时引用类型的实参是一个变量，而指针参数的实参是一个变量的地址（这条感觉怪怪的，难道指针就不是变量了吗？）</s></li>
+</ol>
+<h2 id="C-中继承与虚继承的差异">C++中继承与虚继承的差异</h2>
+<ol>
+<li>普通继承在面对多继承时可能会引入名冲突问题，每个继承路径都有自己的基类实例，而虚继承可以解决名冲突问题（形成一个菱形继承图“格”）</li>
+<li>因为虚继承<strong>并没有真的继承基类的成员，而是生成了一个指向基类的指针</strong>，因此不会有名冲突问题（基类实际上只有一份，被所有虚继承的派生类共用；相当于虚基类被合并，只有一个副本）</li>
+<li>虚继承的基类无法用<code>static_cast&lt;&gt;()</code>转成派生类</li>
+<li>虚继承可能带来额外的性能开销</li>
+<li>虚基类的构造函数优先于非虚基类的构造函数被调用</li>
+</ol>
+<h2 id="为什么实现两个版本的下标运算符重载">为什么实现两个版本的下标运算符重载</h2>
+<p>两个版本是一个带<code>const</code>，一个不带</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">string</span> &#123;</span><br><span class="line">  <span class="type">char</span>* p;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">explicit</span> <span class="title">string</span><span class="params">(<span class="type">char</span>* p1)</span> </span>&#123;</span><br><span class="line">    p = <span class="keyword">new</span> <span class="type">char</span>[<span class="built_in">strlen</span>(p1) + <span class="number">1</span>];</span><br><span class="line">    <span class="built_in">strcpy</span>(p, p1);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 版本1</span></span><br><span class="line">  <span class="type">char</span>&amp; <span class="keyword">operator</span>[](<span class="type">int</span> i) &#123;</span><br><span class="line">    <span class="keyword">return</span> p[i];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 版本2</span></span><br><span class="line">  <span class="type">char</span> <span class="keyword">operator</span>[](<span class="type">int</span> i) <span class="type">const</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> p[i];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">virtual</span> ~<span class="built_in">string</span>() &#123;<span class="keyword">delete</span>[] p;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>需要分别对应两种<code>*this</code>指针，<code>const T* this</code>和<code>T* this</code></p>
+<p>且若某个调用产生了两个候选函数，而一个有<code>const</code>一个没有，若调用处不修改对象，则优先选择带有<code>const</code>的函数，因为<code>const</code>保证不修改，选<code>const</code>函数使得更多代码可以在<code>const</code>上下文中使用，避免非<code>const</code>函数隐式修改。</p>
+<h2 id="请简述右值引用与左值引用的异同">请简述右值引用与左值引用的异同</h2>
+<p><strong>相同点：</strong></p>
+<ul>
+<li>本质都是引用</li>
+<li>语法相似，左值引用是<code>&amp;</code>，右值引用是<code>&amp;&amp;</code></li>
+<li>传递效率都很高，无论是左值还是右值引用都避免了传值时的值拷贝</li>
+<li>两者都可以作为函数参数，允许直接操作被引用的对象</li>
+</ul>
+<p><strong>不同点：</strong></p>
+<ul>
+<li>左值引用引用的是左值对象（即有名字、可持久存在的对象），而右值引用引用的是右值对象（即无名字、临时的对象，通常是表达式的结果）
+<ul>
+<li>左值是可以取地址的实体，右值通常不能取地址</li>
+</ul>
+</li>
+<li>左值引用常常用于需要对现有变量进行修改或访问的地方，而右值引用往往用于临时对象操作，比如移动语义（可以提高效率，避免不必要拷贝）</li>
+<li>左值引用提出绑定到长生命周期对象上，被引用的对象必须是有效的；右值引用通常绑定到短生命周期的临时对象上，右值引用延长了右值对象的生命周期（只要右值引用还在，该对象就还能访问）</li>
+<li>右值引用可以用于移动语义，高效转移资源</li>
+<li>在函数重载时左值引用和右值引用是不同的参数类型</li>
+</ul>
+<h2 id="Lambda表达式的作用并比较它与重载了函数调用操作符的函数对象的差别">Lambda表达式的作用并比较它与重载了函数调用操作符的函数对象的差别</h2>
+<ul>
+<li>lambda表达式作为匿名函数使用，避免了一些轻量函数使用时还要定义，避免繁琐步骤，更加简洁</li>
+<li>lambda表达式不需要显式指明函数返回类型，函数对象需要</li>
+<li>lambda表达式不需要先声明再使用（即用即定义），函数对象需要</li>
+<li>lambda表达式实际上是用函数对象实现的（编译器生成一个匿名函数对象类，lambda表达式返回其实例，为右值）</li>
+</ul>
+<h2 id="简述C与C-混合编程时需要注意的问题">简述C与C++混合编程时需要注意的问题</h2>
+<ul>
+<li>C++是C的超集，而C不支持OOP，不要在混合编程中出现<code>class</code>等面向对象关键字</li>
+<li>调C库函数时附加关键字<code>extern C</code></li>
+<li>注意函数重载，C不支持</li>
+<li>注意求值顺序和副作用</li>
+<li>内存分配差异(new/malloc, delete/free)</li>
+<li>内存占用差异</li>
+</ul>
+<h2 id="内联函数的作用？随意使用的问题？阐述合理使用的建议">内联函数的作用？随意使用的问题？阐述合理使用的建议</h2>
+<ol>
+<li>作用：
+<ul>
+<li>提高可读性：编译器眼中没有函数但程序员不是，可以提高代码的可读性</li>
+<li>提高效率：<strong>编译器不再需要进行函数调用</strong>，而是直接顺序地执行等价代码，避免了函数调用的时间开销</li>
+</ul>
+</li>
+<li>问题：
+<ul>
+<li>增大目标代码</li>
+<li>病态的换页</li>
+<li>降低指令快取装置的命中率</li>
+</ul>
+</li>
+<li>建议：
+<ul>
+<li>适合于频率高、简单的小段代码</li>
+<li>不要滥用<code>inline</code></li>
+<li>不要内联复杂的控制逻辑</li>
+<li>不能内联递归</li>
+<li>把内联函数扔头文件里</li>
+</ul>
+</li>
+</ol>
+<h2 id="C-关键字const的几种使用方法，并给出示例">C++关键字const的几种使用方法，并给出示例</h2>
+<ol>
+<li>修饰基本数据类型，表示常量</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> a = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>修饰指针，两种，或者说三种</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">114</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span>* pa1 = &amp;a; <span class="comment">// 指针常量，指向空间的值不能改</span></span><br><span class="line"><span class="type">int</span>* <span class="type">const</span> pa2 = &amp;a; <span class="comment">// 常量指针，指针本身值不能改</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span>* <span class="type">const</span> = &amp;a; <span class="comment">// 综上</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>修饰（成员）函数</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">f</span><span class="params">(<span class="type">const</span>&amp; <span class="type">int</span>)</span></span>; <span class="comment">// 参数是常量</span></span><br><span class="line"><span class="built_in">f</span>(<span class="type">int</span>&amp;) <span class="type">const</span>; <span class="comment">// 函数内部不会修改成员变量，即在该函数中所有成员都是常量（编译器自动加const）</span></span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>修饰对象</li>
+</ol>
+<p>但要保证对象的所有变量都能在声明对象时被初始化（要么内部实现声明时初始化，要么构造函数实现）</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">A</span> &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">int</span> p = <span class="number">1</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> A a;</span><br></pre></td></tr></table></figure>
+<p>或</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">A</span> &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">int</span> p;</span><br><span class="line">    <span class="built_in">A</span>() &#123;</span><br><span class="line">    	<span class="comment">// p = 1; 注释掉也行</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> A a;</span><br></pre></td></tr></table></figure>
+<h2 id="什么是纯虚函数、虚函数和非虚函数？合理定义三种成员函数的基本原则是什么？请给出一个你认为合理定义的实例">什么是纯虚函数、虚函数和非虚函数？合理定义三种成员函数的基本原则是什么？请给出一个你认为合理定义的实例</h2>
+<ul>
+<li>纯虚函数
+<ul>
+<li>只有函数接口会被继承</li>
+<li>派生类必须继承函数接口</li>
+<li>派生类必须提供实现代码</li>
+</ul>
+</li>
+<li>一般虚函数
+<ul>
+<li>函数的接口及缺省的实现代码都会被继承</li>
+<li>子类必须继承函数接口</li>
+<li>可以缺省实现代码</li>
+</ul>
+</li>
+<li>非虚函数
+<ul>
+<li>函数的代码及其实现代码都会被继承</li>
+<li>必须同时继承接口和实现代码，无法重写以提供自己的实现</li>
+</ul>
+</li>
+</ul>
+<p>原则：</p>
+<ul>
+<li>类的成员函数才能是虚函数</li>
+<li>静态成员函数不能是虚函数</li>
+<li>内联不能是虚函数</li>
+<li>构造不能是虚函数</li>
+<li>析构往往是虚函数</li>
+</ul>
+<h2 id="C-程序设计中，可以利用析构函数防止资源泄露，请给出模板auto-ptr的基本定义及使用实例">C++程序设计中，可以利用析构函数防止资源泄露，请给出模板auto_ptr的基本定义及使用实例</h2>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">auto_ptr</span> &#123;</span><br><span class="line">  T* ptr;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="built_in">auto_ptr</span>(): <span class="built_in">ptr</span>(<span class="literal">nullptr</span>) &#123;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">explicit</span> <span class="title">auto_ptr</span><span class="params">(T* p)</span>: ptr(p) &#123;</span>&#125;</span><br><span class="line"></span><br><span class="line">  T&amp; <span class="keyword">operator</span>*() &#123;</span><br><span class="line">    <span class="keyword">return</span> *ptr;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  T&amp; <span class="keyword">operator</span>*() <span class="type">const</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> *ptr;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  T* <span class="keyword">operator</span>-&gt;() &#123;<span class="keyword">return</span> ptr;&#125;</span><br><span class="line"></span><br><span class="line">  ~<span class="built_in">auto_ptr</span>() &#123;</span><br><span class="line">    <span class="keyword">if</span> (ptr != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">      <span class="keyword">delete</span> ptr;</span><br><span class="line">      ptr = <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="请阐述OOP中引入构造函数机制的原因，并请给出控制一个类创建实例个数的手段（举例）">请阐述OOP中引入构造函数机制的原因，并请给出控制一个类创建实例个数的手段（举例）</h2>
+<p>单例模式、或者使用一个静态成员变量记录实例化的类数量，超过则拒绝实例化。</p>
+<p>具体略</p>
+<h2 id="何为引用？其主要作用是什么？何时需要将一个函数的返回值类型定义为引用类型？如果随意将函数的返回值类型定义为引用类型会有什么危害？">何为引用？其主要作用是什么？何时需要将一个函数的返回值类型定义为引用类型？如果随意将函数的返回值类型定义为引用类型会有什么危害？</h2>
+<ol>
+<li>定义：C++通过引用将一个左值和已有的变量绑定在一起（称为引用），引用和其绑定的变量使用相同的内存，被等价的修改，相当于变量的一个别名</li>
+<li>作用：主要用于函数传参时代替指针，形参声明引用，实参传引用，可以在函数内部修改外部变量（通过引用）</li>
+<li>什么时候返回：当希望提高效率避免对象值拷贝时，返回引用</li>
+<li>危害：若返回值是引用，不能把局部变量返回，这是<strong>UB</strong></li>
+</ol>
+<h2 id="你认为最有价值的C-程序设计应该遵守的5条规则，并简明分析其意义所在">你认为最有价值的C++程序设计应该遵守的5条规则，并简明分析其意义所在</h2>
+<p>略</p>
+<h2 id="C-赋予一个空类哪些成员函数">C++赋予一个空类哪些成员函数</h2>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Empty</span> &#123;</span><br><span class="line">	<span class="comment">// Empty();</span></span><br><span class="line">    <span class="comment">// ~Empty();</span></span><br><span class="line">    <span class="comment">// Empty(const Empty&amp;);</span></span><br><span class="line">    <span class="comment">// Empty&amp; operator=(const Empty&amp;);</span></span><br><span class="line">    <span class="comment">// Empty* operator&amp;();</span></span><br><span class="line">    <span class="comment">// const Empty* operator&amp;() const;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>更详细的见<em>C++面向对象编程基础</em></p>
+<h2 id="define和template的区别">define和template的区别</h2>
+<ul>
+<li>define不做类型检查，直接展开，template会类型检查</li>
+<li>define的作用范围是全局的，除非用<code>#undef</code>结束定义</li>
+<li>模板很好的支持代码复用</li>
+</ul>
+<h2 id="面向对象程序设计的特点">面向对象程序设计的特点</h2>
+<p>封装、继承、多态，通过消息传递、对象间分工协作实现程序运转</p>
+<h2 id="什么是ADT？试以时间类型为例简要描述">什么是ADT？试以时间类型为例简要描述</h2>
+<p>Abstract Data Type 抽象数据类型</p>
+<p>结构化编程需要关注抽象数据类型、联系、优先级、类型转换（强制、隐式、溢出？）、求值顺序、副作用</p>
+<p>描述略</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://nju-ymhui.github.io/ymhui.github.io">画船听雨眠y</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://nju-ymhui.github.io/ymhui.github.io/2025/01/02/C-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E2%80%94%E2%80%94%E7%AE%80%E7%AD%94%E9%A2%98%E9%83%A8%E5%88%86/">https://nju-ymhui.github.io/ymhui.github.io/2025/01/02/C-期末复习——简答题部分/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://nju-ymhui.github.io/ymhui.github.io" target="_blank">(๑>ᴗ<๑)</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/ymhui.github.io/tags/C/">C++</a><a class="post-meta__tags" href="/ymhui.github.io/tags/%E8%BD%AF%E4%BB%B6%E5%AD%A6%E9%99%A2/">软件学院</a></div><div class="post-share"><div class="social-share" data-image="/ymhui.github.io/img/myicon.ico" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>真的不考虑支持一下吗 (╯︵╰,)</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/ymhui.github.io/img/qrcode.png" target="_blank"><img class="post-qr-code-img" src="/ymhui.github.io/img/qrcode.png" alt="微信支付"/></a><div class="post-qr-code-desc">微信支付</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="next-post pull-full" href="/ymhui.github.io/2024/12/25/C-%E5%B8%B8%E7%94%A8map/" title="C++常用map"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">C++常用map</div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a href="/ymhui.github.io/2024/12/23/C-%E5%87%BD%E6%95%B0/" title="C++函数"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-23</div><div class="title">C++函数</div></div></a><a href="/ymhui.github.io/2024/12/23/C-%E4%BB%8B%E7%BB%8D/" title="C++介绍"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-23</div><div class="title">C++介绍</div></div></a><a href="/ymhui.github.io/2024/12/20/C-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" title="C++面向对象编程基础"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-20</div><div class="title">C++面向对象编程基础</div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info is-center"><div class="avatar-img"><img src="/ymhui.github.io/img/myicon.ico" onerror="this.onerror=null;this.src='/ymhui.github.io/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">画船听雨眠y</div><div class="author-info-description">美好的一天从打代码开始结束</div><div class="site-data"><a href="/ymhui.github.io/archives/"><div class="headline">文章</div><div class="length-num">43</div></a><a href="/ymhui.github.io/tags/"><div class="headline">标签</div><div class="length-num">24</div></a><a href="/ymhui.github.io/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/NJU-ymhui"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/NJU-ymhui" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">C++期末简答题汇总（往年）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E5%8E%86%E5%8F%B2"><span class="toc-number">1.1.</span> <span class="toc-text">C++历史</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C%E5%92%8CC-%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">1.2.</span> <span class="toc-text">C和C++的关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E5%80%BC%E6%9C%89%E5%93%AA%E4%BA%9B%E5%9B%A0%E7%B4%A0%E5%86%B3%E5%AE%9A%EF%BC%9F%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%AD%98%E5%9C%A8%E5%89%AF%E4%BD%9C%E7%94%A8%E5%90%97"><span class="toc-number">1.3.</span> <span class="toc-text">表达式的值有哪些因素决定？表达式存在副作用吗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E5%A4%9A%E6%80%81%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.4.</span> <span class="toc-text">C++多态类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E9%87%8A%E6%8C%87%E9%92%88%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%B7%AE%E5%88%AB"><span class="toc-number">1.5.</span> <span class="toc-text">解释指针类型和引用类型的差别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E4%B8%AD%E7%BB%A7%E6%89%BF%E4%B8%8E%E8%99%9A%E7%BB%A7%E6%89%BF%E7%9A%84%E5%B7%AE%E5%BC%82"><span class="toc-number">1.6.</span> <span class="toc-text">C++中继承与虚继承的差异</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%9E%E7%8E%B0%E4%B8%A4%E4%B8%AA%E7%89%88%E6%9C%AC%E7%9A%84%E4%B8%8B%E6%A0%87%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD"><span class="toc-number">1.7.</span> <span class="toc-text">为什么实现两个版本的下标运算符重载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%B7%E7%AE%80%E8%BF%B0%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8%E4%B8%8E%E5%B7%A6%E5%80%BC%E5%BC%95%E7%94%A8%E7%9A%84%E5%BC%82%E5%90%8C"><span class="toc-number">1.8.</span> <span class="toc-text">请简述右值引用与左值引用的异同</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E4%BD%9C%E7%94%A8%E5%B9%B6%E6%AF%94%E8%BE%83%E5%AE%83%E4%B8%8E%E9%87%8D%E8%BD%BD%E4%BA%86%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%87%BD%E6%95%B0%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%B7%AE%E5%88%AB"><span class="toc-number">1.9.</span> <span class="toc-text">Lambda表达式的作用并比较它与重载了函数调用操作符的函数对象的差别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E8%BF%B0C%E4%B8%8EC-%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B%E6%97%B6%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">1.10.</span> <span class="toc-text">简述C与C++混合编程时需要注意的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0%E7%9A%84%E4%BD%9C%E7%94%A8%EF%BC%9F%E9%9A%8F%E6%84%8F%E4%BD%BF%E7%94%A8%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9F%E9%98%90%E8%BF%B0%E5%90%88%E7%90%86%E4%BD%BF%E7%94%A8%E7%9A%84%E5%BB%BA%E8%AE%AE"><span class="toc-number">1.11.</span> <span class="toc-text">内联函数的作用？随意使用的问题？阐述合理使用的建议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E5%85%B3%E9%94%AE%E5%AD%97const%E7%9A%84%E5%87%A0%E7%A7%8D%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%EF%BC%8C%E5%B9%B6%E7%BB%99%E5%87%BA%E7%A4%BA%E4%BE%8B"><span class="toc-number">1.12.</span> <span class="toc-text">C++关键字const的几种使用方法，并给出示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%AF%E8%99%9A%E5%87%BD%E6%95%B0%E3%80%81%E8%99%9A%E5%87%BD%E6%95%B0%E5%92%8C%E9%9D%9E%E8%99%9A%E5%87%BD%E6%95%B0%EF%BC%9F%E5%90%88%E7%90%86%E5%AE%9A%E4%B9%89%E4%B8%89%E7%A7%8D%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E5%88%99%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E8%AF%B7%E7%BB%99%E5%87%BA%E4%B8%80%E4%B8%AA%E4%BD%A0%E8%AE%A4%E4%B8%BA%E5%90%88%E7%90%86%E5%AE%9A%E4%B9%89%E7%9A%84%E5%AE%9E%E4%BE%8B"><span class="toc-number">1.13.</span> <span class="toc-text">什么是纯虚函数、虚函数和非虚函数？合理定义三种成员函数的基本原则是什么？请给出一个你认为合理定义的实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E4%B8%AD%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%88%A9%E7%94%A8%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%E9%98%B2%E6%AD%A2%E8%B5%84%E6%BA%90%E6%B3%84%E9%9C%B2%EF%BC%8C%E8%AF%B7%E7%BB%99%E5%87%BA%E6%A8%A1%E6%9D%BFauto-ptr%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9A%E4%B9%89%E5%8F%8A%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B"><span class="toc-number">1.14.</span> <span class="toc-text">C++程序设计中，可以利用析构函数防止资源泄露，请给出模板auto_ptr的基本定义及使用实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%B7%E9%98%90%E8%BF%B0OOP%E4%B8%AD%E5%BC%95%E5%85%A5%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E6%9C%BA%E5%88%B6%E7%9A%84%E5%8E%9F%E5%9B%A0%EF%BC%8C%E5%B9%B6%E8%AF%B7%E7%BB%99%E5%87%BA%E6%8E%A7%E5%88%B6%E4%B8%80%E4%B8%AA%E7%B1%BB%E5%88%9B%E5%BB%BA%E5%AE%9E%E4%BE%8B%E4%B8%AA%E6%95%B0%E7%9A%84%E6%89%8B%E6%AE%B5%EF%BC%88%E4%B8%BE%E4%BE%8B%EF%BC%89"><span class="toc-number">1.15.</span> <span class="toc-text">请阐述OOP中引入构造函数机制的原因，并请给出控制一个类创建实例个数的手段（举例）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%95%E4%B8%BA%E5%BC%95%E7%94%A8%EF%BC%9F%E5%85%B6%E4%B8%BB%E8%A6%81%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E4%BD%95%E6%97%B6%E9%9C%80%E8%A6%81%E5%B0%86%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC%E7%B1%BB%E5%9E%8B%E5%AE%9A%E4%B9%89%E4%B8%BA%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%EF%BC%9F%E5%A6%82%E6%9E%9C%E9%9A%8F%E6%84%8F%E5%B0%86%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC%E7%B1%BB%E5%9E%8B%E5%AE%9A%E4%B9%89%E4%B8%BA%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E4%BC%9A%E6%9C%89%E4%BB%80%E4%B9%88%E5%8D%B1%E5%AE%B3%EF%BC%9F"><span class="toc-number">1.16.</span> <span class="toc-text">何为引用？其主要作用是什么？何时需要将一个函数的返回值类型定义为引用类型？如果随意将函数的返回值类型定义为引用类型会有什么危害？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%A0%E8%AE%A4%E4%B8%BA%E6%9C%80%E6%9C%89%E4%BB%B7%E5%80%BC%E7%9A%84C-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%BA%94%E8%AF%A5%E9%81%B5%E5%AE%88%E7%9A%845%E6%9D%A1%E8%A7%84%E5%88%99%EF%BC%8C%E5%B9%B6%E7%AE%80%E6%98%8E%E5%88%86%E6%9E%90%E5%85%B6%E6%84%8F%E4%B9%89%E6%89%80%E5%9C%A8"><span class="toc-number">1.17.</span> <span class="toc-text">你认为最有价值的C++程序设计应该遵守的5条规则，并简明分析其意义所在</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E8%B5%8B%E4%BA%88%E4%B8%80%E4%B8%AA%E7%A9%BA%E7%B1%BB%E5%93%AA%E4%BA%9B%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="toc-number">1.18.</span> <span class="toc-text">C++赋予一个空类哪些成员函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#define%E5%92%8Ctemplate%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.19.</span> <span class="toc-text">define和template的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">1.20.</span> <span class="toc-text">面向对象程序设计的特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFADT%EF%BC%9F%E8%AF%95%E4%BB%A5%E6%97%B6%E9%97%B4%E7%B1%BB%E5%9E%8B%E4%B8%BA%E4%BE%8B%E7%AE%80%E8%A6%81%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.21.</span> <span class="toc-text">什么是ADT？试以时间类型为例简要描述</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2025/01/02/C-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E2%80%94%E2%80%94%E7%AE%80%E7%AD%94%E9%A2%98%E9%83%A8%E5%88%86/" title="C++期末复习——简答题部分">C++期末复习——简答题部分</a><time datetime="2025-01-02T05:34:59.000Z" title="发表于 2025-01-02 13:34:59">2025-01-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2024/12/25/C-%E5%B8%B8%E7%94%A8map/" title="C++常用map">C++常用map</a><time datetime="2024-12-25T11:09:20.000Z" title="发表于 2024-12-25 19:09:20">2024-12-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2024/12/25/C-%E5%AE%B9%E5%99%A8%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/" title="C++容器常用操作">C++容器常用操作</a><time datetime="2024-12-25T11:01:10.000Z" title="发表于 2024-12-25 19:01:10">2024-12-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2024/12/25/C-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C/" title="C++字符串操作">C++字符串操作</a><time datetime="2024-12-25T09:45:56.000Z" title="发表于 2024-12-25 17:45:56">2024-12-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2024/12/24/C-%E6%B3%9B%E5%9E%8B/" title="C++泛型">C++泛型</a><time datetime="2024-12-24T08:45:26.000Z" title="发表于 2024-12-24 16:45:26">2024-12-24</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By 画船听雨眠y</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/ymhui.github.io/js/utils.js"></script><script src="/ymhui.github.io/js/main.js"></script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    const mathElements = document.querySelectorAll('#article-container .katex')
+    mathElements.length && mathElements.forEach((el) => {
+      el.classList.add('katex-show')
+    })
+  }
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css')
+    if (false) await btf.getScript('https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js')
+  }
+
+  showKatex()
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/ymhui.github.io/js/search/local-search.js"></script></div></div></body></html>
