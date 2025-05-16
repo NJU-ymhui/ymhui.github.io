@@ -1,0 +1,350 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>工厂模式 | (๑&gt;ᴗ&lt;๑)</title><meta name="author" content="画船听雨眠y"><meta name="copyright" content="画船听雨眠y"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="工厂模式 下面将介绍几种常用的工厂模式 简单工厂模式 类创建型模式。在简单工厂模式中，可以根据参数的不同返回不同类的实例。其专门定义了一个类来负责创建其他类的实例，被创建的实例通常都具有相同的父类。  模式动机 以一个简单地软件应用场景引入：一个软件系统可以提供多个外观不同的按钮（如圆形按钮、矩形按钮、菱形按钮等），这些按钮都源自同一个基类，不过在继承基类后不同的子类修改了部分属性从而使得它们可以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="工厂模式">
+<meta property="og:url" content="https://nju-ymhui.github.io/ymhui.github.io/2025/05/16/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:site_name" content="(๑&gt;ᴗ&lt;๑)">
+<meta property="og:description" content="工厂模式 下面将介绍几种常用的工厂模式 简单工厂模式 类创建型模式。在简单工厂模式中，可以根据参数的不同返回不同类的实例。其专门定义了一个类来负责创建其他类的实例，被创建的实例通常都具有相同的父类。  模式动机 以一个简单地软件应用场景引入：一个软件系统可以提供多个外观不同的按钮（如圆形按钮、矩形按钮、菱形按钮等），这些按钮都源自同一个基类，不过在继承基类后不同的子类修改了部分属性从而使得它们可以">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://nju-ymhui.github.io/ymhui.github.io/img/myicon.ico">
+<meta property="article:published_time" content="2025-05-16T02:57:57.000Z">
+<meta property="article:modified_time" content="2025-05-16T09:12:10.477Z">
+<meta property="article:author" content="画船听雨眠y">
+<meta property="article:tag" content="软件系统设计">
+<meta property="article:tag" content="设计模式">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://nju-ymhui.github.io/ymhui.github.io/img/myicon.ico"><link rel="shortcut icon" href="/ymhui.github.io/img/myicon.ico"><link rel="canonical" href="https://nju-ymhui.github.io/ymhui.github.io/2025/05/16/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/ymhui.github.io/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>(()=>{
+      const saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+      
+      window.btf = {
+        saveToLocal: saveToLocal,
+        getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.src = url
+          script.async = true
+          script.onerror = reject
+          script.onload = script.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            script.onload = script.onreadystatechange = null
+            resolve()
+          }
+
+          Object.keys(attr).forEach(key => {
+            script.setAttribute(key, attr[key])
+          })
+
+          document.head.appendChild(script)
+        }),
+
+        getCSS: (url, id = false) => new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+          link.rel = 'stylesheet'
+          link.href = url
+          if (id) link.id = id
+          link.onerror = reject
+          link.onload = link.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            link.onload = link.onreadystatechange = null
+            resolve()
+          }
+          document.head.appendChild(link)
+        }),
+
+        addGlobalFn: (key, fn, name = false, parent = window) => {
+          const pjaxEnable = false
+          if (!pjaxEnable && key.startsWith('pjax')) return
+
+          const globalFn = parent.globalFn || {}
+          const keyObj = globalFn[key] || {}
+    
+          if (name && keyObj[name]) return
+    
+          name = name || Object.keys(keyObj).length
+          keyObj[name] = fn
+          globalFn[key] = keyObj
+          parent.globalFn = globalFn
+        }
+      }
+    
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+      
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })()</script><script>const GLOBAL_CONFIG = {
+  root: '/ymhui.github.io/',
+  algolia: undefined,
+  localSearch: {"path":"/ymhui.github.io/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '工厂模式',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-05-16 17:12:10'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/ymhui.github.io/img/myicon.ico" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><a href="/ymhui.github.io/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/ymhui.github.io/tags/"><div class="headline">标签</div><div class="length-num">29</div></a><a href="/ymhui.github.io/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/ymhui.github.io/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/ymhui.github.io/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/ymhui.github.io/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/ymhui.github.io/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/ymhui.github.io/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://blue-whale-backend.oss-cn-nanjing.aliyuncs.com/back.jpg);"><nav id="nav"><span id="blog-info"><a href="/ymhui.github.io/" title="(๑&gt;ᴗ&lt;๑)"><span class="site-name">(๑&gt;ᴗ&lt;๑)</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/ymhui.github.io/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/ymhui.github.io/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/ymhui.github.io/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/ymhui.github.io/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/ymhui.github.io/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">工厂模式</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-05-16T02:57:57.000Z" title="发表于 2025-05-16 10:57:57">2025-05-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-05-16T09:12:10.477Z" title="更新于 2025-05-16 17:12:10">2025-05-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/ymhui.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%AD%A6%E9%99%A2/">软件学院</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="工厂模式"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>工厂模式</h1>
+<p>下面将介绍几种常用的工厂模式</p>
+<h2 id="简单工厂模式">简单工厂模式</h2>
+<p>类创建型模式。在简单工厂模式中，可以根据参数的不同返回不同类的实例。其专门定义了一个类来负责创建其他类的实例，被创建的实例通常都具有相同的父类。</p>
+<img src="/ymhui.github.io/2025/05/16/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/image-20250516105902709.png" class="" title="image-20250516105902709">
+<h3 id="模式动机">模式动机</h3>
+<p>以一个简单地软件应用场景引入：一个软件系统可以提供多个外观不同的按钮（如圆形按钮、矩形按钮、菱形按钮等），这些按钮都源自同一个基类，不过在继承基类后不同的子类修改了部分属性从而使得它们可以呈现不同的外观，如果我们希望在使用这些按钮时，不需要知道这些具体按钮类的名字，只需要知道表示该按钮类的一个参数，并提供一个调用方便的方法，把该参数传入方法即可返回一个相应的按钮对象，此时，就可以使用简单工厂模式。</p>
+<h3 id="应用">应用</h3>
+<p>简单工厂模式只包含三个角色：</p>
+<ul>
+<li>工厂角色Factory</li>
+<li>抽象产品角色Product</li>
+<li>具体产品角色ConcreteProduct</li>
+</ul>
+<p>举个例子，现在有问题代码如下</p>
+<img src="/ymhui.github.io/2025/05/16/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/image-20250516130943721.png" class="" title="image-20250516130943721">
+<p>用简单工厂方法进行重构</p>
+<img src="/ymhui.github.io/2025/05/16/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/image-20250516131027087.png" class="" title="image-20250516131027087">
+<img src="/ymhui.github.io/2025/05/16/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/image-20250516131043295.png" class="" title="image-20250516131043295">
+<h3 id="优点">优点</h3>
+<ul>
+<li>简单工厂模式将对象的创建和对象本身的业务逻辑分离，以降低系统耦合度，使得修改任何一方都相对容易。</li>
+<li>工厂方法是静态的，很好调用，不需要实例化</li>
+<li>需要一个产品，<strong>只需要传入正确的参数即可获取目标对象实例</strong>，不需要知道创建的细节（比如不用记忆复杂的类名）</li>
+<li>客户端只负责“消费”产品，免除了创建的责任</li>
+<li>传入的参数甚至不需要写在客户端代码里，可以放到xml等配置文件中，这样可以不修改任何客户端代码的情况下添加新产品</li>
+</ul>
+<h3 id="缺点">缺点</h3>
+<ul>
+<li>工厂类的职责过重，如果需要添加新的产品需要去修改已实现的具体工厂类的源代码，<strong>违反了开闭原则</strong>。</li>
+<li>同样，由于工厂类聚集了所有创建逻辑，一旦出问题整个系统都会被影响</li>
+<li>扩展困难，如果产品类型过多或频繁添加新产品，工厂类难以维护</li>
+</ul>
+<h3 id="实例：权限管理">实例：权限管理</h3>
+<img src="/ymhui.github.io/2025/05/16/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/image-20250516132032166.png" class="" title="image-20250516132032166">
+<h3 id="实例：JDK类库">实例：JDK类库</h3>
+<p><code>java.text.DateFormat</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> DateFormat <span class="title function_">getDateInstance</span><span class="params">()</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> DateFormat <span class="title function_">getDateInstance</span><span class="params">(<span class="type">int</span> style)</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> DateFormat <span class="title function_">getDateInstance</span><span class="params">(<span class="type">int</span> style,Locale locale)</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="工厂方法模式">工厂方法模式</h2>
+<p>类创建型模式。</p>
+<h3 id="模式动机-2">模式动机</h3>
+<p>作为对简单工厂模式的改进，工厂方法模式<strong>不会有一个专门的工程类来负责所有产品的创建</strong>，而是将具体产品的创建交给<strong>专门的工厂子类</strong>。这样就只需要<strong>先定义一个抽象工厂类，再定义具体的工厂类去实现这个抽象工厂类负责创建不同的具体产品</strong>。</p>
+<p>这样的抽象化就允许在不修改任何具体类的前提下添加新的产品（通过添加新产品 + 新工厂即可）。</p>
+<img src="/ymhui.github.io/2025/05/16/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/image-20250516160052877.png" class="" title="image-20250516160052877">
+<h3 id="实例：日志记录器">实例：日志记录器</h3>
+<p>某系统日志记录器要求支持多种日志记录方式，如文件记录、数据库记录等，且用户可以根据要求动态选择日志记录方式，现使用工厂方法模式设计该系统</p>
+<img src="/ymhui.github.io/2025/05/16/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/image-20250516162221501.png" class="" title="image-20250516162221501">
+<h3 id="优点-2">优点</h3>
+<ol>
+<li>工厂方法不仅用来创建客户需要的产品，并且隐藏了那种产品将被实例化，用户只需要关心产品对应的工厂即可，甚至不需要知道产品的类名（用抽象产品引用即可）</li>
+<li>工厂可以自主确定创建何种产品对象，如何创建则完全封装在具体工厂内部</li>
+<li>符合开闭原则</li>
+</ol>
+<h3 id="缺点-2">缺点</h3>
+<ol>
+<li>每次添加新产品需要编写新的产品类和对应的具体工厂类，系统中类的数目成对增长，复杂度变高，编译负担变大</li>
+<li>增加了系统的抽象性和理解难度，并且实现时可能会用到DOM、反射等技术，增加实现难度</li>
+</ol>
+<h3 id="适用场景">适用场景</h3>
+<ul>
+<li>一个类不知道它所需要的对象的类</li>
+<li>一个类通过其子类来指定创建哪个对象</li>
+<li>将创建对象的任务委托给多个工厂子类中的一个，客户端使用时无需关心哪一个工厂子类创建产品子类，运行时再动态指定</li>
+</ul>
+<h2 id="抽象工厂模式">抽象工厂模式</h2>
+<p>对象创建型模式</p>
+<h3 id="模式动机-3">模式动机</h3>
+<p>工厂方法模式中一个工厂只能创建一种产品，有时候我们需要一个工厂提供多种产品，而不是单一的产品对象。</p>
+<p>为了能理解为什么我们会有这样的需求，并且清晰的区分抽象工厂和工厂模式，引入几个基本概念：</p>
+<ul>
+<li>产品等级结构：即产品的继承结构，比如抽象电视机和具体品牌的电视机（TCL、海尔等）</li>
+<li>产品族：同一个工厂生产的一组不同产品，它们分别位于各自产品的某个等级结构中，比如海尔工厂生产的海尔电视机、海尔电冰箱等</li>
+</ul>
+<img src="/ymhui.github.io/2025/05/16/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/image-20250516165347758.png" class="" title="image-20250516165347758">
+<p>当一个系统所提供的工厂生产的具体产品并不是一个单独的产品，而是多个位于上述不同产品等级结构中产品对应的的一个产品族时，就需要抽象工厂。比如一个具体工厂既需要生产具体电视机又需要生产具体电冰箱。</p>
+<h3 id="与工厂方法模式区分">与工厂方法模式区分</h3>
+<p>抽象工厂模式与工厂方法模式最大的区别在于，工厂方法模式针对的是一个产品等级结构，而抽象工厂模式则需要面对多个产品等级结构</p>
+<h3 id="结构">结构</h3>
+<p>抽象工厂提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。</p>
+<img src="/ymhui.github.io/2025/05/16/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/image-20250516165050262.png" class="" title="image-20250516165050262">
+<p>抽象工厂模式包含如下角色：</p>
+<ul>
+<li>抽象工厂AbstractFactory</li>
+<li>具体工厂ConcreteFactory</li>
+<li>抽象产品AbstractProduct</li>
+<li>具体产品ConcreteProduct</li>
+</ul>
+<p>典型代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">AbstractFactory</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">abstract</span> AbstractProductA <span class="title function_">createProductA</span><span class="params">()</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">abstract</span> AbstractProductB <span class="title function_">createProductB</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ConcreteFactory1</span> <span class="keyword">extends</span> <span class="title class_">AbstractFactory</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> AbstractProductA <span class="title function_">createProductA</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ConcreteProductA1</span>();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">public</span> AbstractProductB <span class="title function_">createProductB</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ConcreteProductB1</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="示例：操作系统交互组件">示例：操作系统交互组件</h3>
+<img src="/ymhui.github.io/2025/05/16/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/image-20250516165435428.png" class="" title="image-20250516165435428">
+<h3 id="示例：电器工厂">示例：电器工厂</h3>
+<img src="/ymhui.github.io/2025/05/16/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/image-20250516165719996.png" class="" title="image-20250516165719996">
+<h3 id="示例：数据库操作工厂">示例：数据库操作工厂</h3>
+<p>某系统为了改进数据库操作的性能，自定义数据库连接对象Connection和语句对象Statement，可针对不同类型的数据库提供不同的连接对象和语句对象，如提供Oracle或SQL Server专用连接类和语句类，而且用户可以通过配置文件等方式根据实际需要动态更换系统数据库。</p>
+<img src="/ymhui.github.io/2025/05/16/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/image-20250516165820194.png" class="" title="image-20250516165820194">
+<h3 id="优点-3">优点</h3>
+<ol>
+<li>隔离了具体类的生成，客户并不知道什么被创建，因此更改具体工厂的实例很方便，因为大家都实现同一个抽象工厂接口，接口中的公共接口也都被实现了，只需要根据需求选择特定工厂生产的产品即可</li>
+<li>高内聚低耦合。相同产品族中的产品都在同一个工厂（一个产品族）中，能够保证客户端始终只使用同一个产品族中的对象</li>
+<li><strong>增加新的工厂和产品族的时候很方便，这时候是符合开闭原则的</strong></li>
+</ol>
+<h3 id="缺点-3">缺点</h3>
+<p><strong>难以往已有工厂中扩展新产品，换言之，这时候是违反开闭原则的</strong>，即开闭原则的倾斜性。通俗的说，很容易添加一个全新的品牌，但是已有品牌想做跨界很难。</p>
+<h3 id="适用场景-2">适用场景</h3>
+<ol>
+<li>一个系统不应当依赖于产品类实例如何被创建、组合和表达的细节，<strong>不只是对于抽象工厂模式，所有工厂模式都是如此</strong></li>
+<li>系统中产品族（品牌）数目 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\ge1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719em;vertical-align:-0.136em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>，每次只使用其中某一个产品族（品牌）的产品</li>
+<li>属于同一个产品族的产品将在一起被使用</li>
+<li>系统提供一个产品类的库（一个全局统一的抽象产品接口，对应一个产品等级结构，所有属于这个产品等级结构的具体产品都去实现它），<strong>所有产品以同样的接口被引用</strong>，从而使<strong>客户端不依赖具体实现</strong></li>
+</ol>
+<p>(•‿•)</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://nju-ymhui.github.io/ymhui.github.io">画船听雨眠y</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://nju-ymhui.github.io/ymhui.github.io/2025/05/16/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/">https://nju-ymhui.github.io/ymhui.github.io/2025/05/16/工厂模式/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://nju-ymhui.github.io/ymhui.github.io" target="_blank">(๑>ᴗ<๑)</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/ymhui.github.io/tags/%E8%BD%AF%E4%BB%B6%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/">软件系统设计</a><a class="post-meta__tags" href="/ymhui.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></div><div class="post-share"><div class="social-share" data-image="/ymhui.github.io/img/myicon.ico" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>真的不考虑支持一下吗 (╯︵╰,)</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/ymhui.github.io/img/qrcode.png" target="_blank"><img class="post-qr-code-img" src="/ymhui.github.io/img/qrcode.png" alt="微信支付"/></a><div class="post-qr-code-desc">微信支付</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="prev-post pull-left" href="/ymhui.github.io/2025/05/16/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" title="建造者模式"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">建造者模式</div></div></a><a class="next-post pull-right" href="/ymhui.github.io/2025/05/15/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" title="策略模式"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">策略模式</div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a href="/ymhui.github.io/2025/05/15/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" title="策略模式"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-15</div><div class="title">策略模式</div></div></a><a href="/ymhui.github.io/2025/05/15/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="设计模式"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-15</div><div class="title">设计模式</div></div></a><a href="/ymhui.github.io/2025/05/16/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" title="建造者模式"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-16</div><div class="title">建造者模式</div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info is-center"><div class="avatar-img"><img src="/ymhui.github.io/img/myicon.ico" onerror="this.onerror=null;this.src='/ymhui.github.io/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">画船听雨眠y</div><div class="author-info-description">美好的一天从打代码开始结束</div><div class="site-data"><a href="/ymhui.github.io/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/ymhui.github.io/tags/"><div class="headline">标签</div><div class="length-num">29</div></a><a href="/ymhui.github.io/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/NJU-ymhui"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/NJU-ymhui" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">工厂模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.1.</span> <span class="toc-text">简单工厂模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%BC%8F%E5%8A%A8%E6%9C%BA"><span class="toc-number">1.1.1.</span> <span class="toc-text">模式动机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8"><span class="toc-number">1.1.2.</span> <span class="toc-text">应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%82%B9"><span class="toc-number">1.1.3.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9"><span class="toc-number">1.1.4.</span> <span class="toc-text">缺点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="toc-number">1.1.5.</span> <span class="toc-text">实例：权限管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9AJDK%E7%B1%BB%E5%BA%93"><span class="toc-number">1.1.6.</span> <span class="toc-text">实例：JDK类库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.2.</span> <span class="toc-text">工厂方法模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%BC%8F%E5%8A%A8%E6%9C%BA-2"><span class="toc-number">1.2.1.</span> <span class="toc-text">模式动机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E5%99%A8"><span class="toc-number">1.2.2.</span> <span class="toc-text">实例：日志记录器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%82%B9-2"><span class="toc-number">1.2.3.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9-2"><span class="toc-number">1.2.4.</span> <span class="toc-text">缺点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">1.2.5.</span> <span class="toc-text">适用场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.3.</span> <span class="toc-text">抽象工厂模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%BC%8F%E5%8A%A8%E6%9C%BA-3"><span class="toc-number">1.3.1.</span> <span class="toc-text">模式动机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8E%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E5%8C%BA%E5%88%86"><span class="toc-number">1.3.2.</span> <span class="toc-text">与工厂方法模式区分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E6%9E%84"><span class="toc-number">1.3.3.</span> <span class="toc-text">结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B%EF%BC%9A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%BA%A4%E4%BA%92%E7%BB%84%E4%BB%B6"><span class="toc-number">1.3.4.</span> <span class="toc-text">示例：操作系统交互组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B%EF%BC%9A%E7%94%B5%E5%99%A8%E5%B7%A5%E5%8E%82"><span class="toc-number">1.3.5.</span> <span class="toc-text">示例：电器工厂</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C%E5%B7%A5%E5%8E%82"><span class="toc-number">1.3.6.</span> <span class="toc-text">示例：数据库操作工厂</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%82%B9-3"><span class="toc-number">1.3.7.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9-3"><span class="toc-number">1.3.8.</span> <span class="toc-text">缺点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF-2"><span class="toc-number">1.3.9.</span> <span class="toc-text">适用场景</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2025/05/16/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" title="建造者模式">建造者模式</a><time datetime="2025-05-16T09:13:23.000Z" title="发表于 2025-05-16 17:13:23">2025-05-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2025/05/16/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" title="工厂模式">工厂模式</a><time datetime="2025-05-16T02:57:57.000Z" title="发表于 2025-05-16 10:57:57">2025-05-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2025/05/15/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" title="策略模式">策略模式</a><time datetime="2025-05-15T10:03:11.000Z" title="发表于 2025-05-15 18:03:11">2025-05-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2025/05/15/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="设计模式">设计模式</a><time datetime="2025-05-15T09:42:01.000Z" title="发表于 2025-05-15 17:42:01">2025-05-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2025/05/15/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" title="面向对象设计原则">面向对象设计原则</a><time datetime="2025-05-15T05:13:27.000Z" title="发表于 2025-05-15 13:13:27">2025-05-15</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By 画船听雨眠y</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/ymhui.github.io/js/utils.js"></script><script src="/ymhui.github.io/js/main.js"></script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    const mathElements = document.querySelectorAll('#article-container .katex')
+    mathElements.length && mathElements.forEach((el) => {
+      el.classList.add('katex-show')
+    })
+  }
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css')
+    if (false) await btf.getScript('https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js')
+  }
+
+  showKatex()
+})()</script><script>(() => {
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://blogs-comments-server.vercel.app/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://blogs-comments-server.vercel.app/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+
+    GLOBAL_CONFIG_SITE.isPost && getCount()
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') setTimeout(init,0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(init)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/ymhui.github.io/js/search/local-search.js"></script></div></div></body></html>
