@@ -4,6 +4,60 @@
   
     
     <entry>
+      <title>代理模式</title>
+      <link href="/ymhui.github.io/2025/05/22/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/"/>
+      <url>/ymhui.github.io/2025/05/22/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</url>
+      
+        <content type="html"><![CDATA[<h1>代理模式</h1><p>对象结构型模式</p><img src="/ymhui.github.io/2025/05/22/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/image-20250522134813388.png" class="" title="image-20250522134813388"><h2 id="模式动机">模式动机</h2><p>有时候，一个客户不想或者无法直接引用一个对象，此时可以通过一个“代理”作为第三者进行间接引用。<strong>通过代理对象可以去掉客户不能看到的内容或者添加客户需要的额外服务。</strong></p><img src="/ymhui.github.io/2025/05/22/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/image-20250522135741240.png" class="" title="image-20250522135741240"><img src="/ymhui.github.io/2025/05/22/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/image-20250522135744560.png" class="" title="image-20250522135744560"><p>通过引入一个新对象（比如远程代理对象），实现对真实对象的操作或者将新对象作为真实对象的替身，间接访问真实对象。</p><h2 id="应用">应用</h2><p>代理模式给某一个对象提供一个代理，并由代理对象控制对原对象的引用。</p><p>代理模式包含如下角色：</p><ul><li>抽象主题角色Subject</li><li>代理主题角色Proxy</li><li>真实主题角色RealSubject</li></ul><p>代理模式的示意图可以简化成如下形式：</p><img src="/ymhui.github.io/2025/05/22/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/image-20250522141147028.png" class="" title="image-20250522141147028"><p>典型代码类实现代码：</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Proxy</span> <span class="keyword">implements</span> <span class="title class_">Subject</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">RealSubject</span> <span class="variable">realSubject</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">RealSubject</span>();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">preRequest</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">request</span><span class="params">()</span> &#123;</span><br><span class="line">        preRequest();</span><br><span class="line">        realSubject.request();</span><br><span class="line">        postRequest();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">postRequest</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="实例：论坛权限控制代理">实例：论坛权限控制代理</h2><p>在一个论坛中已注册用户和游客的权限不同，已注册的用户拥有发帖、修改自己的注册信息、修改自己的帖子等功能；而游客只能看到别人发的帖子，没有其他权限。此处使用代理模式中的保护代理，该代理用于控制对一个对象的访问，可以给不同用户提供不同权限。</p><img src="/ymhui.github.io/2025/05/22/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/image-20250522141559906.png" class="" title="image-20250522141559906"><h2 id="实例：本地设置远程代理">实例：本地设置远程代理</h2><p>模拟应用远程代理来访问另外一个应用程序域中的对象，如果在远程实现了加减乘除等运算，在本地需要调用，那么可以考虑在本地设置一个代理。</p><img src="/ymhui.github.io/2025/05/22/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/image-20250522141720670.png" class="" title="image-20250522141720670"><h2 id="优点">优点</h2><ol><li>协调调用者和被调用者，一定程度上降低耦合</li><li><strong>远程代理</strong>使客户端可以访问远程机器上的对象</li><li><strong>虚拟代理</strong>通过使用一个小对象来代表大对象，减少系统资源消耗，提高运行速度</li><li><strong>保护代理</strong>可以控制用户权限</li></ol><h2 id="缺点">缺点</h2><ol><li>代理在其中多套了一层，可能导致请求处理速度变慢</li><li>增加系统实现难度</li></ol><h2 id="适用场合">适用场合</h2><p>需要用到代理的系统，常见的代理有如下几种：</p><ul><li><p>远程代理：为一个位于不同地址空间的对象提供一个本地的代理对象，远程代理又叫做大使（Ambassador）</p></li><li><p>虚拟代理：需要创建一个资源消耗大的对象，先创建一个消耗相对小的对象，真实对象只有在需要时才创建</p></li><li><p>Copy-on-Write代理：<strong>虚拟代理的一种</strong>，把copy操作延迟到只有在客户端真正需要时才执行。一般用于深拷贝，因为深拷贝很耗时，所以只有深拷贝的对象要被用到时才真正去执行深拷贝（自然一直用不到的话就不会深拷贝了）</p></li><li><p>保护代理：控制对一个对象的访问，可以给用户分配不同权限</p></li><li><p>缓冲代理：为某一个目标操作提供临时存储空间，以便多个客户端可以共享结果</p></li><li><p>防火墙代理：阻止恶意用户</p></li><li><p>智能引用代理：当一个对象被引用/调用方法时，代理提供一些额外操作（周边业务），比如记录此次调用/记录总被调用次数</p></li></ul><p>Java RMI（远程方法调用）就是典型的<strong>远程代理</strong>模式</p><img src="/ymhui.github.io/2025/05/22/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/image-20250522143623754.png" class="" title="image-20250522143623754"><p>(•‿•)</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 软件学院 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 软件系统设计 </tag>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>享元模式</title>
+      <link href="/ymhui.github.io/2025/05/21/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/"/>
+      <url>/ymhui.github.io/2025/05/21/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/</url>
+      
+        <content type="html"><![CDATA[<h1>享元模式</h1><p>对象结构型模式</p><img src="/ymhui.github.io/2025/05/21/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/image-20250522123433408.png" class="" title="image-20250522123433408"><h2 id="模式动机">模式动机</h2><p>面向对象解决了灵活性和可扩展性的问题，但在很多时候都需要增加系统中类和对象个数，<strong>如果对象数量太多，可能导致性能下降</strong>。享元模式正是为了解决这一问题，通过共享技术实现相同或相似对象重用。</p><img src="/ymhui.github.io/2025/05/21/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/image-20250522123736731.png" class="" title="image-20250522123736731"><p>享元模式中<strong>可以共享的相同内容称为内部状态</strong>，而那些需要<strong>外部环境设置的不能共享的内容称为外部状态</strong>。通过这种内部外部状态的区分，<strong>可以设置不同的外部状态使得相同对象产生一些不同的特征，而相同的内部状态是共享的。</strong></p><p><strong>享元模式中通常会出现工厂模式</strong>，创建一个享元工厂来维护一个享元池，用于存储具有相同内部状态的享元对象。</p><p>实际使用中，能够共享的内部状态是有限的，因此享元对象一般都设计为较小的对象（细粒度对象），包含很少的内部状态。享元模式的目的就是使用共享技术大量复用细粒度对象。</p><h2 id="应用">应用</h2><p>运用共享技术支持大量复用细粒度对象。系统只会使用少量对象，这些对象都很相似，状态变化很小，可以多次复用。</p><p>享元模式包含如下角色：</p><ul><li>抽象享元类Flyweight</li><li>具体享元类ConcreteFlyweight</li><li>非共享具体享元类UnsharedConcreteFlyweight</li><li>享元工厂类FlyweightFactory</li></ul><p>通过使用享元模式可以节省内存，提高系统性能</p><p>享元模式的核心在于享元工厂类，其作用是提供一个存储所有享元对象的享元池。用户需要对象时首先试图从享元池获取，如果获取失败则创建一个新的享元对象返回并在享元池中保存该新增对象。</p><p>典型享元工厂类代码如下：</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FlyweightFactory</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">HashMap</span> <span class="variable">flyweights</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HashMap</span>();</span><br><span class="line">    <span class="keyword">public</span> Flyweight <span class="title function_">getFlyweight</span><span class="params">(String key)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(flyweights.containsKey(key)) &#123;</span><br><span class="line">    <span class="keyword">return</span> (Flyweight)flyweights.get(key);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="type">Flyweight</span> <span class="variable">fw</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ConcreteFlyweight</span>();</span><br><span class="line">            flyweights.put(key,fw);</span><br><span class="line">            <span class="keyword">return</span> fw;</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>享元模式能做到共享的关键是<strong>区分内部状态和外部状态</strong>。内部状态不会随环境改变因此可以共享，外部状态随环境改变因此不可以共享。</p><p>典型享元类代码如下：</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Flyweight</span> &#123;</span><br><span class="line">    <span class="comment">//内部状态作为成员属性</span></span><br><span class="line">    <span class="keyword">private</span> String intrinsicState;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Flyweight</span><span class="params">(String intrinsicState)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.intrinsicState = intrinsicState;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">operation</span><span class="params">(String extrinsicState)</span> &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="实例：共享网络设备（无外部状态）">实例：共享网络设备（无外部状态）</h2><p>很多网络设备都是支持共享的，如交换机、集线器等，多台终端计算机可以连接同一台网络设备，并通过该网络设备进行数据转发。</p><img src="/ymhui.github.io/2025/05/21/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/image-20250522130937907.png" class="" title="image-20250522130937907"><h2 id="实例：共享网络设备（有外部状态）">实例：共享网络设备（有外部状态）</h2><p>虽然中心网络设备是共享的，但是每个终端计算机分配到的端口是不同的，因此多台计算机在共享设备时必须使用不同端口。这时可以把端口视作外部状态，需要时再进行设置。</p><img src="/ymhui.github.io/2025/05/21/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/image-20250522131412785.png" class="" title="image-20250522131412785"><h2 id="优点">优点</h2><ol><li><strong>极大减少内存中对象的数量</strong>，相同或相似对象只需要保存一份</li><li><strong>享元对象可以在不同环境中被共享</strong>，因为外部状态相对独立，不会影响内部状态</li></ol><h2 id="缺点">缺点</h2><ol><li>系统变得更复杂，需要分离内部和外部状态，这使得程序逻辑更复杂</li><li>需要把享元对象的一些状态外部化，但是读取外部状态需要更长运行时间</li></ol><h2 id="适用场合">适用场合</h2><ul><li>系统中存在大量相同或相似对象，避免反复实例化造成内存浪费</li><li>对象的大部分状态可以外部化，并且可以把这些外部状态传入对象</li><li><strong>只有在多次重复使用享元对象时才值得用享元模式</strong>，因为使用享元模式需要维护一个享元池，这需要额外开销</li></ul><p>JDK中的String类使用了享元模式（常量池？这其实是编译优化期做的）：</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String args[])</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">str1</span> <span class="operator">=</span> <span class="string">&quot;abcd&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">str2</span> <span class="operator">=</span> <span class="string">&quot;abcd&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">str3</span> <span class="operator">=</span> <span class="string">&quot;ab&quot;</span> + <span class="string">&quot;cd&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">str4</span> <span class="operator">=</span> <span class="string">&quot;ab&quot;</span>;</span><br><span class="line">        str4 += <span class="string">&quot;cd&quot;</span>;</span><br><span class="line">        System.out.println(str1 == str2); <span class="comment">// true</span></span><br><span class="line">        System.out.println(str1 == str3); <span class="comment">// true</span></span><br><span class="line">        System.out.println(str1 == str4); <span class="comment">// true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1>模式扩展</h1><h2 id="单纯享元模式">单纯享元模式</h2><p>在单纯享元模式中，所有享元对象都是可以共享的，即所有抽象享元类的子类都可以共享</p><img src="/ymhui.github.io/2025/05/21/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/image-20250522133338956.png" class="" title="image-20250522133338956"><h2 id="复合享元模式">复合享元模式</h2><p>将一些单纯享元使用组合模式加以组合，可以形成复合享元对象，这样的复合享元本身不能共享，但是它们可以分解成单纯享元对象（可以共享）</p><img src="/ymhui.github.io/2025/05/21/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/image-20250522133605256.png" class="" title="image-20250522133605256"><h2 id="联用其他模式">联用其他模式</h2><p>享元模式本身就需要依赖工厂模式返回享元对象，<strong>享元工厂类通常提供一个静态的工厂方法用于返回享元对象</strong>，使用简单工厂模式进行该设计。</p><p>通常一个系统只有一个享元工厂，所以享元工厂类可以使用单例模式设计</p><p>享元模式可以结合组合模式形成复合享元模式，<strong>统一对复合享元中的享元对象设置外部状态。</strong></p><p>(•‿•)</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 软件学院 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 软件系统设计 </tag>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>外观模式</title>
       <link href="/ymhui.github.io/2025/05/21/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/"/>
       <url>/ymhui.github.io/2025/05/21/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/</url>
@@ -1513,9 +1567,9 @@
       
         <tags>
             
-            <tag> 机器学习 </tag>
-            
             <tag> python </tag>
+            
+            <tag> 机器学习 </tag>
             
             <tag> 数据分析 </tag>
             
