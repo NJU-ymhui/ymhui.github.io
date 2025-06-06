@@ -1,0 +1,399 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>软件架构文档化 | (๑&gt;ᴗ&lt;๑)</title><meta name="author" content="画船听雨眠y"><meta name="copyright" content="画船听雨眠y"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="软件架构文档化 为什么需要把软件架构设计文档化？ 即使拥有最好的软件架构，如果利益相关者(stakeholder)不了解它、无法充分理解它以进行使用、构建或修改，或者由于误解而错误地使用，那么所有设计的努力都白费了，因此需要文档化来记录架构 要求 架构文档必须：  足够透明、易于访问，让新成员快速理解 足够具体，能作为蓝图 拥有足够的信息作为分析基础  架构文档既要有规定性，也要有描述性：  对某">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件架构文档化">
+<meta property="og:url" content="https://nju-ymhui.github.io/ymhui.github.io/2025/06/03/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E6%96%87%E6%A1%A3%E5%8C%96/index.html">
+<meta property="og:site_name" content="(๑&gt;ᴗ&lt;๑)">
+<meta property="og:description" content="软件架构文档化 为什么需要把软件架构设计文档化？ 即使拥有最好的软件架构，如果利益相关者(stakeholder)不了解它、无法充分理解它以进行使用、构建或修改，或者由于误解而错误地使用，那么所有设计的努力都白费了，因此需要文档化来记录架构 要求 架构文档必须：  足够透明、易于访问，让新成员快速理解 足够具体，能作为蓝图 拥有足够的信息作为分析基础  架构文档既要有规定性，也要有描述性：  对某">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://nju-ymhui.github.io/ymhui.github.io/img/myicon.ico">
+<meta property="article:published_time" content="2025-06-03T10:50:55.000Z">
+<meta property="article:modified_time" content="2025-06-03T12:41:00.795Z">
+<meta property="article:author" content="画船听雨眠y">
+<meta property="article:tag" content="软件系统设计">
+<meta property="article:tag" content="架构设计">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://nju-ymhui.github.io/ymhui.github.io/img/myicon.ico"><link rel="shortcut icon" href="/ymhui.github.io/img/myicon.ico"><link rel="canonical" href="https://nju-ymhui.github.io/ymhui.github.io/2025/06/03/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E6%96%87%E6%A1%A3%E5%8C%96/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/ymhui.github.io/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>(()=>{
+      const saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+      
+      window.btf = {
+        saveToLocal: saveToLocal,
+        getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.src = url
+          script.async = true
+          script.onerror = reject
+          script.onload = script.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            script.onload = script.onreadystatechange = null
+            resolve()
+          }
+
+          Object.keys(attr).forEach(key => {
+            script.setAttribute(key, attr[key])
+          })
+
+          document.head.appendChild(script)
+        }),
+
+        getCSS: (url, id = false) => new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+          link.rel = 'stylesheet'
+          link.href = url
+          if (id) link.id = id
+          link.onerror = reject
+          link.onload = link.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            link.onload = link.onreadystatechange = null
+            resolve()
+          }
+          document.head.appendChild(link)
+        }),
+
+        addGlobalFn: (key, fn, name = false, parent = window) => {
+          const pjaxEnable = false
+          if (!pjaxEnable && key.startsWith('pjax')) return
+
+          const globalFn = parent.globalFn || {}
+          const keyObj = globalFn[key] || {}
+    
+          if (name && keyObj[name]) return
+    
+          name = name || Object.keys(keyObj).length
+          keyObj[name] = fn
+          globalFn[key] = keyObj
+          parent.globalFn = globalFn
+        }
+      }
+    
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+      
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })()</script><script>const GLOBAL_CONFIG = {
+  root: '/ymhui.github.io/',
+  algolia: undefined,
+  localSearch: {"path":"/ymhui.github.io/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '软件架构文档化',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-06-03 20:41:00'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/ymhui.github.io/img/myicon.ico" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><a href="/ymhui.github.io/archives/"><div class="headline">文章</div><div class="length-num">77</div></a><a href="/ymhui.github.io/tags/"><div class="headline">标签</div><div class="length-num">30</div></a><a href="/ymhui.github.io/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/ymhui.github.io/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/ymhui.github.io/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/ymhui.github.io/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/ymhui.github.io/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/ymhui.github.io/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://blue-whale-backend.oss-cn-nanjing.aliyuncs.com/back.jpg);"><nav id="nav"><span id="blog-info"><a href="/ymhui.github.io/" title="(๑&gt;ᴗ&lt;๑)"><span class="site-name">(๑&gt;ᴗ&lt;๑)</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/ymhui.github.io/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/ymhui.github.io/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/ymhui.github.io/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/ymhui.github.io/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/ymhui.github.io/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">软件架构文档化</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-06-03T10:50:55.000Z" title="发表于 2025-06-03 18:50:55">2025-06-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-06-03T12:41:00.795Z" title="更新于 2025-06-03 20:41:00">2025-06-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/ymhui.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%AD%A6%E9%99%A2/">软件学院</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="软件架构文档化"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>软件架构文档化</h1>
+<h2 id="为什么需要把软件架构设计文档化？">为什么需要把软件架构设计文档化？</h2>
+<p>即使拥有最好的软件架构，如果利益相关者(stakeholder)不了解它、无法充分理解它以进行使用、构建或修改，或者由于误解而错误地使用，那么所有设计的努力都白费了，因此需要文档化来记录架构</p>
+<h2 id="要求">要求</h2>
+<p>架构文档必须：</p>
+<ul>
+<li>足够透明、易于访问，让新成员快速理解</li>
+<li>足够具体，能作为蓝图</li>
+<li>拥有足够的信息作为分析基础</li>
+</ul>
+<p>架构文档既要有规定性，也要有描述性：</p>
+<ul>
+<li>对某些受众，它规定了应该是什么，约束未做的决策</li>
+<li>对于另一些受众，它描述了事实，回顾已有决策</li>
+</ul>
+<p>利益相关者对架构文档的使用至关重要</p>
+<h2 id="使用">使用</h2>
+<p>一般有三种使用方式：</p>
+<ul>
+<li>教育</li>
+<li>作为利益相关者之间的主要沟通媒介</li>
+<li>系统分析与构建的基础</li>
+</ul>
+<h2 id="视图">视图</h2>
+<p>视图让我们能够将软件架构划分为若干个可管理的系统（每个部分对应一个视图），每个视图从特定的视角关注架构的某些方面。文档化一个架构，在很大程度上就是文档化一组相关的视图，并补充那些适用于多个视图的全局信息。</p>
+<h3 id="如何选择视图">如何选择视图</h3>
+<ul>
+<li>不同视图支持不同目标和用途</li>
+<li>不提倡一个特定的视图，总是按需选择</li>
+<li>记录的内容取决于预期如何使用这些文档</li>
+<li>确保维护视图的好处大于成本</li>
+</ul>
+<h1>视图</h1>
+<h2 id="模块视图">模块视图</h2>
+<h3 id="组成元素">组成元素</h3>
+<p>模块，即软件的实现单元，提供一套连贯的职责</p>
+<h3 id="关系">关系</h3>
+<ul>
+<li>part of关系：模块视图是部分的，定义了子模块（部分）和聚合模块（整体）之间的关系</li>
+<li>depends on关系：定义了两个模块之间的依赖关系，具体的模块视图详细说明依赖关系的含义</li>
+<li>is a关系：定义了一个更具体的模块（子模块）和更通用的模块（父模块）之间的关系</li>
+</ul>
+<h3 id="约束条件">约束条件</h3>
+<p>不同的模块视图可能会施加不同的拓扑约束（先后关系），例如模块之间可见性的限制</p>
+<h3 id="使用场合">使用场合</h3>
+<ul>
+<li>代码构建蓝图</li>
+<li>变更影响分析</li>
+<li>规划增量式开发</li>
+<li>需求可追溯性分析</li>
+<li>传达系统功能和代码库结构</li>
+<li>工作分配、进度规划等</li>
+<li>展示系统需要管理的信息结构</li>
+</ul>
+<p><strong>基本上不会有任何完整的软件架构文档缺少模块视图</strong></p>
+<h2 id="C-C视图-Components-Connectors">C&amp;C视图(Components&amp;Connectors)</h2>
+<h3 id="组成元素-2">组成元素</h3>
+<ol>
+<li>组件：处理单元和数据存储。提供连接器和其他组件交互</li>
+<li>连接器：组件之间交互的路径。连接器有一组角色（接口），表明组件如何使用连接器交互</li>
+</ol>
+<h3 id="关系-2">关系</h3>
+<ul>
+<li>主要关系是“附件”：组件端口和连接器角色关联，形成组件和连接器的拓扑图</li>
+<li>还可能存在“接口委托”：组件端口和一个或多个内部子架构中的端口相关联</li>
+</ul>
+<h3 id="约束条件-2">约束条件</h3>
+<ul>
+<li>组件只能连接连接器，不能直连其他组件</li>
+<li>连接器只能连组件，不能连其他连接器</li>
+<li>连接只能发生在兼容的端口和角色之间</li>
+<li>接口委托只能发生在兼容的端口之间</li>
+<li>连接器不能单独出现，必须连到组件上</li>
+</ul>
+<h3 id="使用场合-2">使用场合</h3>
+<ul>
+<li>展示系统工作方式</li>
+<li>指导开发人员实现运行时的交互逻辑</li>
+<li>帮助分析运行时的质量属性，如性能、可用性、吞吐量等</li>
+</ul>
+<h3 id="C-C视图的注释">C&amp;C视图的注释</h3>
+<p><strong>UML组件的图元与C&amp;C视图中的组件概念匹配良好</strong>，<strong>但UML的连接器较为简单</strong>，对于需要表达复杂交互协议或属性的C&amp;C连接器，可能需要<strong>使用UML组件来模拟</strong>，或者通过对简单UML连接器进行扩展坞（stereotype）和标签（tag）注释来表达更丰富的语义 。</p>
+<img src="/ymhui.github.io/2025/06/03/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E6%96%87%E6%A1%A3%E5%8C%96/image-20250603195614576.png" class="" title="image-20250603195614576">
+<h2 id="分配视图">分配视图</h2>
+<h3 id="组成元素-3">组成元素</h3>
+<ol>
+<li>软件元素和环境元素</li>
+<li>软件元素通常具有对环境的某些需求</li>
+<li>环境元素则提供某些属性或能力</li>
+</ol>
+<h3 id="关系-3">关系</h3>
+<p>allocated to关系，表示<strong>某个软件元素被部署或分配到某个环境元素上</strong>。</p>
+<h3 id="约束条件-3">约束条件</h3>
+<p>因视图而异</p>
+<h3 id="使用场合-3">使用场合</h3>
+<ul>
+<li>考虑性能、可用性、安全性</li>
+<li>分布式开发中的任务分配</li>
+<li>软件版本管理</li>
+</ul>
+<h2 id="质量视图">质量视图</h2>
+<p>质量视图是<strong>针对特定的质量属性或特定的利益相关者关注点</strong>而定制的视图。它<strong>通常不是一个全新的结构视图</strong>，而是通过从已有的结构视图（如模块视图、C&amp;C视图、分配视图）中提取与特定质量相关的元素和关系，并将它们重新组织和呈现，辅以该质量属性特有的分析和说明 。</p>
+<h3 id="示例">示例</h3>
+<ul>
+<li>安全视图：展示系统中具有安全职责的组件（如认证服务、授权模块）、它们之间的通信方式（如安全通道）、存储安全信息（如用户凭据、密钥）的数据仓库，以及需要重点保护的敏感数据存储。</li>
+<li>通信视图：对于地理上分散或异构的系统尤其有用，可以展示组件间的通信通道、网络拓扑、服务质量（QoS）参数、并发区域等，用于分析网络性能、可靠性（如死锁、竞态条件）</li>
+</ul>
+<h2 id="如何选择视图-2">如何选择视图</h2>
+<h3 id="步骤一：构建利益相关者-视图表">步骤一：构建利益相关者/视图表</h3>
+<p>行：利益相关者</p>
+<p>列：视图</p>
+<p>每个单元格中标注对应利益相关者对该视图的信息需求程度</p>
+<h3 id="步骤二：合并视图">步骤二：合并视图</h3>
+<ol>
+<li>寻找表格中的边缘视图：那些只需要概览或只服务于极少数利益相关者</li>
+<li>将每一个边缘视图和另一个具有更强利益相关者的视图组合</li>
+<li>如下视图通常自然地组合在一起
+<ul>
+<li>多种不同的C&amp;C视图（如进程视图、服务视图）由于都关注运行时交互，可能适合合并</li>
+<li>部署视图也常与SOA视图或通信进程视图结合，因为服务和进程最终都需要部署到物理节点上</li>
+</ul>
+</li>
+</ol>
+<h3 id="步骤三：优先级排序和阶段划分">步骤三：优先级排序和阶段划分</h3>
+<p>确定视图文档化的优先级和交付顺序。</p>
+<p>例如，模块分解视图由于能够帮助项目经理早期进行团队组建、任务分配和预算制定，通常适合较早发布。不必追求一次性满足所有利益相关者的所有信息需求到最详尽的程度，提供80%的关键信息往往已经足够支持他们开展工作。同时，也不必等待一个视图完全完成后再开始另一个视图的文档化，采用广度优先、逐步求精的方式通常更为有效 。</p>
+<h2 id="视图模板">视图模板</h2>
+<ol>
+<li>第一部分：主要介绍，显示视图的元素和关系，以及图例</li>
+<li>第二部分：元素介绍，详细介绍第一部分中描述的元素、元素属性、关系属性和元素接口和行为</li>
+<li>第三部分：上下文图描述系统如何与环境相关</li>
+<li>第四部分：可变性指南，告知视图中可能发生的变化</li>
+<li>第五部分：基本原理，为什么设计反映在视图中，并且说明其合理性</li>
+</ol>
+<img src="/ymhui.github.io/2025/06/03/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E6%96%87%E6%A1%A3%E5%8C%96/image-20250603202512780.png" class="" title="image-20250603202512780">
+<img src="/ymhui.github.io/2025/06/03/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E6%96%87%E6%A1%A3%E5%8C%96/image-20250603202527292.png" class="" title="image-20250603202527292">
+<h1>视图之外的部分</h1>
+<img src="/ymhui.github.io/2025/06/03/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E6%96%87%E6%A1%A3%E5%8C%96/image-20250603203321466.png" class="" title="image-20250603203321466">
+<ol>
+<li>
+<p><strong>文档路线图 (Documentation Roadmap)</strong>：向读者介绍整个文档的组织结构，说明各章节包含哪些信息以及如何查找。其中应包含一个“视图概述”（View Overview）部分，对文档中包含的每个视图进行简要介绍（名称、采用的模式、元素类型、关系类型、属性类型、使用的表示语言或建模技术等），并指导不同类型的利益相关者如何使用本文档来满足其特定的信息需求。</p>
+</li>
+<li>
+<p><strong>视图如何文档化 (How a View Is Documented)</strong>：说明本文档在记录各个视图时所遵循的标准模板和组织方式（例如，前述的五部分视图模板）。</p>
+</li>
+<li>
+<p><strong>系统概述 (System Overview)</strong>：用简短的文字描述系统的主要功能、目标用户、重要的背景信息或整体性约束。这有助于为读者建立一个关于系统及其用途的一致性心智模型。</p>
+</li>
+<li>
+<p><strong>视图之间的映射 (Mapping Between Views)</strong>：由于不同的视图从不同侧面描述同一个系统，它们之间的元素必然存在关联。本部分旨在揭示这些跨视图的映射关系，帮助读者理解架构如何作为一个统一的整体运作。例如，C&amp;C视图中的一个运行时组件可能是由模块视图中的一个或多个模块“实现”的；模块分解视图中的一个模块可能“包含于”分层视图中的某个特定层次。这些映射关系通常可以用表格的形式来清晰地表示。</p>
+</li>
+</ol>
+<img src="/ymhui.github.io/2025/06/03/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E6%96%87%E6%A1%A3%E5%8C%96/image-20250603203427318.png" class="" title="image-20250603203427318">
+<ol start="5">
+<li><strong>原理 (Rationale)</strong>：记录那些适用于多个视图或对整个系统具有普遍影响的架构决策及其理由。例如，选择某种基础性的架构风格（如微服务、事件驱动）、做出关于技术选型的重要决策（如编程语言、核心框架）等<strong>目录 (Directory)</strong>：提供一些参考资料以帮助读者快速查找信息，如术语索引（Index of Terms）、词汇表（Glossary）、缩略语列表（Acronym List）等。</li>
+<li><strong>目录 (Directory)</strong>：提供一些参考资料以帮助读者快速查找信息，如术语索引（Index of Terms）、词汇表（Glossary）、缩略语列表（Acronym List）等。</li>
+</ol>
+<p>除此以外，还要有<strong>文档控制信息</strong>：列出发布机构、当前版本号、发布日期和状态、变更历史以及提交文档变更请求的流程。</p>
+<h1>文档包 Documentation Package</h1>
+<p>即<strong>视图 + 视图之外的部分</strong></p>
+<img src="/ymhui.github.io/2025/06/03/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E6%96%87%E6%A1%A3%E5%8C%96/image-20250603203900234.png" class="" title="image-20250603203900234">
+<p>(•‿•)</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://nju-ymhui.github.io/ymhui.github.io">画船听雨眠y</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://nju-ymhui.github.io/ymhui.github.io/2025/06/03/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E6%96%87%E6%A1%A3%E5%8C%96/">https://nju-ymhui.github.io/ymhui.github.io/2025/06/03/软件架构文档化/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://nju-ymhui.github.io/ymhui.github.io" target="_blank">(๑>ᴗ<๑)</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/ymhui.github.io/tags/%E8%BD%AF%E4%BB%B6%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/">软件系统设计</a><a class="post-meta__tags" href="/ymhui.github.io/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/">架构设计</a></div><div class="post-share"><div class="social-share" data-image="/ymhui.github.io/img/myicon.ico" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>真的不考虑支持一下吗 (╯︵╰,)</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/ymhui.github.io/img/qrcode.png" target="_blank"><img class="post-qr-code-img" src="/ymhui.github.io/img/qrcode.png" alt="微信支付"/></a><div class="post-qr-code-desc">微信支付</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="prev-post pull-left" href="/ymhui.github.io/2025/06/03/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E8%BF%87%E7%A8%8B/" title="软件设计过程"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">软件设计过程</div></div></a><a class="next-post pull-right" href="/ymhui.github.io/2025/06/01/%E5%B1%9E%E6%80%A7%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/" title="属性驱动设计"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">属性驱动设计</div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a href="/ymhui.github.io/2025/06/01/%E5%B1%9E%E6%80%A7%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/" title="属性驱动设计"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-01</div><div class="title">属性驱动设计</div></div></a><a href="/ymhui.github.io/2025/06/05/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E6%A8%A1%E5%BC%8F/" title="微服务部署模式"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-05</div><div class="title">微服务部署模式</div></div></a><a href="/ymhui.github.io/2025/06/04/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/" title="微服务架构"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-04</div><div class="title">微服务架构</div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info is-center"><div class="avatar-img"><img src="/ymhui.github.io/img/myicon.ico" onerror="this.onerror=null;this.src='/ymhui.github.io/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">画船听雨眠y</div><div class="author-info-description">美好的一天从打代码开始结束</div><div class="site-data"><a href="/ymhui.github.io/archives/"><div class="headline">文章</div><div class="length-num">77</div></a><a href="/ymhui.github.io/tags/"><div class="headline">标签</div><div class="length-num">30</div></a><a href="/ymhui.github.io/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/NJU-ymhui"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/NJU-ymhui" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">软件架构文档化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E6%8A%8A%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3%E5%8C%96%EF%BC%9F"><span class="toc-number">1.1.</span> <span class="toc-text">为什么需要把软件架构设计文档化？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A6%81%E6%B1%82"><span class="toc-number">1.2.</span> <span class="toc-text">要求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-number">1.3.</span> <span class="toc-text">使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%86%E5%9B%BE"><span class="toc-number">1.4.</span> <span class="toc-text">视图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%E8%A7%86%E5%9B%BE"><span class="toc-number">1.4.1.</span> <span class="toc-text">如何选择视图</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">视图</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E8%A7%86%E5%9B%BE"><span class="toc-number">2.1.</span> <span class="toc-text">模块视图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E6%88%90%E5%85%83%E7%B4%A0"><span class="toc-number">2.1.1.</span> <span class="toc-text">组成元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB"><span class="toc-number">2.1.2.</span> <span class="toc-text">关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6"><span class="toc-number">2.1.3.</span> <span class="toc-text">约束条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E5%90%88"><span class="toc-number">2.1.4.</span> <span class="toc-text">使用场合</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-C%E8%A7%86%E5%9B%BE-Components-Connectors"><span class="toc-number">2.2.</span> <span class="toc-text">C&amp;C视图(Components&amp;Connectors)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E6%88%90%E5%85%83%E7%B4%A0-2"><span class="toc-number">2.2.1.</span> <span class="toc-text">组成元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB-2"><span class="toc-number">2.2.2.</span> <span class="toc-text">关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6-2"><span class="toc-number">2.2.3.</span> <span class="toc-text">约束条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E5%90%88-2"><span class="toc-number">2.2.4.</span> <span class="toc-text">使用场合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C-C%E8%A7%86%E5%9B%BE%E7%9A%84%E6%B3%A8%E9%87%8A"><span class="toc-number">2.2.5.</span> <span class="toc-text">C&amp;C视图的注释</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E9%85%8D%E8%A7%86%E5%9B%BE"><span class="toc-number">2.3.</span> <span class="toc-text">分配视图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E6%88%90%E5%85%83%E7%B4%A0-3"><span class="toc-number">2.3.1.</span> <span class="toc-text">组成元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB-3"><span class="toc-number">2.3.2.</span> <span class="toc-text">关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6-3"><span class="toc-number">2.3.3.</span> <span class="toc-text">约束条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E5%90%88-3"><span class="toc-number">2.3.4.</span> <span class="toc-text">使用场合</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%A8%E9%87%8F%E8%A7%86%E5%9B%BE"><span class="toc-number">2.4.</span> <span class="toc-text">质量视图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="toc-number">2.4.1.</span> <span class="toc-text">示例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%E8%A7%86%E5%9B%BE-2"><span class="toc-number">2.5.</span> <span class="toc-text">如何选择视图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4%E4%B8%80%EF%BC%9A%E6%9E%84%E5%BB%BA%E5%88%A9%E7%9B%8A%E7%9B%B8%E5%85%B3%E8%80%85-%E8%A7%86%E5%9B%BE%E8%A1%A8"><span class="toc-number">2.5.1.</span> <span class="toc-text">步骤一：构建利益相关者&#x2F;视图表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4%E4%BA%8C%EF%BC%9A%E5%90%88%E5%B9%B6%E8%A7%86%E5%9B%BE"><span class="toc-number">2.5.2.</span> <span class="toc-text">步骤二：合并视图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4%E4%B8%89%EF%BC%9A%E4%BC%98%E5%85%88%E7%BA%A7%E6%8E%92%E5%BA%8F%E5%92%8C%E9%98%B6%E6%AE%B5%E5%88%92%E5%88%86"><span class="toc-number">2.5.3.</span> <span class="toc-text">步骤三：优先级排序和阶段划分</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%86%E5%9B%BE%E6%A8%A1%E6%9D%BF"><span class="toc-number">2.6.</span> <span class="toc-text">视图模板</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">视图之外的部分</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">文档包 Documentation Package</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2025/06/06/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E6%A8%A1%E5%BC%8F/" title="微服务可观测性模式">微服务可观测性模式</a><time datetime="2025-06-06T03:26:59.000Z" title="发表于 2025-06-06 11:26:59">2025-06-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2025/06/05/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E6%A8%A1%E5%BC%8F/" title="微服务部署模式">微服务部署模式</a><time datetime="2025-06-05T06:47:04.000Z" title="发表于 2025-06-05 14:47:04">2025-06-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2025/06/04/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/" title="微服务架构">微服务架构</a><time datetime="2025-06-03T16:58:06.000Z" title="发表于 2025-06-04 00:58:06">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2025/06/03/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E8%BF%87%E7%A8%8B/" title="软件设计过程">软件设计过程</a><time datetime="2025-06-03T15:00:12.000Z" title="发表于 2025-06-03 23:00:12">2025-06-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2025/06/03/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E6%96%87%E6%A1%A3%E5%8C%96/" title="软件架构文档化">软件架构文档化</a><time datetime="2025-06-03T10:50:55.000Z" title="发表于 2025-06-03 18:50:55">2025-06-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By 画船听雨眠y</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/ymhui.github.io/js/utils.js"></script><script src="/ymhui.github.io/js/main.js"></script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    const mathElements = document.querySelectorAll('#article-container .katex')
+    mathElements.length && mathElements.forEach((el) => {
+      el.classList.add('katex-show')
+    })
+  }
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css')
+    if (false) await btf.getScript('https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js')
+  }
+
+  showKatex()
+})()</script><script>(() => {
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://blogs-comments-server.vercel.app/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://blogs-comments-server.vercel.app/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+
+    GLOBAL_CONFIG_SITE.isPost && getCount()
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') setTimeout(init,0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(init)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/ymhui.github.io/js/search/local-search.js"></script></div></div></body></html>

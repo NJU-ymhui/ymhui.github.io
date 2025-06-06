@@ -1,0 +1,416 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>属性驱动设计 | (๑&gt;ᴗ&lt;๑)</title><meta name="author" content="画船听雨眠y"><meta name="copyright" content="画船听雨眠y"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="属性驱动设计 即 ADD (Attribute Driven Design)ADD~(Attribute~ Driven~ Design)ADD (Attribute Driven Design) ，通过系统化方法创建高质量、可预测和可重用的软件架构 ADD 3.0 更现代化的属性驱动设计：  迭代设计方法：支持在项目增量（如Sprint）中进行迭代，通过微迭代实现结构化设计 稳定且行业验证：具有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="属性驱动设计">
+<meta property="og:url" content="https://nju-ymhui.github.io/ymhui.github.io/2025/06/01/%E5%B1%9E%E6%80%A7%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/index.html">
+<meta property="og:site_name" content="(๑&gt;ᴗ&lt;๑)">
+<meta property="og:description" content="属性驱动设计 即 ADD (Attribute Driven Design)ADD~(Attribute~ Driven~ Design)ADD (Attribute Driven Design) ，通过系统化方法创建高质量、可预测和可重用的软件架构 ADD 3.0 更现代化的属性驱动设计：  迭代设计方法：支持在项目增量（如Sprint）中进行迭代，通过微迭代实现结构化设计 稳定且行业验证：具有">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://nju-ymhui.github.io/ymhui.github.io/img/myicon.ico">
+<meta property="article:published_time" content="2025-06-01T06:44:29.000Z">
+<meta property="article:modified_time" content="2025-06-03T09:45:09.264Z">
+<meta property="article:author" content="画船听雨眠y">
+<meta property="article:tag" content="软件系统设计">
+<meta property="article:tag" content="架构设计">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://nju-ymhui.github.io/ymhui.github.io/img/myicon.ico"><link rel="shortcut icon" href="/ymhui.github.io/img/myicon.ico"><link rel="canonical" href="https://nju-ymhui.github.io/ymhui.github.io/2025/06/01/%E5%B1%9E%E6%80%A7%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/ymhui.github.io/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>(()=>{
+      const saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+      
+      window.btf = {
+        saveToLocal: saveToLocal,
+        getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.src = url
+          script.async = true
+          script.onerror = reject
+          script.onload = script.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            script.onload = script.onreadystatechange = null
+            resolve()
+          }
+
+          Object.keys(attr).forEach(key => {
+            script.setAttribute(key, attr[key])
+          })
+
+          document.head.appendChild(script)
+        }),
+
+        getCSS: (url, id = false) => new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+          link.rel = 'stylesheet'
+          link.href = url
+          if (id) link.id = id
+          link.onerror = reject
+          link.onload = link.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            link.onload = link.onreadystatechange = null
+            resolve()
+          }
+          document.head.appendChild(link)
+        }),
+
+        addGlobalFn: (key, fn, name = false, parent = window) => {
+          const pjaxEnable = false
+          if (!pjaxEnable && key.startsWith('pjax')) return
+
+          const globalFn = parent.globalFn || {}
+          const keyObj = globalFn[key] || {}
+    
+          if (name && keyObj[name]) return
+    
+          name = name || Object.keys(keyObj).length
+          keyObj[name] = fn
+          globalFn[key] = keyObj
+          parent.globalFn = globalFn
+        }
+      }
+    
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+      
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })()</script><script>const GLOBAL_CONFIG = {
+  root: '/ymhui.github.io/',
+  algolia: undefined,
+  localSearch: {"path":"/ymhui.github.io/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '属性驱动设计',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-06-03 17:45:09'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/ymhui.github.io/img/myicon.ico" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><a href="/ymhui.github.io/archives/"><div class="headline">文章</div><div class="length-num">77</div></a><a href="/ymhui.github.io/tags/"><div class="headline">标签</div><div class="length-num">30</div></a><a href="/ymhui.github.io/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/ymhui.github.io/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/ymhui.github.io/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/ymhui.github.io/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/ymhui.github.io/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/ymhui.github.io/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://blue-whale-backend.oss-cn-nanjing.aliyuncs.com/back.jpg);"><nav id="nav"><span id="blog-info"><a href="/ymhui.github.io/" title="(๑&gt;ᴗ&lt;๑)"><span class="site-name">(๑&gt;ᴗ&lt;๑)</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/ymhui.github.io/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/ymhui.github.io/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/ymhui.github.io/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/ymhui.github.io/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/ymhui.github.io/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">属性驱动设计</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-06-01T06:44:29.000Z" title="发表于 2025-06-01 14:44:29">2025-06-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-06-03T09:45:09.264Z" title="更新于 2025-06-03 17:45:09">2025-06-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/ymhui.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%AD%A6%E9%99%A2/">软件学院</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="属性驱动设计"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>属性驱动设计</h1>
+<p>即 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>D</mi><mi>D</mi><mtext> </mtext><mo stretchy="false">(</mo><mi>A</mi><mi>t</mi><mi>t</mi><mi>r</mi><mi>i</mi><mi>b</mi><mi>u</mi><mi>t</mi><mi>e</mi><mtext> </mtext><mi>D</mi><mi>r</mi><mi>i</mi><mi>v</mi><mi>e</mi><mi>n</mi><mtext> </mtext><mi>D</mi><mi>e</mi><mi>s</mi><mi>i</mi><mi>g</mi><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">ADD~(Attribute~ Driven~ Design)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.02778em;">DD</span><span class="mspace nobreak"> </span><span class="mopen">(</span><span class="mord mathnormal">A</span><span class="mord mathnormal">tt</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">ib</span><span class="mord mathnormal">u</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mspace nobreak"> </span><span class="mord mathnormal" style="margin-right:0.02778em;">Dr</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mspace nobreak"> </span><span class="mord mathnormal">Des</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span> ，通过系统化方法创建高质量、可预测和可重用的软件架构</p>
+<h1>ADD 3.0</h1>
+<p>更现代化的属性驱动设计：</p>
+<ul>
+<li>迭代设计方法：支持在项目增量（如Sprint）中进行迭代，通过微迭代实现结构化设计</li>
+<li>稳定且行业验证：具有普遍适用性</li>
+<li>适应性与一致性：适用于现代技术如DevOps和基于云的架构</li>
+</ul>
+<img src="/ymhui.github.io/2025/06/01/%E5%B1%9E%E6%80%A7%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/image-20250601145828122.png" class="" title="image-20250601145828122">
+<p>ADD的关键步骤如下：</p>
+<h2 id="步骤一：检查输入">步骤一：检查输入</h2>
+<p>在设计之前，需要确保设计过程中的输入是可用且正确的，这里的检查包含多个维度的可用，比如：</p>
+<ul>
+<li>设计目的</li>
+<li>主要功能</li>
+<li>质量属性场景</li>
+<li>架构约束</li>
+<li>关注点</li>
+<li>现有架构</li>
+</ul>
+<p>主要功能和质量属性场景需要被优先排序，理想情况下由项目利益相关者完成；</p>
+<p>确保正确获取驱动因素及其优先级，避免“垃圾进，垃圾出”：</p>
+<ul>
+<li>检查原始需求获取过程中是否遗漏了重要利益相关者</li>
+<li>检查优先级确定之后业务条件是否发生了变化</li>
+</ul>
+<p>示例：</p>
+<img src="/ymhui.github.io/2025/06/01/%E5%B1%9E%E6%80%A7%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/image-20250601150702945.png" class="" title="image-20250601150702945">
+<img src="/ymhui.github.io/2025/06/01/%E5%B1%9E%E6%80%A7%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/image-20250601150707917.png" class="" title="image-20250601150707917"><img src="/ymhui.github.io/2025/06/01/%E5%B1%9E%E6%80%A7%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/image-20250601150711169.png" class="" title="image-20250601150711169"><img src="/ymhui.github.io/2025/06/01/%E5%B1%9E%E6%80%A7%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/image-20250601150715461.png" class="" title="image-20250601150715461">
+<h2 id="步骤二：通过选择驱动因素建立迭代目标">步骤二：通过选择驱动因素建立迭代目标</h2>
+<p>这一步设计问题被分解成了几个子问题，迭代从<strong>决定解决哪个子问题</strong>开始。</p>
+<p>一个设计周期通常以一系列设计迭代的形式进行，其中每次迭代都专注于实现一个特定的目标；需要设定一个适度的迭代目标：</p>
+<ul>
+<li>可能是解决单个重要驱动因素</li>
+<li>可能是为了满足一组相似的驱动因素而做出决策</li>
+</ul>
+<p>示例：</p>
+<img src="/ymhui.github.io/2025/06/01/%E5%B1%9E%E6%80%A7%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/image-20250601152614699.png" class="" title="image-20250601152614699">
+<p>ADD：迭代1，迭代目标和输入：</p>
+<ul>
+<li>迭代目标：创建总体系统结构</li>
+<li>需要考虑的输入：所有</li>
+</ul>
+<h2 id="步骤三：选择系统中的一个或多个元素进行细化">步骤三：选择系统中的一个或多个元素进行细化</h2>
+<p>针对子问题做出三种决策类型中的一种之：<strong>选择需要分解的部分</strong></p>
+<p>细分意味着：</p>
+<ul>
+<li>分解为更细粒度（自上而下）</li>
+<li>组合元素为粗粒度（自下而上）</li>
+<li>改进先前已识别元素</li>
+</ul>
+<p>对于Greenfield开发，可以从以下步骤开始：</p>
+<ol>
+<li>建立系统上下文</li>
+<li>选择唯一可用元素（即系统本身）进行分解细化</li>
+</ol>
+<p>对于现有系统或Greenfield系统中的后续设计迭代：</p>
+<ul>
+<li>完善先前迭代已识别的元素</li>
+<li>深入理解系统元素</li>
+</ul>
+<p>有时候，step2和step3可以颠倒</p>
+<h2 id="步骤四：选择一个或多个满足所选驱动的设计概念">步骤四：选择一个或多个满足所选驱动的设计概念</h2>
+<p>针对子问题做出三种决策类型中的一种之：识别和选择支持分解的现有方案</p>
+<h3 id="4-1-识别设计概念">4.1 识别设计概念</h3>
+<p>可以参考各种架构备选方案，比如移动应用程序、服务应用、Web应用程序等；也可以考虑分布式部署模式替代方案</p>
+<h3 id="4-2-设计概念的选择">4.2 设计概念的选择</h3>
+<img src="/ymhui.github.io/2025/06/01/%E5%B1%9E%E6%80%A7%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/image-20250601154233740.png" class="" title="image-20250601154233740">
+<p>基本选择方法：创建一个优缺点表，列出每种替代设计方案的优劣，以支持基于驱动因素的选择。示例：</p>
+<img src="/ymhui.github.io/2025/06/01/%E5%B1%9E%E6%80%A7%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/image-20250601154407397.png" class="" title="image-20250601154407397">
+<p>深入分析方法：</p>
+<ul>
+<li>
+<p>CBAM：使用效用-响应曲线、成本效益分析和ROI来选择策略的定量方法：</p>
+<img src="/ymhui.github.io/2025/06/01/%E5%B1%9E%E6%80%A7%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/image-20250601154621868.png" class="" title="image-20250601154621868">
+</li>
+<li>
+<p>SWOT：优点、缺点、机会和威胁</p>
+</li>
+</ul>
+<p>基于原型的选择：</p>
+<ul>
+<li>
+<p>当分析失败，创建一次性原型</p>
+</li>
+<li>
+<p>与分析相比，创建原型成本更高</p>
+<p>某些场景需要原型，比如涉及新兴技术或不确定的技术集成</p>
+</li>
+<li>
+<p>在决定是否创建原型时，应该考虑：</p>
+<ul>
+<li>是否涉及新技术</li>
+<li>公司是否首次使用该技术</li>
+<li>是否存在某些驱动因素，选定技术实现时存在风险</li>
+<li>是否缺乏可信的信息确保技术能满足需求</li>
+<li>是否需要测试</li>
+<li>所选技术是否能与项目中其他技术集成</li>
+</ul>
+</li>
+</ul>
+<p>设计概念的选择示例：</p>
+<ul>
+<li>
+<p>选择了两个参考架构：</p>
+<img src="/ymhui.github.io/2025/06/01/%E5%B1%9E%E6%80%A7%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/image-20250601160100821.png" class="" title="image-20250601160100821">
+</li>
+<li>
+<p>三层分布式部署</p>
+<img src="/ymhui.github.io/2025/06/01/%E5%B1%9E%E6%80%A7%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/image-20250601160132573.png" class="" title="image-20250601160132573">
+</li>
+</ul>
+<h2 id="步骤五：实例化架构元素，分配职责并定义接口">步骤五：实例化架构元素，分配职责并定义接口</h2>
+<p>针对子问题做出三种决策类型中的一种之：从现有解决方案中创建元素，并建立它们之间的职责和接口</p>
+<p>示例：</p>
+<img src="/ymhui.github.io/2025/06/01/%E5%B1%9E%E6%80%A7%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/image-20250601160500558.png" class="" title="image-20250601160500558">
+<h2 id="步骤六：绘制视图并记录设计决策">步骤六：绘制视图并记录设计决策</h2>
+<p>这一步可以与步骤五同时进行，生成的不是完整文档，而是草图。</p>
+<p>在实例化设计概念时，创建的草图是架构的初步文档：</p>
+<ul>
+<li>可以记录下来稍后完善</li>
+<li>符号保持一致</li>
+<li>养成记录“分配给元素的责任和做出的决策”的习惯</li>
+</ul>
+<p>这可以减轻事后记忆负担</p>
+<h2 id="步骤七：对当前设计进行性能分析，并审查迭代目标与设计目标的达成情况">步骤七：对当前设计进行性能分析，并审查迭代目标与设计目标的达成情况</h2>
+<p>在此阶段做出的决策将结合整体设计进程的进展进行分析，以决定是否需要更多迭代。</p>
+<p>示例：设计看板</p>
+<img src="/ymhui.github.io/2025/06/01/%E5%B1%9E%E6%80%A7%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/image-20250601161446460.png" class="" title="image-20250601161446460">
+<h2 id="注">注</h2>
+<p><strong>更详细的</strong>完整ADD迭代示例见课件 <a href="TODO">Lectue 01 - Attributes Driven Design</a></p>
+<h2 id="设计过程终止标准">设计过程终止标准</h2>
+<p>满足以下条件之一即可终止多次迭代：</p>
+<ul>
+<li>所有驱动设计决策都已做出架构需求</li>
+<li>最重要的技术风险得到缓解</li>
+<li>分配给架构设计的时间被耗尽（尽管这并不理想）</li>
+</ul>
+<p>否则只要有必要，就继续进行迭代</p>
+<h1>Design concept selection roadmap for greenfield systems</h1>
+<img src="/ymhui.github.io/2025/06/01/%E5%B1%9E%E6%80%A7%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/image-20250603172047306.png" class="" title="image-20250603172047306">
+<img src="/ymhui.github.io/2025/06/01/%E5%B1%9E%E6%80%A7%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/image-20250603172035833.png" class="" title="image-20250603172035833">
+<h1>将ADD应用于不同系统上下文</h1>
+<h2 id="根据系统类型调整设计方法">根据系统类型调整设计方法</h2>
+<p>有如下几种软件系统设计情况：</p>
+<ul>
+<li>为一个成熟系统（运行良好）设计一个Greenfield系统</li>
+<li>为一个新兴领域（基础设施 / 知识库尚未完全）设计一个Greenfield系统</li>
+<li>运用设计修改现有系统（其实也是成熟领域 / 系统）</li>
+</ul>
+<h3 id="在成熟领域中设计Greenfield系统">在成熟领域中设计Greenfield系统</h3>
+<p>为桌面、移动、web企业应用和微服务等知名领域中的“从零开始”系统进行设计</p>
+<p>迭代过程：</p>
+<ol>
+<li>初始迭代目标：建立整体系统结构，选择参考架构、模式和框架优先考虑非功能性约束和质量属性</li>
+<li>下一次迭代目标：识别主要功能结构，将用例分配给元素，分解参考架构元素</li>
+<li>后续迭代：优化剩余驱动程序的架构，采用适当的策略、设计模式、组件和最佳实践（模块化、低耦合）等</li>
+</ol>
+<p>Roadmap优势：指导初始设计，辅助早期估算。使用已知组件且遵循定义好的Roadmap，可以降低风险并从一开始就支持质量目标</p>
+<h3 id="在新兴领域设计Greenfield系统">在新兴领域设计Greenfield系统</h3>
+<ol>
+<li>从无参考架构开始：没有现有模型或者可重用的组件，完全从零开始</li>
+<li>使用原型和通用(general)的概念：使用设计模式、质量属性来指导原型设计</li>
+<li>面对新挑战：关注性能、可扩展性、安全性，且新领域的迭代目标更灵活</li>
+</ol>
+<h3 id="改进现有系统">改进现有系统</h3>
+<ol>
+<li>多个重新设计的目标：老系统的架构设计通常被<strong>维护、重构或解决质量问题</strong>驱动</li>
+<li>需要理解现有架构：在进行分解或做迭代计划前，关键是要识别系统元素及它们之间的交互</li>
+<li>评估后再进行设计迭代：一旦理解了现有架构，ADD步骤就会把目标逐步放在新驱动器上</li>
+</ol>
+<h3 id="替换遗留应用程序">替换遗留应用程序</h3>
+<ol>
+<li>遗留技术债：旧系统可能依赖过时的技术或难以管理的技术债务</li>
+<li>使用绞杀榕模式：引入代理将调用路由到遗留系统，同时逐步替换组件</li>
+<li>迭代地替换：每个ADD迭代中的设计目标是针对特定服务或组件的</li>
+</ol>
+<p>(•‿•)</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://nju-ymhui.github.io/ymhui.github.io">画船听雨眠y</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://nju-ymhui.github.io/ymhui.github.io/2025/06/01/%E5%B1%9E%E6%80%A7%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/">https://nju-ymhui.github.io/ymhui.github.io/2025/06/01/属性驱动设计/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://nju-ymhui.github.io/ymhui.github.io" target="_blank">(๑>ᴗ<๑)</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/ymhui.github.io/tags/%E8%BD%AF%E4%BB%B6%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/">软件系统设计</a><a class="post-meta__tags" href="/ymhui.github.io/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/">架构设计</a></div><div class="post-share"><div class="social-share" data-image="/ymhui.github.io/img/myicon.ico" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>真的不考虑支持一下吗 (╯︵╰,)</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/ymhui.github.io/img/qrcode.png" target="_blank"><img class="post-qr-code-img" src="/ymhui.github.io/img/qrcode.png" alt="微信支付"/></a><div class="post-qr-code-desc">微信支付</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="prev-post pull-left" href="/ymhui.github.io/2025/06/03/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E6%96%87%E6%A1%A3%E5%8C%96/" title="软件架构文档化"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">软件架构文档化</div></div></a><a class="next-post pull-right" href="/ymhui.github.io/2025/05/27/%E4%BA%8C%E5%88%86%E7%AD%94%E6%A1%88/" title="二分答案"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">二分答案</div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a href="/ymhui.github.io/2025/06/05/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E6%A8%A1%E5%BC%8F/" title="微服务部署模式"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-05</div><div class="title">微服务部署模式</div></div></a><a href="/ymhui.github.io/2025/06/04/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/" title="微服务架构"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-04</div><div class="title">微服务架构</div></div></a><a href="/ymhui.github.io/2025/06/06/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E6%A8%A1%E5%BC%8F/" title="微服务可观测性模式"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-06</div><div class="title">微服务可观测性模式</div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info is-center"><div class="avatar-img"><img src="/ymhui.github.io/img/myicon.ico" onerror="this.onerror=null;this.src='/ymhui.github.io/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">画船听雨眠y</div><div class="author-info-description">美好的一天从打代码开始结束</div><div class="site-data"><a href="/ymhui.github.io/archives/"><div class="headline">文章</div><div class="length-num">77</div></a><a href="/ymhui.github.io/tags/"><div class="headline">标签</div><div class="length-num">30</div></a><a href="/ymhui.github.io/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/NJU-ymhui"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/NJU-ymhui" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">属性驱动设计</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">ADD 3.0</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4%E4%B8%80%EF%BC%9A%E6%A3%80%E6%9F%A5%E8%BE%93%E5%85%A5"><span class="toc-number">2.1.</span> <span class="toc-text">步骤一：检查输入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4%E4%BA%8C%EF%BC%9A%E9%80%9A%E8%BF%87%E9%80%89%E6%8B%A9%E9%A9%B1%E5%8A%A8%E5%9B%A0%E7%B4%A0%E5%BB%BA%E7%AB%8B%E8%BF%AD%E4%BB%A3%E7%9B%AE%E6%A0%87"><span class="toc-number">2.2.</span> <span class="toc-text">步骤二：通过选择驱动因素建立迭代目标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4%E4%B8%89%EF%BC%9A%E9%80%89%E6%8B%A9%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E4%B8%80%E4%B8%AA%E6%88%96%E5%A4%9A%E4%B8%AA%E5%85%83%E7%B4%A0%E8%BF%9B%E8%A1%8C%E7%BB%86%E5%8C%96"><span class="toc-number">2.3.</span> <span class="toc-text">步骤三：选择系统中的一个或多个元素进行细化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4%E5%9B%9B%EF%BC%9A%E9%80%89%E6%8B%A9%E4%B8%80%E4%B8%AA%E6%88%96%E5%A4%9A%E4%B8%AA%E6%BB%A1%E8%B6%B3%E6%89%80%E9%80%89%E9%A9%B1%E5%8A%A8%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A6%82%E5%BF%B5"><span class="toc-number">2.4.</span> <span class="toc-text">步骤四：选择一个或多个满足所选驱动的设计概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E8%AF%86%E5%88%AB%E8%AE%BE%E8%AE%A1%E6%A6%82%E5%BF%B5"><span class="toc-number">2.4.1.</span> <span class="toc-text">4.1 识别设计概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E8%AE%BE%E8%AE%A1%E6%A6%82%E5%BF%B5%E7%9A%84%E9%80%89%E6%8B%A9"><span class="toc-number">2.4.2.</span> <span class="toc-text">4.2 设计概念的选择</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4%E4%BA%94%EF%BC%9A%E5%AE%9E%E4%BE%8B%E5%8C%96%E6%9E%B6%E6%9E%84%E5%85%83%E7%B4%A0%EF%BC%8C%E5%88%86%E9%85%8D%E8%81%8C%E8%B4%A3%E5%B9%B6%E5%AE%9A%E4%B9%89%E6%8E%A5%E5%8F%A3"><span class="toc-number">2.5.</span> <span class="toc-text">步骤五：实例化架构元素，分配职责并定义接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4%E5%85%AD%EF%BC%9A%E7%BB%98%E5%88%B6%E8%A7%86%E5%9B%BE%E5%B9%B6%E8%AE%B0%E5%BD%95%E8%AE%BE%E8%AE%A1%E5%86%B3%E7%AD%96"><span class="toc-number">2.6.</span> <span class="toc-text">步骤六：绘制视图并记录设计决策</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4%E4%B8%83%EF%BC%9A%E5%AF%B9%E5%BD%93%E5%89%8D%E8%AE%BE%E8%AE%A1%E8%BF%9B%E8%A1%8C%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%EF%BC%8C%E5%B9%B6%E5%AE%A1%E6%9F%A5%E8%BF%AD%E4%BB%A3%E7%9B%AE%E6%A0%87%E4%B8%8E%E8%AE%BE%E8%AE%A1%E7%9B%AE%E6%A0%87%E7%9A%84%E8%BE%BE%E6%88%90%E6%83%85%E5%86%B5"><span class="toc-number">2.7.</span> <span class="toc-text">步骤七：对当前设计进行性能分析，并审查迭代目标与设计目标的达成情况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8"><span class="toc-number">2.8.</span> <span class="toc-text">注</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E8%BF%87%E7%A8%8B%E7%BB%88%E6%AD%A2%E6%A0%87%E5%87%86"><span class="toc-number">2.9.</span> <span class="toc-text">设计过程终止标准</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">Design concept selection roadmap for greenfield systems</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">将ADD应用于不同系统上下文</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B9%E6%8D%AE%E7%B3%BB%E7%BB%9F%E7%B1%BB%E5%9E%8B%E8%B0%83%E6%95%B4%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95"><span class="toc-number">4.1.</span> <span class="toc-text">根据系统类型调整设计方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%88%90%E7%86%9F%E9%A2%86%E5%9F%9F%E4%B8%AD%E8%AE%BE%E8%AE%A1Greenfield%E7%B3%BB%E7%BB%9F"><span class="toc-number">4.1.1.</span> <span class="toc-text">在成熟领域中设计Greenfield系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%96%B0%E5%85%B4%E9%A2%86%E5%9F%9F%E8%AE%BE%E8%AE%A1Greenfield%E7%B3%BB%E7%BB%9F"><span class="toc-number">4.1.2.</span> <span class="toc-text">在新兴领域设计Greenfield系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B9%E8%BF%9B%E7%8E%B0%E6%9C%89%E7%B3%BB%E7%BB%9F"><span class="toc-number">4.1.3.</span> <span class="toc-text">改进现有系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%BF%E6%8D%A2%E9%81%97%E7%95%99%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="toc-number">4.1.4.</span> <span class="toc-text">替换遗留应用程序</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2025/06/06/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E6%A8%A1%E5%BC%8F/" title="微服务可观测性模式">微服务可观测性模式</a><time datetime="2025-06-06T03:26:59.000Z" title="发表于 2025-06-06 11:26:59">2025-06-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2025/06/05/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E6%A8%A1%E5%BC%8F/" title="微服务部署模式">微服务部署模式</a><time datetime="2025-06-05T06:47:04.000Z" title="发表于 2025-06-05 14:47:04">2025-06-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2025/06/04/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/" title="微服务架构">微服务架构</a><time datetime="2025-06-03T16:58:06.000Z" title="发表于 2025-06-04 00:58:06">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2025/06/03/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E8%BF%87%E7%A8%8B/" title="软件设计过程">软件设计过程</a><time datetime="2025-06-03T15:00:12.000Z" title="发表于 2025-06-03 23:00:12">2025-06-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2025/06/03/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E6%96%87%E6%A1%A3%E5%8C%96/" title="软件架构文档化">软件架构文档化</a><time datetime="2025-06-03T10:50:55.000Z" title="发表于 2025-06-03 18:50:55">2025-06-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By 画船听雨眠y</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/ymhui.github.io/js/utils.js"></script><script src="/ymhui.github.io/js/main.js"></script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    const mathElements = document.querySelectorAll('#article-container .katex')
+    mathElements.length && mathElements.forEach((el) => {
+      el.classList.add('katex-show')
+    })
+  }
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css')
+    if (false) await btf.getScript('https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js')
+  }
+
+  showKatex()
+})()</script><script>(() => {
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://blogs-comments-server.vercel.app/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://blogs-comments-server.vercel.app/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+
+    GLOBAL_CONFIG_SITE.isPost && getCount()
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') setTimeout(init,0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(init)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/ymhui.github.io/js/search/local-search.js"></script></div></div></body></html>

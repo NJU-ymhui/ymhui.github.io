@@ -1,0 +1,365 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>微服务部署模式 | (๑&gt;ᴗ&lt;๑)</title><meta name="author" content="画船听雨眠y"><meta name="copyright" content="画船听雨眠y"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="微服务部署模式 大纲（优先看） 微服务部署模式的上下文：  微服务架构包含一组服务 每个服务都部署为一组服务实例以实现吞吐量和可用性  问题背景：如何部署？ 需求背景：  微服务使用各种语言、框架和不同的框架版本 需要快速构建、独立部署和扩展服务 服务实例之间要相互隔离 监控每个服务实例的行为 限制服务消耗的资源（CPU和内存） 尽可能降低成本  部署模式列表：  单主机部署多个服务实例 单主机部">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微服务部署模式">
+<meta property="og:url" content="https://nju-ymhui.github.io/ymhui.github.io/2025/06/05/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:site_name" content="(๑&gt;ᴗ&lt;๑)">
+<meta property="og:description" content="微服务部署模式 大纲（优先看） 微服务部署模式的上下文：  微服务架构包含一组服务 每个服务都部署为一组服务实例以实现吞吐量和可用性  问题背景：如何部署？ 需求背景：  微服务使用各种语言、框架和不同的框架版本 需要快速构建、独立部署和扩展服务 服务实例之间要相互隔离 监控每个服务实例的行为 限制服务消耗的资源（CPU和内存） 尽可能降低成本  部署模式列表：  单主机部署多个服务实例 单主机部">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://nju-ymhui.github.io/ymhui.github.io/img/myicon.ico">
+<meta property="article:published_time" content="2025-06-05T06:47:04.000Z">
+<meta property="article:modified_time" content="2025-06-06T14:20:33.093Z">
+<meta property="article:author" content="画船听雨眠y">
+<meta property="article:tag" content="软件系统设计">
+<meta property="article:tag" content="架构设计">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://nju-ymhui.github.io/ymhui.github.io/img/myicon.ico"><link rel="shortcut icon" href="/ymhui.github.io/img/myicon.ico"><link rel="canonical" href="https://nju-ymhui.github.io/ymhui.github.io/2025/06/05/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E6%A8%A1%E5%BC%8F/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/ymhui.github.io/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>(()=>{
+      const saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+      
+      window.btf = {
+        saveToLocal: saveToLocal,
+        getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.src = url
+          script.async = true
+          script.onerror = reject
+          script.onload = script.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            script.onload = script.onreadystatechange = null
+            resolve()
+          }
+
+          Object.keys(attr).forEach(key => {
+            script.setAttribute(key, attr[key])
+          })
+
+          document.head.appendChild(script)
+        }),
+
+        getCSS: (url, id = false) => new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+          link.rel = 'stylesheet'
+          link.href = url
+          if (id) link.id = id
+          link.onerror = reject
+          link.onload = link.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            link.onload = link.onreadystatechange = null
+            resolve()
+          }
+          document.head.appendChild(link)
+        }),
+
+        addGlobalFn: (key, fn, name = false, parent = window) => {
+          const pjaxEnable = false
+          if (!pjaxEnable && key.startsWith('pjax')) return
+
+          const globalFn = parent.globalFn || {}
+          const keyObj = globalFn[key] || {}
+    
+          if (name && keyObj[name]) return
+    
+          name = name || Object.keys(keyObj).length
+          keyObj[name] = fn
+          globalFn[key] = keyObj
+          parent.globalFn = globalFn
+        }
+      }
+    
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+      
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })()</script><script>const GLOBAL_CONFIG = {
+  root: '/ymhui.github.io/',
+  algolia: undefined,
+  localSearch: {"path":"/ymhui.github.io/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '微服务部署模式',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-06-06 22:20:33'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/ymhui.github.io/img/myicon.ico" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><a href="/ymhui.github.io/archives/"><div class="headline">文章</div><div class="length-num">77</div></a><a href="/ymhui.github.io/tags/"><div class="headline">标签</div><div class="length-num">30</div></a><a href="/ymhui.github.io/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/ymhui.github.io/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/ymhui.github.io/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/ymhui.github.io/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/ymhui.github.io/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/ymhui.github.io/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://blue-whale-backend.oss-cn-nanjing.aliyuncs.com/back.jpg);"><nav id="nav"><span id="blog-info"><a href="/ymhui.github.io/" title="(๑&gt;ᴗ&lt;๑)"><span class="site-name">(๑&gt;ᴗ&lt;๑)</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/ymhui.github.io/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/ymhui.github.io/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/ymhui.github.io/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/ymhui.github.io/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/ymhui.github.io/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">微服务部署模式</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-06-05T06:47:04.000Z" title="发表于 2025-06-05 14:47:04">2025-06-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-06-06T14:20:33.093Z" title="更新于 2025-06-06 22:20:33">2025-06-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/ymhui.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%AD%A6%E9%99%A2/">软件学院</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/ymhui.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%AD%A6%E9%99%A2/%E8%BD%AF%E4%BB%B6%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/">软件系统设计</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="微服务部署模式"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>微服务部署模式</h1>
+<h2 id="大纲（优先看）">大纲（优先看）</h2>
+<p>微服务部署模式的上下文：</p>
+<ul>
+<li>微服务架构包含一组服务</li>
+<li>每个服务都部署为一组服务实例以实现吞吐量和可用性</li>
+</ul>
+<p>问题背景：如何部署？</p>
+<p>需求背景：</p>
+<ul>
+<li>微服务使用各种语言、框架和不同的框架版本</li>
+<li>需要快速构建、独立部署和扩展服务</li>
+<li>服务实例之间要相互隔离</li>
+<li>监控每个服务实例的行为</li>
+<li>限制服务消耗的资源（CPU和内存）</li>
+<li>尽可能降低成本</li>
+</ul>
+<p>部署模式列表：</p>
+<ul>
+<li>单主机部署多个服务实例</li>
+<li>单主机部署单个服务实例</li>
+<li>服务部署到虚拟机</li>
+<li>服务部署到容器</li>
+<li>服务部署平台</li>
+<li>无服务器部署</li>
+</ul>
+<p>基础设施相关模式组——部署模式：</p>
+<img src="/ymhui.github.io/2025/06/05/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E6%A8%A1%E5%BC%8F/image-20250605150733060.png" class="" title="image-20250605150733060">
+<h2 id="单主机部署多个服务实例">单主机部署多个服务实例</h2>
+<p>在主机（物理机或虚拟机）上运行不同服务的多个实例，存在资源需求冲突的风险。</p>
+<p>有多种方法可以实现这种部署，比如每个服务实例占用一个进程</p>
+<h3 id="优点">优点</h3>
+<p>资源利用率高</p>
+<h3 id="缺点">缺点</h3>
+<ul>
+<li>资源需求冲突</li>
+<li>依赖版本冲突</li>
+<li>难以限制服务实例消耗的资源</li>
+<li>因为一个进程中可能有多个服务实例，因此很难监控每个服务实例资源消耗，也没法隔离每个实例</li>
+</ul>
+<h3 id="相关模式">相关模式</h3>
+<p>替代模式：单主机部署单个服务实例</p>
+<h2 id="单主机部署单个服务实例">单主机部署单个服务实例</h2>
+<p>一台主机上部署一个服务实例</p>
+<h3 id="优点-2">优点</h3>
+<ul>
+<li>服务实例彼此隔离</li>
+<li>不存在资源冲突或依赖版本冲突</li>
+<li>最多消耗一个主机的资源</li>
+<li>监控、管理、重新部署都很简单</li>
+</ul>
+<h3 id="缺点-2">缺点</h3>
+<p>资源利用率低</p>
+<h3 id="相关模式-2">相关模式</h3>
+<p>替代模式：单主机部署多个服务实例、无服务器部署</p>
+<p>特化模式：服务部署到虚拟机、服务部署到容器</p>
+<h2 id="服务部署到虚拟机">服务部署到虚拟机</h2>
+<p>把服务打包为虚拟机镜像，并将每个服务实例部署为单独的虚拟机。可以认为运行时每个服务都是该镜像实例化的虚拟机。</p>
+<h3 id="优点-3">优点</h3>
+<ul>
+<li>通过增加实例数量来扩展服务很简单（负载均衡）</li>
+<li>VM封装了服务构建的细节，所有服务启动和终止方式是一致的</li>
+<li>每个服务实例都是隔离的（单独的VM）</li>
+<li>VM可以对服务实例消耗的CPU与内存进行限制</li>
+</ul>
+<h3 id="缺点-3">缺点</h3>
+<ul>
+<li>资源利用率较低（一台虚拟机只允许一个服务实例）</li>
+<li>部署相对慢（分钟级）</li>
+<li>操作系统管理VM所需的额外开销</li>
+</ul>
+<h3 id="相关模式-3">相关模式</h3>
+<p>替代模式：服务部署到容器</p>
+<p>泛化模式：单主机部署单个服务实例</p>
+<h2 id="服务部署到容器">服务部署到容器</h2>
+<p>将服务打包为容器镜像并部署到容器中</p>
+<p>容器是一种轻量级部署方案，可以在一台机器上运行多个容器共享操作系统，从容器的角度看，它就好像有自己的独立IP、端口，与其他容器不冲突，互相独立运行；同时目前有很多现代化工具来编排容器协调资源，比如k8s</p>
+<h3 id="优点-4">优点</h3>
+<ul>
+<li>更改容器数量可以直接扩展或缩减服务</li>
+<li>容器封装了服务构建的细节，所有服务启动和终止方式是一致的</li>
+<li>服务实例互相隔离</li>
+<li>容器可以限制服务实例使用的CPU及内存</li>
+<li>容器的构建和启动是很快的（明显快于VM镜像构建与VM启动）</li>
+</ul>
+<h3 id="缺点-4">缺点</h3>
+<ul>
+<li>大量容器的管理</li>
+<li>部署容器的基础设施没有部署VM的基础设施丰富</li>
+</ul>
+<h3 id="相关模式-4">相关模式</h3>
+<p>替代模式：服务部署到虚拟机</p>
+<p>泛化模式：单主机部署单个服务实例</p>
+<h2 id="无服务器部署">无服务器部署</h2>
+<p>使用公有云提供的serverless部署机制部署服务，部署细节对用户是隐藏的，用户不要管理基础设施（没有服务器的概念）。需要用户打包代码（比如zip）并上传，基础设施获取服务代码并运行。常用的公有云serverless平台有AWS Lambda、Azure Functions等</p>
+<p>示例：使用AWS Lambda部署Restaurant Service</p>
+<img src="/ymhui.github.io/2025/06/05/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E6%A8%A1%E5%BC%8F/image-20250606110917786.png" class="" title="image-20250606110917786">
+<h3 id="优点-5">优点</h3>
+<ul>
+<li>AWS服务集成简单</li>
+<li>消除系统管理任务，比如底层系统管理、操作系统或运行时补丁等</li>
+<li>弹性伸缩：运行多个服务实例以动态处理负载</li>
+</ul>
+<h3 id="缺点-5">缺点</h3>
+<ul>
+<li>延迟：请求可能有高延迟（Java服务通常需要至少几秒钟，不适合对延迟敏感的服务）</li>
+<li>不适合长时间运行的服务</li>
+</ul>
+<h3 id="相关模式-5">相关模式</h3>
+<p>替代模式：单主机部署单个服务实例</p>
+<h2 id="服务部署平台">服务部署平台</h2>
+<p>使用部署平台作为应用程序部署的自动化基础设施，提供服务抽象（一组命名的、高可用服务实例）：</p>
+<ul>
+<li>Docker编排框架，比如k8s</li>
+<li>无服务器平台，比如AWS Lambda</li>
+<li>PaaS，比如Cloud Foundary</li>
+</ul>
+<p>Docker编排框架将运行着Docker的一组计算机转变为资源集群，将容器分配给机器，提供资源管理、调度和服务管理等功能。常用编排框架有k8s</p>
+<p>现代常用的服务部署平台：k8s集群</p>
+<h3 id="优点-6">优点</h3>
+<p>多种后续模式（Successor）支持，使用灵活性高；功能强大</p>
+<h3 id="缺点-6">缺点</h3>
+<p>额外的学习和资源成本</p>
+<h3 id="相关模式-6">相关模式</h3>
+<p>后续模式：服务部署到虚拟机，服务部署到容器，无服务器部署</p>
+<h1>总结</h1>
+<p>微服务的各种部署模式都有各自利弊，在进行微服务部署时应当选择支持服务要求的<strong>最轻量级部署模式</strong>，比如Serverless <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">\gt</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> 容器 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>&gt;</mo></mrow><annotation encoding="application/x-tex">\gt</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span></span></span></span> 虚拟机 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>&gt;</mo><mo>…</mo></mrow><annotation encoding="application/x-tex">\gt \dots</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.123em;"></span><span class="minner">…</span></span></span></span></p>
+<p>再回顾一下这张关系图：</p>
+<img src="/ymhui.github.io/2025/06/05/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E6%A8%A1%E5%BC%8F/image-20250605150733060.png" class="" title="image-20250605150733060"></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://nju-ymhui.github.io/ymhui.github.io">画船听雨眠y</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://nju-ymhui.github.io/ymhui.github.io/2025/06/05/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E6%A8%A1%E5%BC%8F/">https://nju-ymhui.github.io/ymhui.github.io/2025/06/05/微服务部署模式/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://nju-ymhui.github.io/ymhui.github.io" target="_blank">(๑>ᴗ<๑)</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/ymhui.github.io/tags/%E8%BD%AF%E4%BB%B6%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/">软件系统设计</a><a class="post-meta__tags" href="/ymhui.github.io/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/">架构设计</a></div><div class="post-share"><div class="social-share" data-image="/ymhui.github.io/img/myicon.ico" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>真的不考虑支持一下吗 (╯︵╰,)</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/ymhui.github.io/img/qrcode.png" target="_blank"><img class="post-qr-code-img" src="/ymhui.github.io/img/qrcode.png" alt="微信支付"/></a><div class="post-qr-code-desc">微信支付</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="prev-post pull-left" href="/ymhui.github.io/2025/06/06/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E6%A8%A1%E5%BC%8F/" title="微服务可观测性模式"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">微服务可观测性模式</div></div></a><a class="next-post pull-right" href="/ymhui.github.io/2025/06/04/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/" title="微服务架构"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">微服务架构</div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a href="/ymhui.github.io/2025/06/01/%E5%B1%9E%E6%80%A7%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/" title="属性驱动设计"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-01</div><div class="title">属性驱动设计</div></div></a><a href="/ymhui.github.io/2025/06/04/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/" title="微服务架构"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-04</div><div class="title">微服务架构</div></div></a><a href="/ymhui.github.io/2025/06/06/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E6%A8%A1%E5%BC%8F/" title="微服务可观测性模式"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-06</div><div class="title">微服务可观测性模式</div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info is-center"><div class="avatar-img"><img src="/ymhui.github.io/img/myicon.ico" onerror="this.onerror=null;this.src='/ymhui.github.io/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">画船听雨眠y</div><div class="author-info-description">美好的一天从打代码开始结束</div><div class="site-data"><a href="/ymhui.github.io/archives/"><div class="headline">文章</div><div class="length-num">77</div></a><a href="/ymhui.github.io/tags/"><div class="headline">标签</div><div class="length-num">30</div></a><a href="/ymhui.github.io/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/NJU-ymhui"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/NJU-ymhui" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">微服务部署模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%A7%E7%BA%B2%EF%BC%88%E4%BC%98%E5%85%88%E7%9C%8B%EF%BC%89"><span class="toc-number">1.1.</span> <span class="toc-text">大纲（优先看）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E4%B8%BB%E6%9C%BA%E9%83%A8%E7%BD%B2%E5%A4%9A%E4%B8%AA%E6%9C%8D%E5%8A%A1%E5%AE%9E%E4%BE%8B"><span class="toc-number">1.2.</span> <span class="toc-text">单主机部署多个服务实例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%82%B9"><span class="toc-number">1.2.1.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9"><span class="toc-number">1.2.2.</span> <span class="toc-text">缺点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.2.3.</span> <span class="toc-text">相关模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E4%B8%BB%E6%9C%BA%E9%83%A8%E7%BD%B2%E5%8D%95%E4%B8%AA%E6%9C%8D%E5%8A%A1%E5%AE%9E%E4%BE%8B"><span class="toc-number">1.3.</span> <span class="toc-text">单主机部署单个服务实例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%82%B9-2"><span class="toc-number">1.3.1.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9-2"><span class="toc-number">1.3.2.</span> <span class="toc-text">缺点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E6%A8%A1%E5%BC%8F-2"><span class="toc-number">1.3.3.</span> <span class="toc-text">相关模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E5%88%B0%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="toc-number">1.4.</span> <span class="toc-text">服务部署到虚拟机</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%82%B9-3"><span class="toc-number">1.4.1.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9-3"><span class="toc-number">1.4.2.</span> <span class="toc-text">缺点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E6%A8%A1%E5%BC%8F-3"><span class="toc-number">1.4.3.</span> <span class="toc-text">相关模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E5%88%B0%E5%AE%B9%E5%99%A8"><span class="toc-number">1.5.</span> <span class="toc-text">服务部署到容器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%82%B9-4"><span class="toc-number">1.5.1.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9-4"><span class="toc-number">1.5.2.</span> <span class="toc-text">缺点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E6%A8%A1%E5%BC%8F-4"><span class="toc-number">1.5.3.</span> <span class="toc-text">相关模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A0%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2"><span class="toc-number">1.6.</span> <span class="toc-text">无服务器部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%82%B9-5"><span class="toc-number">1.6.1.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9-5"><span class="toc-number">1.6.2.</span> <span class="toc-text">缺点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E6%A8%A1%E5%BC%8F-5"><span class="toc-number">1.6.3.</span> <span class="toc-text">相关模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E5%B9%B3%E5%8F%B0"><span class="toc-number">1.7.</span> <span class="toc-text">服务部署平台</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%82%B9-6"><span class="toc-number">1.7.1.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9-6"><span class="toc-number">1.7.2.</span> <span class="toc-text">缺点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E6%A8%A1%E5%BC%8F-6"><span class="toc-number">1.7.3.</span> <span class="toc-text">相关模式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2025/06/06/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E6%A8%A1%E5%BC%8F/" title="微服务可观测性模式">微服务可观测性模式</a><time datetime="2025-06-06T03:26:59.000Z" title="发表于 2025-06-06 11:26:59">2025-06-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2025/06/05/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E6%A8%A1%E5%BC%8F/" title="微服务部署模式">微服务部署模式</a><time datetime="2025-06-05T06:47:04.000Z" title="发表于 2025-06-05 14:47:04">2025-06-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2025/06/04/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/" title="微服务架构">微服务架构</a><time datetime="2025-06-03T16:58:06.000Z" title="发表于 2025-06-04 00:58:06">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2025/06/03/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E8%BF%87%E7%A8%8B/" title="软件设计过程">软件设计过程</a><time datetime="2025-06-03T15:00:12.000Z" title="发表于 2025-06-03 23:00:12">2025-06-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2025/06/03/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E6%96%87%E6%A1%A3%E5%8C%96/" title="软件架构文档化">软件架构文档化</a><time datetime="2025-06-03T10:50:55.000Z" title="发表于 2025-06-03 18:50:55">2025-06-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By 画船听雨眠y</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/ymhui.github.io/js/utils.js"></script><script src="/ymhui.github.io/js/main.js"></script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    const mathElements = document.querySelectorAll('#article-container .katex')
+    mathElements.length && mathElements.forEach((el) => {
+      el.classList.add('katex-show')
+    })
+  }
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css')
+    if (false) await btf.getScript('https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js')
+  }
+
+  showKatex()
+})()</script><script>(() => {
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://blogs-comments-server.vercel.app/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://blogs-comments-server.vercel.app/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+
+    GLOBAL_CONFIG_SITE.isPost && getCount()
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') setTimeout(init,0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(init)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/ymhui.github.io/js/search/local-search.js"></script></div></div></body></html>
