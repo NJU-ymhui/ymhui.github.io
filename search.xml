@@ -4,6 +4,61 @@
   
     
     <entry>
+      <title>架构模式</title>
+      <link href="/ymhui.github.io/2025/06/06/%E6%9E%B6%E6%9E%84%E6%A8%A1%E5%BC%8F/"/>
+      <url>/ymhui.github.io/2025/06/06/%E6%9E%B6%E6%9E%84%E6%A8%A1%E5%BC%8F/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>质量属性</title>
+      <link href="/ymhui.github.io/2025/06/06/%E8%B4%A8%E9%87%8F%E5%B1%9E%E6%80%A7/"/>
+      <url>/ymhui.github.io/2025/06/06/%E8%B4%A8%E9%87%8F%E5%B1%9E%E6%80%A7/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>系统架构概述</title>
+      <link href="/ymhui.github.io/2025/06/06/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E6%A6%82%E8%BF%B0/"/>
+      <url>/ymhui.github.io/2025/06/06/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E6%A6%82%E8%BF%B0/</url>
+      
+        <content type="html"><![CDATA[<h1>系统架构概述</h1><h2 id="软件架构的定义">软件架构的定义</h2><p>SEI定义：程序或计算系统的软件架构是系统的结构或结构，它包括软件元素、这些元素的外部可见属性以及它们之间的关系。SEI更侧重结构、元素、属性、关系</p><p>IEEE定义：系统的基本组织，体现在其组件、它们彼此之间以及与环境的关系，以及管理其设计和演进的原则。IEEE更强调基本组织、组件、关系、环境、设计与演进规则</p><h2 id="架构与设计、系统机构的区别和联系">架构与设计、系统机构的区别和联系</h2><h3 id="架构与设计">架构与设计</h3><p>所有架构都是软件设计，但并非所有设计都是软件架构；并且架构设计是设计过程的一部分。</p><p>通常，设计本身就是一种抽象，而软件架构被视为“设计的更高层次抽象视图”，其作用在于“隐藏设计的复杂性和实现细节”</p><h3 id="架构与系统结构">架构与系统结构</h3><p>系统结构通常指将一个复杂系统分解为若干组件、模块或子系统的过程和结果；而软件架构则在此基础上进一步清晰地定义组件的接口、组件间的通信机制和依赖关系，以及每个组件的职责</p><h3 id="架构更看重什么">架构更看重什么</h3><p>架构更关注信息交流，信息交流包括：</p><ul><li>数据流动：<ul><li>函数调用</li><li>远程调用</li><li>异步消息</li></ul></li><li>控制流：<ul><li>组件间的消息传递</li><li>同步、并发等</li></ul></li></ul><p>架构强调非功能性需求：</p><ul><li>技术限制</li><li>业务限制</li><li>质量属性</li></ul><h2 id="架构在系统开发中的作用（为什么软件架构重要）">架构在系统开发中的作用（为什么软件架构重要）</h2><p>架构之所以重要，是因为它在系统开发的生命周期中扮演者多重角色：</p><ul><li><strong>沟通媒介</strong>：软件架构为项目的不同利益相关者提供了一个共同理解和交流的框架</li><li><strong>早期设计决策的体现</strong>：架构是项目中最早形成的一批为满足需求而做出的设计决策的集中体现，这些决策对后续的实现工作也有一定约束</li><li><strong>影响组织结构</strong>：架构会影响到团队的组织与划分</li><li><strong>影响质量属性</strong>：架构决策对系统质量属性的达成起决定性作用</li><li><strong>引发有关潜在变更的讨论</strong>：变与不变</li><li><strong>可重用和可转移的抽象</strong>：一对多映射</li><li><strong>是产品通用性的基础</strong>：产品线共享软件架构</li><li>可以通过体系结构集成独立开发组件来开发系统</li></ul><h2 id="架构视图：Krutchen’s-4-1视图模型">架构视图：Krutchen’s 4+1视图模型</h2><p>软件架构是一个复杂的设计产物，难以用单一图示完整呈现，需要从不同视角（即不同视图）来观察。</p><p>Krutchen提出的<strong>4+1视图模型</strong>包含以下几个核心视图：</p><table><thead><tr><th>视图名称</th><th>主要描述内容</th></tr></thead><tbody><tr><td>逻辑视图 (Logical view)</td><td>描述架构中具有重要意义的<strong>元素（如类、包、子系统）及其之间的关系</strong>，主要关注系统的<strong>功能需求</strong>。</td></tr><tr><td>过程视图 (Process view)</td><td>描述<strong>系统的并发和通信元素</strong>，如进程、线程、任务及其交互，关注系统的动态行为和性能、可伸缩性等。</td></tr><tr><td>物理视图 (Physical view)</td><td>描绘主要的<strong>进程和组件如何映射到应用的硬件基础设施上</strong>，关注系统的部署和拓扑结构。</td></tr><tr><td>开发视图 (Development view)</td><td>捕获<strong>软件组件在开发环境中的内部组织</strong>，如模块、包的划分，通常由配置管理工具管理，关注系统的可构建性和可维护性。</td></tr><tr><td>场景/架构用例 (Scenarios/Architecture use cases)</td><td>捕获<strong>对架构有重要影响的需求，通常是一些关键的用例或场景</strong>，它们关联并驱动其他四个视图的设计。这相当于“+1”视图。</td></tr></tbody></table><p>4+1视图模型之所以重要，在于它通过关注不同角度，有效地满足项目中不同类型利益相关者们的特定需求，从而促进团队成员之间的高效沟通和协作。</p><h2 id="如何进行设计">如何进行设计</h2><ol><li>分解</li><li>抽象</li><li>分而治之</li><li>生成与测试</li><li>迭代与细化</li><li>重用元素</li></ol><h2 id="软件架构师的角色与核心职责">软件架构师的角色与核心职责</h2><ul><li>联络沟通：在客户、技术团队、需求分析师之间架桥</li><li>软件工程实践：应用软件工程最佳实践</li><li>技术知识掌握：把握前瞻性知识</li><li>风险管理：识别并评估潜在风险</li></ul><img src="/ymhui.github.io/2025/06/06/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E6%A6%82%E8%BF%B0/image-20250607014901483.png" class="" title="image-20250607014901483"><h2 id="架构活动">架构活动</h2><ul><li>创建系统的商业案例</li><li>理解用户需求</li><li>创建和选择体系结构</li><li>在利益相关者之间沟通体系结构</li><li>分析或评估体系结构</li><li>实现体系结构</li><li>保证体系结构一致性</li></ul><h2 id="软件架构过程">软件架构过程</h2><ol><li>通过利益相关者获取到 ASRs（架构攸关需求</li><li>通过分析得到 Prioritized Quality Attribute Scenarios(高优先级质量属性解决方案 )和 Requirements Constraints(需求和约束 )</li><li>将上述部分，结合模式和策略，综合可以得到架构的设计</li><li>根据架构的设计得到由模式决定的候选视图的示意图，之后完成文档化</li><li>选择、组合视图，将文档进行进一步的评估，这一部分需要利益相关者的参与、<br>也需要 Prioritized Quality Attribute Scenarios和文档等作为参考。</li></ol><img src="/ymhui.github.io/2025/06/06/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E6%A6%82%E8%BF%B0/image-20250607015259170.png" class="" title="image-20250607015259170"><h2 id="软件架构生命周期">软件架构生命周期</h2><p>软件架构的生命周期模型如图：</p><img src="/ymhui.github.io/2025/06/06/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E6%A6%82%E8%BF%B0/image-20250607015351224.png" class="" title="image-20250607015351224"><p>根本看不懂，汉化后大概如下：</p><table><thead><tr><th>生命周期阶段</th><th>主要活动/目标</th></tr></thead><tbody><tr><td>架构分析 (Architectural Analysis)</td><td>检查架构所面临的各种关注点（concerns）和所处的上下文环境，从而识别并定义出一组对系统至关重要的架构需求（architecturally significant requirements, ASRs）。</td></tr><tr><td>架构综合 (Architectural Synthesis)</td><td>针对已确定的架构重要需求，设计和构建出满足这些需求的候选架构解决方案。</td></tr><tr><td>架构评估 (Architectural Evaluation)</td><td>对提出的候选架构解决方案进行系统性的评估，判断其在多大程度上满足了预设的架构重要需求。</td></tr><tr><td>架构实现 (Architectural Implementation)</td><td>选定的架构方案通过详细设计阶段的细化，并由设计师和开发人员通过编码等方式将其具体化为可运行的系统。</td></tr><tr><td>架构维护 (Architectural Maintenance)</td><td>在系统部署运行后，根据实际需要对架构进行修改、调整和演进，以修正缺陷、适应新的需求或提升系统能力。</td></tr></tbody></table><h2 id="架构知识域">架构知识域</h2><h3 id="软件系统设计基础概念">软件系统设计基础概念</h3><ul><li>设计概念常识</li><li>上下文：软件开发生命周期（需求、设计、构造、测试）</li><li>设计过程</li><li>在设计中使用的技术</li></ul><h3 id="关键点">关键点</h3><p>并发、控制和处理时间、分布式、异常处理、交互系统、持久化</p><h3 id="软件结构和架构">软件结构和架构</h3><ul><li>架构的结构和关注点</li><li>架构的模式和风格</li></ul><h3 id="软件设计方法">软件设计方法</h3><p>ADD等设计方法</p><h3 id="软件设计质量分析和评估">软件设计质量分析和评估</h3><p>关注系统的各种质量属性的定义和度量、由于分析和评估设计质量的方法、跳过仿真或原型进行早期验证的方法、各自度量指标等</p><h3 id="设计建模与表示">设计建模与表示</h3><p>涵盖用于描述和记录架构与设计的各种表示法，如UML等</p><h2 id="软件系统架构的角色">软件系统架构的角色</h2><ul><li>代表最难更改的设计决策，应当详细考虑</li><li>架构是完成产品生产线的关键，可以以较少的工作量、成本和风险进行相似系统的开发</li><li>架构是系统中首要检查的部分</li><li>架构为维护和修改决策1提供了参考框架</li></ul><p>弘文了 😅</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 软件学院 </category>
+          
+          <category> 软件系统设计 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 软件系统设计 </tag>
+            
+            <tag> 架构设计 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>微服务可观测性模式</title>
       <link href="/ymhui.github.io/2025/06/06/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E6%A8%A1%E5%BC%8F/"/>
       <url>/ymhui.github.io/2025/06/06/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E6%A8%A1%E5%BC%8F/</url>
