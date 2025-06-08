@@ -1,14 +1,16 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>质量属性 | (๑&gt;ᴗ&lt;๑)</title><meta name="author" content="画船听雨眠y"><meta name="copyright" content="画船听雨眠y"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="美好的一天从打代码开始结束">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>质量属性 | (๑&gt;ᴗ&lt;๑)</title><meta name="author" content="画船听雨眠y"><meta name="copyright" content="画船听雨眠y"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="软件需求 功能性需求  定义系统必须做什么，即如何给用户提供价值 功能是系统完成预期工作的能力，很大程度上与结构无关  质量需求（非功能性需求）  质量需求应在功能性需求之上提供整个系统合乎需求的特性 质量需求是对功能需求或整个产品的约束 质量属性如果很重要，软件架构会约束功能到各种结构上的分配（映射） 不能先完成功能，再对质量需求进行适配，因为质量不能被添加到软件密集系统中 任何设计决策中都必须">
 <meta property="og:type" content="article">
 <meta property="og:title" content="质量属性">
 <meta property="og:url" content="https://nju-ymhui.github.io/ymhui.github.io/2025/06/06/%E8%B4%A8%E9%87%8F%E5%B1%9E%E6%80%A7/index.html">
 <meta property="og:site_name" content="(๑&gt;ᴗ&lt;๑)">
-<meta property="og:description" content="美好的一天从打代码开始结束">
+<meta property="og:description" content="软件需求 功能性需求  定义系统必须做什么，即如何给用户提供价值 功能是系统完成预期工作的能力，很大程度上与结构无关  质量需求（非功能性需求）  质量需求应在功能性需求之上提供整个系统合乎需求的特性 质量需求是对功能需求或整个产品的约束 质量属性如果很重要，软件架构会约束功能到各种结构上的分配（映射） 不能先完成功能，再对质量需求进行适配，因为质量不能被添加到软件密集系统中 任何设计决策中都必须">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nju-ymhui.github.io/ymhui.github.io/img/myicon.ico">
 <meta property="article:published_time" content="2025-06-06T15:31:33.000Z">
-<meta property="article:modified_time" content="2025-06-06T15:31:33.715Z">
+<meta property="article:modified_time" content="2025-06-08T02:01:22.229Z">
 <meta property="article:author" content="画船听雨眠y">
+<meta property="article:tag" content="软件系统设计">
+<meta property="article:tag" content="架构设计">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://nju-ymhui.github.io/ymhui.github.io/img/myicon.ico"><link rel="shortcut icon" href="/ymhui.github.io/img/myicon.ico"><link rel="canonical" href="https://nju-ymhui.github.io/ymhui.github.io/2025/06/06/%E8%B4%A8%E9%87%8F%E5%B1%9E%E6%80%A7/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/ymhui.github.io/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>(()=>{
       const saveToLocal = {
@@ -172,9 +174,450 @@
   isPost: true,
   isHome: false,
   isHighlightShrink: false,
-  isToc: false,
-  postUpdate: '2025-06-06 23:31:33'
-}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/ymhui.github.io/img/myicon.ico" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><a href="/ymhui.github.io/archives/"><div class="headline">文章</div><div class="length-num">80</div></a><a href="/ymhui.github.io/tags/"><div class="headline">标签</div><div class="length-num">30</div></a><a href="/ymhui.github.io/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/ymhui.github.io/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/ymhui.github.io/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/ymhui.github.io/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/ymhui.github.io/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/ymhui.github.io/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://blue-whale-backend.oss-cn-nanjing.aliyuncs.com/back.jpg);"><nav id="nav"><span id="blog-info"><a href="/ymhui.github.io/" title="(๑&gt;ᴗ&lt;๑)"><span class="site-name">(๑&gt;ᴗ&lt;๑)</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/ymhui.github.io/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/ymhui.github.io/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/ymhui.github.io/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/ymhui.github.io/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/ymhui.github.io/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">质量属性</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-06-06T15:31:33.000Z" title="发表于 2025-06-06 23:31:33">2025-06-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-06-06T15:31:33.715Z" title="更新于 2025-06-06 23:31:33">2025-06-06</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">0</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>1分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="质量属性"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://nju-ymhui.github.io/ymhui.github.io">画船听雨眠y</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://nju-ymhui.github.io/ymhui.github.io/2025/06/06/%E8%B4%A8%E9%87%8F%E5%B1%9E%E6%80%A7/">https://nju-ymhui.github.io/ymhui.github.io/2025/06/06/质量属性/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://nju-ymhui.github.io/ymhui.github.io" target="_blank">(๑>ᴗ<๑)</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/ymhui.github.io/img/myicon.ico" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>真的不考虑支持一下吗 (╯︵╰,)</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/ymhui.github.io/img/qrcode.png" target="_blank"><img class="post-qr-code-img" src="/ymhui.github.io/img/qrcode.png" alt="微信支付"/></a><div class="post-qr-code-desc">微信支付</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="prev-post pull-left" href="/ymhui.github.io/2025/06/06/%E6%9E%B6%E6%9E%84%E6%A8%A1%E5%BC%8F/" title="架构模式"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">架构模式</div></div></a><a class="next-post pull-right" href="/ymhui.github.io/2025/06/06/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E6%A6%82%E8%BF%B0/" title="系统架构概述"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">系统架构概述</div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info is-center"><div class="avatar-img"><img src="/ymhui.github.io/img/myicon.ico" onerror="this.onerror=null;this.src='/ymhui.github.io/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">画船听雨眠y</div><div class="author-info-description">美好的一天从打代码开始结束</div><div class="site-data"><a href="/ymhui.github.io/archives/"><div class="headline">文章</div><div class="length-num">80</div></a><a href="/ymhui.github.io/tags/"><div class="headline">标签</div><div class="length-num">30</div></a><a href="/ymhui.github.io/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/NJU-ymhui"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/NJU-ymhui" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2025/06/06/%E6%9E%B6%E6%9E%84%E6%A8%A1%E5%BC%8F/" title="架构模式">架构模式</a><time datetime="2025-06-06T15:31:56.000Z" title="发表于 2025-06-06 23:31:56">2025-06-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2025/06/06/%E8%B4%A8%E9%87%8F%E5%B1%9E%E6%80%A7/" title="质量属性">质量属性</a><time datetime="2025-06-06T15:31:33.000Z" title="发表于 2025-06-06 23:31:33">2025-06-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2025/06/06/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E6%A6%82%E8%BF%B0/" title="系统架构概述">系统架构概述</a><time datetime="2025-06-06T15:31:03.000Z" title="发表于 2025-06-06 23:31:03">2025-06-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2025/06/06/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E6%A8%A1%E5%BC%8F/" title="微服务可观测性模式">微服务可观测性模式</a><time datetime="2025-06-06T03:26:59.000Z" title="发表于 2025-06-06 11:26:59">2025-06-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2025/06/05/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E6%A8%A1%E5%BC%8F/" title="微服务部署模式">微服务部署模式</a><time datetime="2025-06-05T06:47:04.000Z" title="发表于 2025-06-05 14:47:04">2025-06-05</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By 画船听雨眠y</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/ymhui.github.io/js/utils.js"></script><script src="/ymhui.github.io/js/main.js"></script><div class="js-pjax"><script>(async () => {
+  isToc: true,
+  postUpdate: '2025-06-08 10:01:22'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/ymhui.github.io/img/myicon.ico" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><a href="/ymhui.github.io/archives/"><div class="headline">文章</div><div class="length-num">80</div></a><a href="/ymhui.github.io/tags/"><div class="headline">标签</div><div class="length-num">30</div></a><a href="/ymhui.github.io/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/ymhui.github.io/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/ymhui.github.io/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/ymhui.github.io/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/ymhui.github.io/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/ymhui.github.io/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://blue-whale-backend.oss-cn-nanjing.aliyuncs.com/back.jpg);"><nav id="nav"><span id="blog-info"><a href="/ymhui.github.io/" title="(๑&gt;ᴗ&lt;๑)"><span class="site-name">(๑&gt;ᴗ&lt;๑)</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/ymhui.github.io/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/ymhui.github.io/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/ymhui.github.io/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/ymhui.github.io/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/ymhui.github.io/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">质量属性</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-06-06T15:31:33.000Z" title="发表于 2025-06-06 23:31:33">2025-06-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-06-08T02:01:22.229Z" title="更新于 2025-06-08 10:01:22">2025-06-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/ymhui.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%AD%A6%E9%99%A2/">软件学院</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/ymhui.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%AD%A6%E9%99%A2/%E8%BD%AF%E4%BB%B6%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/">软件系统设计</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="质量属性"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>软件需求</h1>
+<h2 id="功能性需求">功能性需求</h2>
+<ol>
+<li>定义系统必须做什么，即如何给用户提供价值</li>
+<li>功能是系统完成预期工作的能力，很大程度上与结构无关</li>
+</ol>
+<h2 id="质量需求（非功能性需求）">质量需求（非功能性需求）</h2>
+<ol>
+<li>质量需求应在功能性需求之上提供整个系统合乎需求的特性</li>
+<li>质量需求是对功能需求或整个产品的约束</li>
+<li>质量属性如果很重要，软件架构会约束功能到各种结构上的分配（映射）</li>
+<li>不能先完成功能，再对质量需求进行适配，因为质量不能被添加到软件密集系统中</li>
+<li>任何设计决策中都必须考虑质量需求</li>
+<li>软件体系结构限制了质量属性的实现，比如性能、安全性、可用性等</li>
+<li>分为两大类：
+<ul>
+<li>执行期间可观测：系统满足其行为需求的程度如何？比如性能、安全性、可用性等</li>
+<li>执行期间不可观测：系统维护、测试容易吗？比如可修改性、可移植性、可重用性等</li>
+</ul>
+</li>
+</ol>
+<h2 id="约束">约束</h2>
+<ul>
+<li>约束是具有<strong>零自由度</strong>的设计决策</li>
+<li>是已经做出的预先指定的设计决策</li>
+<li>需要通过<strong>接受设计决策并与其他受影响的设计决策进行协调</strong>才能满足约束</li>
+</ul>
+<h2 id="质量属性">质量属性</h2>
+<h3 id="确定质量属性">确定质量属性</h3>
+<ol>
+<li>质量属性的精确定义对于进行评估是必要的</li>
+<li>使用<strong>质量属性方案</strong>来定义所需的质量属性</li>
+</ol>
+<h3 id="质量属性列表">质量属性列表</h3>
+<img src="/ymhui.github.io/2025/06/06/%E8%B4%A8%E9%87%8F%E5%B1%9E%E6%80%A7/image-20250607112119623.png" class="" title="image-20250607112119623">
+<h1>质量属性方案</h1>
+<p>质量属性方案用于<strong>定义所需的质量属性</strong>，主要分为通用方案与具体方案。</p>
+<h2 id="通用方案">通用方案</h2>
+<ul>
+<li>与系统无关的方案，用于指导质量属性要求的规范</li>
+<li>提供了一个框架，用于生成通用的、独立于系统的、质量属性特定的方案</li>
+<li>因为是通用方案，所以不一定都和当前系统相关，需要转化为特定系统的术语</li>
+</ul>
+<h2 id="具体方案">具体方案</h2>
+<p>系统特定方案，指导特定系统满足质量属性要求</p>
+<h2 id="刺激相应图（重要）">刺激相应图（重要）</h2>
+<img src="/ymhui.github.io/2025/06/06/%E8%B4%A8%E9%87%8F%E5%B1%9E%E6%80%A7/image-20250607112538586.png" class="" title="image-20250607112538586">
+<ul>
+<li>刺激：到达系统时需要考虑的条件</li>
+<li>刺激源：产生刺激的实体（人、系统等）</li>
+<li>响应：刺激到来后工件开展的行为</li>
+<li>响应度量：对响应以某种方法测量，比如系统多长时间有反应</li>
+<li>环境：刺激发生时系统的状态，比如正常运行、过载等</li>
+<li>工件 Artifact：完成需求的系统或系统一部分</li>
+</ul>
+<h2 id="决策">决策</h2>
+<ul>
+<li>设计或模式用决策来提供预期收益</li>
+<li>决策会影响质量属性的响应控制</li>
+<li>决策的集合即体系结构策略</li>
+<li>决策也可以由其他决策组成，比如冗余可以划分为数据冗余和计算冗余</li>
+<li>系统设计包含一组设计决策，有的保证质量属性，有的确保功能实现</li>
+</ul>
+<h2 id="质量设计决策">质量设计决策</h2>
+<p>体系结构是设计决策的集合</p>
+<p>有七种设计决策（可能有重叠）：</p>
+<ol>
+<li>职责分配</li>
+<li>协调模型</li>
+<li>数据模型</li>
+<li>资源管理</li>
+<li>架构元素映射</li>
+<li>绑定事件决策</li>
+<li>技术选型</li>
+</ol>
+<h1>质量属性和相应策略详细介绍</h1>
+<h2 id="可用性-Availability">可用性 Availability</h2>
+<p>可用性是应用程序的关键要求，用“所需的可用时间”来度量。示例：业务运行期间100%可用</p>
+<h3 id="Outage、Failure、Fault和Error：">Outage、Failure、Fault和Error：</h3>
+<ol>
+<li>Outage：系统不可用的情况</li>
+<li>Fault：Failure的原因</li>
+<li>Error：Fault发生与Failure出现之间的中间状态</li>
+<li>Failure：系统状态的可观察特征，系统无法交付该系统期望的服务</li>
+</ol>
+<h3 id="影响因素">影响因素</h3>
+<p>发现故障的时间、修复故障的时间、重启应用的时间</p>
+<p>MTBF (Mean Time Between Failure)</p>
+<p>MTTR (Mean Time To Repair)</p>
+<p>可用性 = MTBF / (MTBF + MTTR)</p>
+<h3 id="服务等级协议">服务等级协议</h3>
+<table>
+<thead>
+<tr>
+<th>可用性 (Availability)</th>
+<th>停机时间/90天 (Downtime/90 Days)</th>
+<th>停机时间/年 (Downtime/Year)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>99.0%</td>
+<td>21 小时, 36 分钟</td>
+<td>3 天, 15.6 小时</td>
+</tr>
+<tr>
+<td>99.9%</td>
+<td>2 小时, 10 分钟</td>
+<td>8 小时, 0 分钟, 46 秒</td>
+</tr>
+<tr>
+<td>99.99%</td>
+<td>12 分钟, 58 秒</td>
+<td>52 分钟, 34 秒</td>
+</tr>
+<tr>
+<td>99.999%</td>
+<td>1 分钟, 18 秒</td>
+<td>5 分钟, 15 秒</td>
+</tr>
+<tr>
+<td>99.9999%</td>
+<td>8 秒</td>
+<td>32 秒</td>
+</tr>
+</tbody>
+</table>
+<h3 id="为故障做规划">为故障做规划</h3>
+<p>危害分析，从高到低依次为：</p>
+<ul>
+<li>灾难性</li>
+<li>主要/次要</li>
+<li>无影响</li>
+</ul>
+<p>故障树分析：</p>
+<img src="/ymhui.github.io/2025/06/06/%E8%B4%A8%E9%87%8F%E5%B1%9E%E6%80%A7/image-20250607221929109.png" class="" title="image-20250607221929109">
+<p>这个图的意思是，D失败了是因为A失败了<strong>且</strong>B或C其中之一失败了，B或C其中之一失败了是因为B失败了<strong>或</strong>C失败了</p>
+<h3 id="可用性通用场景">可用性通用场景</h3>
+<table>
+<thead>
+<tr>
+<th>场景组成部分</th>
+<th>具体内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>源 (Source)</strong></td>
+<td>内部/外部：人员、硬件、软件、物理基础设施、物理环境</td>
+</tr>
+<tr>
+<td><strong>激励 (Stimulus)</strong></td>
+<td>故障：遗漏、崩溃、不正确的时机、不正确的响应</td>
+</tr>
+<tr>
+<td><strong>交互实体 (Artifact)</strong></td>
+<td>处理器、通信信道、持久化存储、进程</td>
+</tr>
+<tr>
+<td><strong>环境 (Environment)</strong></td>
+<td>正常操作、启动、关机、修复模式、降级操作、过载操作</td>
+</tr>
+<tr>
+<td><strong>响应 (Response)</strong></td>
+<td>阻止故障演变成失效<br />**检测故障：**记录故障，通知相关实体（人员或系统）<br /><strong>从故障中恢复</strong>：禁用导致故障的事件源，在进行修复时暂时不可用</td>
+</tr>
+<tr>
+<td><strong>响应度量 (Response Measure)</strong></td>
+<td>系统必须可用的时间或时间间隔，可用性百分比（例如，99.999%）检测故障的时间，修复故障的时间等</td>
+</tr>
+</tbody>
+</table>
+<p>示例：</p>
+<img src="/ymhui.github.io/2025/06/06/%E8%B4%A8%E9%87%8F%E5%B1%9E%E6%80%A7/image-20250607231755086.png" class="" title="image-20250607231755086">
+<h3 id="可用性策略">可用性策略</h3>
+<p>（这图真让人南蚌</p>
+<img src="/ymhui.github.io/2025/06/06/%E8%B4%A8%E9%87%8F%E5%B1%9E%E6%80%A7/image-20250607222445251.png" class="" title="image-20250607222445251">
+<p>输入：Fault</p>
+<p>高可用性策略：消除单点故障、复制和故障转移、自动检测并重启</p>
+<p>输出：Fault被屏蔽或完全恢复</p>
+<h3 id="故障检测">故障检测</h3>
+<h4 id="Ping-Echo">Ping/Echo</h4>
+<ul>
+<li>一个组件发出ping命令，并期望在预定义的时间内收到另一个组件的echo回复</li>
+<li>可用于负责同一任务的一组组件内部</li>
+</ul>
+<h4 id="Heatbeat（又叫死信时间）">Heatbeat（又叫死信时间）</h4>
+<ul>
+<li>一个组件周期性地发出心跳信息（可以携带数据），另一个组件监听该消息</li>
+<li>如果心跳失败（即没有收到心跳信息，判定为死信），通知该组件发生故障，通知故障并尝试纠正组件</li>
+</ul>
+<h4 id="异常">异常</h4>
+<ul>
+<li>识别故障的方法是捕获一个异常</li>
+<li>异常处理程序通常在引发异常的同一个进程中进行</li>
+</ul>
+<h4 id="表决">表决</h4>
+<ul>
+<li>在冗余处理器上运行的进程接收等效的输入，计算一个简单的值发送给表决器（voter）</li>
+<li>如果表决器发现异常，使进程失效</li>
+</ul>
+<h4 id="进程监视器">进程监视器</h4>
+<p>一旦进程中检测到故障，监控进程就检测这个无响应的进程，并创建一个它的新实例，初始化到适当状态</p>
+<p>从上面可以看出，Ping/Echo和Heatbeat机制往往运行在不同进程中，异常检测运行在同一进程中（检测同一进程中发生的异常）</p>
+<h3 id="故障恢复">故障恢复</h3>
+<h4 id="主动冗余">主动冗余</h4>
+<ul>
+<li><strong>所有冗余组件并行地响应事件</strong></li>
+<li>只使用其中一个组件的响应，丢弃其他的（冗余）</li>
+<li>故障发生时，不会停机，通过冗余继续运行，恢复时间即切换时间</li>
+</ul>
+<h4 id="被动冗余">被动冗余</h4>
+<ul>
+<li>一个主组件响应事件，然后<strong>通知其他冗余组件更新状态</strong></li>
+<li>故障发生时，系统先更新备份状态（用于同步），再恢复服务</li>
+</ul>
+<h4 id="备份">备份</h4>
+<p>字面意思</p>
+<h4 id="影子操作">影子操作</h4>
+<p>之前故障过的组件会先在影子模式下运行一段时间，以确保它在恢复服务之前能正常工作</p>
+<h4 id="状态重新同步">状态重新同步</h4>
+<p>被动和主动冗余都需要被恢复的组件先更新状态再返回服务</p>
+<h4 id="检查点回滚">检查点回滚</h4>
+<p>检查点记录着过去的某个一致性状态</p>
+<h3 id="阻止故障">阻止故障</h3>
+<h4 id="从服务中移除">从服务中移除</h4>
+<p>字面意思</p>
+<h4 id="事务">事务</h4>
+<p>和数据库里的事务一样</p>
+<h2 id="互操作性-Interoperability">互操作性 Interoperability</h2>
+<p>互操作性指多个系统在<strong>特定上下文</strong>中交换有意义信息的程度，包括<strong>语法可操作性（交换数据的能力）和语义可操作性（正确解释数据的能力）</strong>。</p>
+<h3 id="影响因素-2">影响因素</h3>
+<p>有两个：发现和处理</p>
+<ul>
+<li>发现：发现服务位置、身份和接口</li>
+<li>处理：返回、转发、广播等</li>
+</ul>
+<h3 id="互操作性通用场景">互操作性通用场景</h3>
+<table>
+<thead>
+<tr>
+<th>场景组成部分</th>
+<th>具体内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>源 (Source)</strong></td>
+<td>一个系统发起与另一个系统进行互操作的请求。</td>
+</tr>
+<tr>
+<td><strong>激励 (Stimulus)</strong></td>
+<td>在一个或多个系统之间交换信息的请求。</td>
+</tr>
+<tr>
+<td><strong>交互实体 (Artifact)</strong></td>
+<td>希望进行互操作的系统。</td>
+</tr>
+<tr>
+<td><strong>环境 (Environment)</strong></td>
+<td>希望进行互操作的系统在运行时被发现，或在运行前已知。</td>
+</tr>
+<tr>
+<td><strong>响应 (Response)</strong></td>
+<td>以下一项或多项：<br />请求被拒绝，并通知相关实体（人或系统）<br />请求被接受，并且信息交换成功<br />一个或多个相关系统记录了该请求。</td>
+</tr>
+<tr>
+<td><strong>响应度量 (Response Measure)</strong></td>
+<td>以下一项或多项：<br />信息交换被正确处理的百分比<br />信息交换被正确拒绝的百分比</td>
+</tr>
+</tbody>
+</table>
+<p>示例：</p>
+<img src="/ymhui.github.io/2025/06/06/%E8%B4%A8%E9%87%8F%E5%B1%9E%E6%80%A7/image-20250607231802619.png" class="" title="image-20250607231802619">
+<h3 id="互操作性策略">互操作性策略</h3>
+<img src="/ymhui.github.io/2025/06/06/%E8%B4%A8%E9%87%8F%E5%B1%9E%E6%80%A7/image-20250607231840194.png" class="" title="image-20250607231840194">
+<p>输入：信息交换请求</p>
+<p>定位：发现服务，通过已知目录服务来找到服务</p>
+<p>管理界面：编排、定制界面</p>
+<p>输出：请求被正确处理</p>
+<h3 id="定位">定位</h3>
+<p>发现服务，通过已知目录服务来找到服务</p>
+<h3 id="管理界面">管理界面</h3>
+<p>编排、定制界面</p>
+<h2 id="可修改性-Modifiability">可修改性 Modifiability</h2>
+<p>可修改性涉及到<strong>变更以及变更的成本</strong>，包括这种变更影响到其他功能或质量属性的程度</p>
+<h3 id="影响因素-3">影响因素</h3>
+<ul>
+<li>什么会变？</li>
+<li>什么更可能变</li>
+<li>什么时候谁变？</li>
+<li>变更成本？</li>
+</ul>
+<h3 id="可修改性场景示例">可修改性场景示例</h3>
+<p>直接上刺激相应图了</p>
+<img src="/ymhui.github.io/2025/06/06/%E8%B4%A8%E9%87%8F%E5%B1%9E%E6%80%A7/image-20250608000815420.png" class="" title="image-20250608000815420">
+<h3 id="可修改性策略">可修改性策略</h3>
+<img src="/ymhui.github.io/2025/06/06/%E8%B4%A8%E9%87%8F%E5%B1%9E%E6%80%A7/image-20250608001300201.png" class="" title="image-20250608001300201">
+<p>输入：出现变更</p>
+<p>拆分模块：将包含大量功能的模块拆分</p>
+<p>增加语义一致性：将用途不同的功能拆分</p>
+<p>减少耦合：封装</p>
+<p>延迟绑定：尽可能将绑定时间延迟（不要在编码时写死一个值）</p>
+<p>输出：在预期内实现变更</p>
+<h2 id="性能-Performance">性能 Performance</h2>
+<p>性能与时间有关，和系统单位时间能做多少事情有关</p>
+<h3 id="影响因素-4">影响因素</h3>
+<ul>
+<li>处理时间：正在响应</li>
+<li>阻塞时间：此时无法响应</li>
+</ul>
+<h3 id="性能场景示例">性能场景示例</h3>
+<img src="/ymhui.github.io/2025/06/06/%E8%B4%A8%E9%87%8F%E5%B1%9E%E6%80%A7/image-20250608003355100.png" class="" title="image-20250608003355100">
+<h3 id="性能策略">性能策略</h3>
+<img src="/ymhui.github.io/2025/06/06/%E8%B4%A8%E9%87%8F%E5%B1%9E%E6%80%A7/image-20250608003527165.png" class="" title="image-20250608003527165">
+<p>输入：事件到达</p>
+<p>控制资源需求：管理采样频率、限制事件响应（排队）、事件优先级排序等</p>
+<p>管理资源：增加资源、引入并发、备份等</p>
+<p>输出：在一定时间内限制响应生成</p>
+<h2 id="安全性">安全性</h2>
+<p>安全性衡量系统保护数据和信息<strong>免受未授权应用访问或攻击</strong>的能力，但<strong>仍然能够被授权用户访问</strong></p>
+<h3 id="影响因素（CIA）">影响因素（CIA）</h3>
+<ul>
+<li>C：保密性——防止未授权访问</li>
+<li>I：完整性——防止未授权写</li>
+<li>A：可用性——授权允许</li>
+</ul>
+<h3 id="安全性场景示例">安全性场景示例</h3>
+<img src="/ymhui.github.io/2025/06/06/%E8%B4%A8%E9%87%8F%E5%B1%9E%E6%80%A7/image-20250608004016514.png" class="" title="image-20250608004016514">
+<h3 id="安全性策略">安全性策略</h3>
+<img src="/ymhui.github.io/2025/06/06/%E8%B4%A8%E9%87%8F%E5%B1%9E%E6%80%A7/image-20250608004026980.png" class="" title="image-20250608004026980">
+<p>输入：攻击</p>
+<p>检查攻击：发现入侵（通过流量或签名信息）、检测服务拒绝、消息完整性（哈希）</p>
+<p>防御攻击：验证、授权并认证请求者，限制资源访问与资源暴露等</p>
+<p>响应攻击：撤销资源访问、锁定电脑、警告</p>
+<p>恢复：快照存储</p>
+<p>输出：系统监测、防御、响应和恢复</p>
+<h2 id="可测试性">可测试性</h2>
+<p>可测试性是指可以使软件通过**（执行）测试<strong>来</strong>证明其是否故障的难易程度**。</p>
+<p>一个系统如果想被测试，它必须能控制每个部件的输入并可观测输出</p>
+<h3 id="可测试性场景示例">可测试性场景示例</h3>
+<img src="/ymhui.github.io/2025/06/06/%E8%B4%A8%E9%87%8F%E5%B1%9E%E6%80%A7/image-20250608005707111.png" class="" title="image-20250608005707111">
+<h3 id="可测试性策略">可测试性策略</h3>
+<img src="/ymhui.github.io/2025/06/06/%E8%B4%A8%E9%87%8F%E5%B1%9E%E6%80%A7/image-20250608005922635.png" class="" title="image-20250608005922635">
+<p>输入：执行测试</p>
+<p>控制和观察系统状态：专用界面、记录或回放故障、本地化状态存储</p>
+<p>限制复杂度：限制结构复杂性与行为不确定性</p>
+<p>输出：直到检测到Fault</p>
+<h2 id="易用性-Usability">易用性 Usability</h2>
+<p>易用性与用户完成所需任务的难易程度以及系统提供的用户支持类型相关</p>
+<h3 id="影响因素-5">影响因素</h3>
+<p>学习系统功能、有效使用系统、最小化错误影响、系统适应用户需求、增强信息和满意度</p>
+<h3 id="易用性场景示例">易用性场景示例</h3>
+<img src="/ymhui.github.io/2025/06/06/%E8%B4%A8%E9%87%8F%E5%B1%9E%E6%80%A7/image-20250608094342572.png" class="" title="image-20250608094342572">
+<h3 id="易用性策略">易用性策略</h3>
+<img src="/ymhui.github.io/2025/06/06/%E8%B4%A8%E9%87%8F%E5%B1%9E%E6%80%A7/image-20250608094353354.png" class="" title="image-20250608094353354">
+<p>输入：用户请求</p>
+<p>支持用户操作：取消、撤销、暂停恢复等</p>
+<p>支持系统操作：维护任务模型（确定上下文后对人物建模）、维护用户模型（预期知识）、维护系统模型（预期的系统行为）</p>
+<p>输出：用户获得正确反馈和帮助</p>
+<h1>质量属性场景示例总结</h1>
+<table>
+<thead>
+<tr>
+<th>质量属性</th>
+<th>刺激源</th>
+<th>刺激</th>
+<th>工作</th>
+<th>环境</th>
+<th>响应</th>
+<th>响应度量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Availability</strong></td>
+<td>Heartbeat 监视器</td>
+<td>服务器无响应</td>
+<td>处理器</td>
+<td>正常操作</td>
+<td>通知操作者继续操作</td>
+<td><strong>没有停机时间</strong></td>
+</tr>
+<tr>
+<td><strong>Interoperability</strong></td>
+<td>车辆信息系统</td>
+<td>发送当前位置</td>
+<td>路况监控系统</td>
+<td>系统运行前已知</td>
+<td>路况监控结合当前位置和 Google 地图上的其他信息，并且进行广播</td>
+<td>我们的信息在 99.9%的时间是正确的</td>
+</tr>
+<tr>
+<td><strong>Modifiability</strong></td>
+<td>开发者</td>
+<td>希望修改 UI 界面</td>
+<td>代码</td>
+<td>设计时</td>
+<td>进行修改和单元测试</td>
+<td>在 <strong>3 个小时内</strong>完成</td>
+</tr>
+<tr>
+<td><strong>Performance</strong></td>
+<td>用户</td>
+<td>发起事务</td>
+<td>系统</td>
+<td>正常操作</td>
+<td>事务被处理</td>
+<td>平均延迟不超过 <strong>2 秒</strong></td>
+</tr>
+<tr>
+<td><strong>Security</strong></td>
+<td>来自偏远地区心怀不满的员工</td>
+<td>尝试修改支付率</td>
+<td>系统内数据</td>
+<td>正常操作</td>
+<td>系统存储修改追踪</td>
+<td>正确数据在 <strong>1 天内</strong>被存储并且进行篡改身份识别</td>
+</tr>
+<tr>
+<td><strong>Testability</strong></td>
+<td>单元测试者</td>
+<td>单元测试完成</td>
+<td>单元测试代码</td>
+<td>开发时</td>
+<td>记录结果</td>
+<td>3 小时内达到 85%的路径覆盖</td>
+</tr>
+<tr>
+<td><strong>Usability</strong></td>
+<td>用户</td>
+<td>下载新应用</td>
+<td>系统</td>
+<td>运行时</td>
+<td>用户高效地使用应用</td>
+<td>在 <strong>2 分钟以内</strong>的实验</td>
+</tr>
+</tbody>
+</table>
+<p>每日一弘文</p>
+<img src="/ymhui.github.io/2025/06/06/%E8%B4%A8%E9%87%8F%E5%B1%9E%E6%80%A7/66e6c5edb895aRmd.gif" class="" title="弘文">
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://nju-ymhui.github.io/ymhui.github.io">画船听雨眠y</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://nju-ymhui.github.io/ymhui.github.io/2025/06/06/%E8%B4%A8%E9%87%8F%E5%B1%9E%E6%80%A7/">https://nju-ymhui.github.io/ymhui.github.io/2025/06/06/质量属性/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://nju-ymhui.github.io/ymhui.github.io" target="_blank">(๑>ᴗ<๑)</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/ymhui.github.io/tags/%E8%BD%AF%E4%BB%B6%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/">软件系统设计</a><a class="post-meta__tags" href="/ymhui.github.io/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/">架构设计</a></div><div class="post-share"><div class="social-share" data-image="/ymhui.github.io/img/myicon.ico" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>真的不考虑支持一下吗 (╯︵╰,)</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/ymhui.github.io/img/qrcode.png" target="_blank"><img class="post-qr-code-img" src="/ymhui.github.io/img/qrcode.png" alt="微信支付"/></a><div class="post-qr-code-desc">微信支付</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="prev-post pull-left" href="/ymhui.github.io/2025/06/06/%E6%9E%B6%E6%9E%84%E6%A8%A1%E5%BC%8F/" title="架构模式"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">架构模式</div></div></a><a class="next-post pull-right" href="/ymhui.github.io/2025/06/06/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E6%A6%82%E8%BF%B0/" title="系统架构概述"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">系统架构概述</div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a href="/ymhui.github.io/2025/06/01/%E5%B1%9E%E6%80%A7%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/" title="属性驱动设计"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-01</div><div class="title">属性驱动设计</div></div></a><a href="/ymhui.github.io/2025/06/06/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E6%A8%A1%E5%BC%8F/" title="微服务可观测性模式"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-06</div><div class="title">微服务可观测性模式</div></div></a><a href="/ymhui.github.io/2025/06/04/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/" title="微服务架构"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-04</div><div class="title">微服务架构</div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info is-center"><div class="avatar-img"><img src="/ymhui.github.io/img/myicon.ico" onerror="this.onerror=null;this.src='/ymhui.github.io/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">画船听雨眠y</div><div class="author-info-description">美好的一天从打代码开始结束</div><div class="site-data"><a href="/ymhui.github.io/archives/"><div class="headline">文章</div><div class="length-num">80</div></a><a href="/ymhui.github.io/tags/"><div class="headline">标签</div><div class="length-num">30</div></a><a href="/ymhui.github.io/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/NJU-ymhui"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/NJU-ymhui" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">软件需求</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E6%80%A7%E9%9C%80%E6%B1%82"><span class="toc-number">1.1.</span> <span class="toc-text">功能性需求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%A8%E9%87%8F%E9%9C%80%E6%B1%82%EF%BC%88%E9%9D%9E%E5%8A%9F%E8%83%BD%E6%80%A7%E9%9C%80%E6%B1%82%EF%BC%89"><span class="toc-number">1.2.</span> <span class="toc-text">质量需求（非功能性需求）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%A6%E6%9D%9F"><span class="toc-number">1.3.</span> <span class="toc-text">约束</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%A8%E9%87%8F%E5%B1%9E%E6%80%A7"><span class="toc-number">1.4.</span> <span class="toc-text">质量属性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AE%E5%AE%9A%E8%B4%A8%E9%87%8F%E5%B1%9E%E6%80%A7"><span class="toc-number">1.4.1.</span> <span class="toc-text">确定质量属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B4%A8%E9%87%8F%E5%B1%9E%E6%80%A7%E5%88%97%E8%A1%A8"><span class="toc-number">1.4.2.</span> <span class="toc-text">质量属性列表</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">质量属性方案</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E7%94%A8%E6%96%B9%E6%A1%88"><span class="toc-number">2.1.</span> <span class="toc-text">通用方案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E6%96%B9%E6%A1%88"><span class="toc-number">2.2.</span> <span class="toc-text">具体方案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%BA%E6%BF%80%E7%9B%B8%E5%BA%94%E5%9B%BE%EF%BC%88%E9%87%8D%E8%A6%81%EF%BC%89"><span class="toc-number">2.3.</span> <span class="toc-text">刺激相应图（重要）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%B3%E7%AD%96"><span class="toc-number">2.4.</span> <span class="toc-text">决策</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%A8%E9%87%8F%E8%AE%BE%E8%AE%A1%E5%86%B3%E7%AD%96"><span class="toc-number">2.5.</span> <span class="toc-text">质量设计决策</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">质量属性和相应策略详细介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E7%94%A8%E6%80%A7-Availability"><span class="toc-number">3.1.</span> <span class="toc-text">可用性 Availability</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Outage%E3%80%81Failure%E3%80%81Fault%E5%92%8CError%EF%BC%9A"><span class="toc-number">3.1.1.</span> <span class="toc-text">Outage、Failure、Fault和Error：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%B1%E5%93%8D%E5%9B%A0%E7%B4%A0"><span class="toc-number">3.1.2.</span> <span class="toc-text">影响因素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AD%89%E7%BA%A7%E5%8D%8F%E8%AE%AE"><span class="toc-number">3.1.3.</span> <span class="toc-text">服务等级协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E6%95%85%E9%9A%9C%E5%81%9A%E8%A7%84%E5%88%92"><span class="toc-number">3.1.4.</span> <span class="toc-text">为故障做规划</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E7%94%A8%E6%80%A7%E9%80%9A%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">3.1.5.</span> <span class="toc-text">可用性通用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E7%94%A8%E6%80%A7%E7%AD%96%E7%95%A5"><span class="toc-number">3.1.6.</span> <span class="toc-text">可用性策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%85%E9%9A%9C%E6%A3%80%E6%B5%8B"><span class="toc-number">3.1.7.</span> <span class="toc-text">故障检测</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Ping-Echo"><span class="toc-number">3.1.7.1.</span> <span class="toc-text">Ping&#x2F;Echo</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Heatbeat%EF%BC%88%E5%8F%88%E5%8F%AB%E6%AD%BB%E4%BF%A1%E6%97%B6%E9%97%B4%EF%BC%89"><span class="toc-number">3.1.7.2.</span> <span class="toc-text">Heatbeat（又叫死信时间）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8"><span class="toc-number">3.1.7.3.</span> <span class="toc-text">异常</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%A8%E5%86%B3"><span class="toc-number">3.1.7.4.</span> <span class="toc-text">表决</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%9B%91%E8%A7%86%E5%99%A8"><span class="toc-number">3.1.7.5.</span> <span class="toc-text">进程监视器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%85%E9%9A%9C%E6%81%A2%E5%A4%8D"><span class="toc-number">3.1.8.</span> <span class="toc-text">故障恢复</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BB%E5%8A%A8%E5%86%97%E4%BD%99"><span class="toc-number">3.1.8.1.</span> <span class="toc-text">主动冗余</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A2%AB%E5%8A%A8%E5%86%97%E4%BD%99"><span class="toc-number">3.1.8.2.</span> <span class="toc-text">被动冗余</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%87%E4%BB%BD"><span class="toc-number">3.1.8.3.</span> <span class="toc-text">备份</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BD%B1%E5%AD%90%E6%93%8D%E4%BD%9C"><span class="toc-number">3.1.8.4.</span> <span class="toc-text">影子操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%8A%B6%E6%80%81%E9%87%8D%E6%96%B0%E5%90%8C%E6%AD%A5"><span class="toc-number">3.1.8.5.</span> <span class="toc-text">状态重新同步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E7%82%B9%E5%9B%9E%E6%BB%9A"><span class="toc-number">3.1.8.6.</span> <span class="toc-text">检查点回滚</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%BB%E6%AD%A2%E6%95%85%E9%9A%9C"><span class="toc-number">3.1.9.</span> <span class="toc-text">阻止故障</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%8E%E6%9C%8D%E5%8A%A1%E4%B8%AD%E7%A7%BB%E9%99%A4"><span class="toc-number">3.1.9.1.</span> <span class="toc-text">从服务中移除</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1"><span class="toc-number">3.1.9.2.</span> <span class="toc-text">事务</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%92%E6%93%8D%E4%BD%9C%E6%80%A7-Interoperability"><span class="toc-number">3.2.</span> <span class="toc-text">互操作性 Interoperability</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%B1%E5%93%8D%E5%9B%A0%E7%B4%A0-2"><span class="toc-number">3.2.1.</span> <span class="toc-text">影响因素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%92%E6%93%8D%E4%BD%9C%E6%80%A7%E9%80%9A%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">3.2.2.</span> <span class="toc-text">互操作性通用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%92%E6%93%8D%E4%BD%9C%E6%80%A7%E7%AD%96%E7%95%A5"><span class="toc-number">3.2.3.</span> <span class="toc-text">互操作性策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%BD%8D"><span class="toc-number">3.2.4.</span> <span class="toc-text">定位</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%A1%E7%90%86%E7%95%8C%E9%9D%A2"><span class="toc-number">3.2.5.</span> <span class="toc-text">管理界面</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E4%BF%AE%E6%94%B9%E6%80%A7-Modifiability"><span class="toc-number">3.3.</span> <span class="toc-text">可修改性 Modifiability</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%B1%E5%93%8D%E5%9B%A0%E7%B4%A0-3"><span class="toc-number">3.3.1.</span> <span class="toc-text">影响因素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E4%BF%AE%E6%94%B9%E6%80%A7%E5%9C%BA%E6%99%AF%E7%A4%BA%E4%BE%8B"><span class="toc-number">3.3.2.</span> <span class="toc-text">可修改性场景示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E4%BF%AE%E6%94%B9%E6%80%A7%E7%AD%96%E7%95%A5"><span class="toc-number">3.3.3.</span> <span class="toc-text">可修改性策略</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%A7%E8%83%BD-Performance"><span class="toc-number">3.4.</span> <span class="toc-text">性能 Performance</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%B1%E5%93%8D%E5%9B%A0%E7%B4%A0-4"><span class="toc-number">3.4.1.</span> <span class="toc-text">影响因素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E5%9C%BA%E6%99%AF%E7%A4%BA%E4%BE%8B"><span class="toc-number">3.4.2.</span> <span class="toc-text">性能场景示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E7%AD%96%E7%95%A5"><span class="toc-number">3.4.3.</span> <span class="toc-text">性能策略</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E6%80%A7"><span class="toc-number">3.5.</span> <span class="toc-text">安全性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%B1%E5%93%8D%E5%9B%A0%E7%B4%A0%EF%BC%88CIA%EF%BC%89"><span class="toc-number">3.5.1.</span> <span class="toc-text">影响因素（CIA）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E6%80%A7%E5%9C%BA%E6%99%AF%E7%A4%BA%E4%BE%8B"><span class="toc-number">3.5.2.</span> <span class="toc-text">安全性场景示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E6%80%A7%E7%AD%96%E7%95%A5"><span class="toc-number">3.5.3.</span> <span class="toc-text">安全性策略</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E6%B5%8B%E8%AF%95%E6%80%A7"><span class="toc-number">3.6.</span> <span class="toc-text">可测试性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E6%B5%8B%E8%AF%95%E6%80%A7%E5%9C%BA%E6%99%AF%E7%A4%BA%E4%BE%8B"><span class="toc-number">3.6.1.</span> <span class="toc-text">可测试性场景示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E6%B5%8B%E8%AF%95%E6%80%A7%E7%AD%96%E7%95%A5"><span class="toc-number">3.6.2.</span> <span class="toc-text">可测试性策略</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%93%E7%94%A8%E6%80%A7-Usability"><span class="toc-number">3.7.</span> <span class="toc-text">易用性 Usability</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%B1%E5%93%8D%E5%9B%A0%E7%B4%A0-5"><span class="toc-number">3.7.1.</span> <span class="toc-text">影响因素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%93%E7%94%A8%E6%80%A7%E5%9C%BA%E6%99%AF%E7%A4%BA%E4%BE%8B"><span class="toc-number">3.7.2.</span> <span class="toc-text">易用性场景示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%93%E7%94%A8%E6%80%A7%E7%AD%96%E7%95%A5"><span class="toc-number">3.7.3.</span> <span class="toc-text">易用性策略</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">质量属性场景示例总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2025/06/06/%E6%9E%B6%E6%9E%84%E6%A8%A1%E5%BC%8F/" title="架构模式">架构模式</a><time datetime="2025-06-06T15:31:56.000Z" title="发表于 2025-06-06 23:31:56">2025-06-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2025/06/06/%E8%B4%A8%E9%87%8F%E5%B1%9E%E6%80%A7/" title="质量属性">质量属性</a><time datetime="2025-06-06T15:31:33.000Z" title="发表于 2025-06-06 23:31:33">2025-06-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2025/06/06/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E6%A6%82%E8%BF%B0/" title="系统架构概述">系统架构概述</a><time datetime="2025-06-06T15:31:03.000Z" title="发表于 2025-06-06 23:31:03">2025-06-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2025/06/06/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E6%A8%A1%E5%BC%8F/" title="微服务可观测性模式">微服务可观测性模式</a><time datetime="2025-06-06T03:26:59.000Z" title="发表于 2025-06-06 11:26:59">2025-06-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/ymhui.github.io/2025/06/05/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E6%A8%A1%E5%BC%8F/" title="微服务部署模式">微服务部署模式</a><time datetime="2025-06-05T06:47:04.000Z" title="发表于 2025-06-05 14:47:04">2025-06-05</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By 画船听雨眠y</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/ymhui.github.io/js/utils.js"></script><script src="/ymhui.github.io/js/main.js"></script><div class="js-pjax"><script>(async () => {
   const showKatex = () => {
     const mathElements = document.querySelectorAll('#article-container .katex')
     mathElements.length && mathElements.forEach((el) => {
